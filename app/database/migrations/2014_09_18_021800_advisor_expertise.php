@@ -27,7 +27,7 @@ class AdvisorExpertise extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('advisor_expertise');
 	}
 
 }

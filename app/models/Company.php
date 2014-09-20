@@ -1,6 +1,6 @@
-<?php
+<?php namespace MyApp;
 
-class Company extends Eloquent {
+class Company extends \Eloquent {
 
 	/**
 	 * The database table used by the model.

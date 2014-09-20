@@ -137,4 +137,11 @@ class RegistrationController extends BaseController {
 
 		return Redirect::attempt('advisor.dashboard');
 	}
+
+	public function storeDay()
+	{
+		$day = new Day;
+		dd($day);
+	}
+
 }

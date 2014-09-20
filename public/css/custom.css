@@ -1,0 +1,13 @@
+.nav-login {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+.nav-login label {
+	display: block;
+	text-align: center;
+}
+
+.nav-login-submit {
+	vertical-align: bottom;
+}

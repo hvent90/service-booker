@@ -1,6 +1,6 @@
-<?php
+<?php namespace MyApp;
 
-class Meeting extends Eloquent {
+class Meeting extends \Eloquent {
 
 	/**
 	 * The database table used by the model.

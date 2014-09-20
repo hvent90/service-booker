@@ -28,7 +28,7 @@ class Day extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('days');
 	}
 
 }

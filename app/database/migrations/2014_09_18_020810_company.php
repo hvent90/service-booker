@@ -31,7 +31,7 @@ class Company extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('companies');
 	}
 
 }

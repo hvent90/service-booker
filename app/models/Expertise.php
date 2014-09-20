@@ -1,6 +1,6 @@
-<?php
+<?php namespace MyApp;
 
-class Expertise extends Eloquent {
+class Expertise extends \Eloquent {
 
 	/**
 	 * The database table used by the model.

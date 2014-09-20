@@ -28,7 +28,7 @@ class AdvisorServiceLocation extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('advisor_service_location');
 	}
 
 }

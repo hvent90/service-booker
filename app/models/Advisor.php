@@ -1,13 +1,32 @@
-<?php
+<?php namespace MyApp;
 
+use Hash, Auth;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Advisor extends Eloquent implements UserInterface, RemindableInterface {
+class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
+
+	/**
+	 * Creates a new Advisor and returns the Advisor Object.
+	 * @return [type] [description]
+	 */
+	public function createAdvisor($first_name, $last_name, $email, $password)
+	{
+		$advisor = new Advisor;
+		$advisor->first_name = $first_name;
+		$advisor->email      = $email;
+		$advisor->last_name  = $last_name;
+		$advisor->password   = Hash::make($password);
+		$advisor->save();
+
+		Auth::login($advisor);
+
+		return $advisor;
+	}
 
 	/**
 	 * The database table used by the model.

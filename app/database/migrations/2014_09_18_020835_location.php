@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Locations extends Migration {
+class Location extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,6 +17,8 @@ class Locations extends Migration {
 		    $table->increments('id');
 		    $table->string('name');
 		    $table->string('address');
+		    $table->string('lattitude');
+		    $table->string('longitutde');
 		    $table->string('website');
 		    $table->integer('company_id');
 		    $table->integer('advisor_id');
@@ -32,7 +34,7 @@ class Locations extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('locations');
 	}
 
 }

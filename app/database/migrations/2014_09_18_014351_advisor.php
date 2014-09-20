@@ -15,12 +15,14 @@ class Advisor extends Migration {
 		Schema::create('advisors', function($table)
 		{
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->string('email');
+		    $table->string('first_name');
+		    $table->string('last_name');
+		    $table->string('email')->unique();
 		    $table->string('password');
 		    $table->integer('company_id');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');
+		    $table->rememberToken();
 		});
 	}
 
@@ -31,7 +33,7 @@ class Advisor extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('advisors');
 	}
 
 }

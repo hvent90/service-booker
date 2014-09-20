@@ -1,5 +1,8 @@
 <?php
 
+use \MyApp\Day;
+use Carbon\Carbon;
+
 class BaseController extends Controller {
 
 	/**
@@ -16,6 +19,7 @@ class BaseController extends Controller {
 
 		View::share('currentUser', Auth::user());
 		View::share('signedIn', Auth::user());
+		View::share('allDays', Day::all());
 	}
 
 }

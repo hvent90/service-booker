@@ -1,6 +1,6 @@
-<?php
+<?php namespace MyApp;
 
-class Location extends Eloquent {
+class Location extends \Eloquent {
 
 	/**
 	 * The database table used by the model.

@@ -12,7 +12,7 @@ class MeetingLocation extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('advisor_meeting', function($table)
+		Schema::create('meeting_location', function($table)
 		{
 		    $table->increments('id');
 		    $table->integer('meeting_id');
@@ -27,7 +27,7 @@ class MeetingLocation extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('meeting_location');
 	}
 
 }
