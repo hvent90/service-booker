@@ -24,7 +24,14 @@
 		@foreach ($oneMonthViewOfDaysWithTelomeres['collection']->chunk(7) as $daySet)
 			<tr>
 				@foreach ($daySet as $day)
-					<td>{{ $day->ofMonth() }}, {{ $day->humanDayOfWeek()['abv'] }}, {{ $day->humanMonthOfYear()['abv'] }}</td>
+					<td>
+						{{ $day->ofMonth() }}, {{ $day->humanDayOfWeek()['abv'] }}, {{ $day->humanMonthOfYear()['abv'] }}
+						@if ( $day->availabilities()->get() )
+							@foreach ( $day->availabilities()->get() as $availability )
+								<li>{{ $availability->title }}</li>
+							@endforeach
+						@endif
+					</td>
 				@endforeach
 			</tr>
 		@endforeach

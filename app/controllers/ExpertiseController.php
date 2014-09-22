@@ -1,14 +1,14 @@
 <?php
 
-use \MyApp\Location;
+use \MyApp\Expertise;
 
-class LocationController extends \BaseController {
+class ExpertiseController extends \BaseController {
 
-	protected $location;
+	protected $expertise;
 
-	public function __construct(Location $Location)
+	public function __construct(Expertise $expertise)
 	{
-		$this->location = $Location;
+		$this->expertise = $expertise;
 	}
 
 	/**
@@ -18,10 +18,10 @@ class LocationController extends \BaseController {
 	 */
 	public function index()
 	{
-		$locations = Location::all();
+		$expertise = Expertise::all();
 
-		return View::make('locations.index', compact([
-			'locations'
+		return View::make('expertise.index', compact([
+			'expertise'
 		]));
 	}
 
@@ -33,7 +33,7 @@ class LocationController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('locations.create');
+		return View::make('expertise.create');
 	}
 
 
@@ -44,9 +44,9 @@ class LocationController extends \BaseController {
 	 */
 	public function store()
 	{
-		extract(Input::only('name', 'address', 'website', 'id'));
+		extract(Input::only('title', 'notes', 'advisor_id'));
 
-		$this->location->createLocation($name, $address, $website, $id);
+		$this->expertise->createExpertise($title, $notes, $advisor_id);
 
 		return Redirect::home();
 	}
@@ -59,10 +59,10 @@ class LocationController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$location = Location::find($id);
+		$expertise = Expertise::find($id);
 
-		return View::make('locations.show', compact([
-			'location'
+		return View::make('expertise.show', compact([
+			'expertise'
 		]));
 	}
 
@@ -75,10 +75,10 @@ class LocationController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$location = Location::find($id);
+		$expertise = Expertise::find($id);
 
-		return View::make('locations.edit', compact([
-			'location'
+		return View::make('expertise.edit', compact([
+			'expertise'
 		]));
 	}
 
@@ -91,9 +91,9 @@ class LocationController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		extract(Input::only('name', 'address', 'website', 'advisor_id', 'id'));
+		extract(Input::only('title', 'notes', 'id'));
 
-		$this->location->editLocation($name, $address, $website, $advisor_id, $id);
+		$this->expertise->editExpertise($title, $notes, $id);
 
 		return Redirect::home();
 	}
@@ -107,7 +107,7 @@ class LocationController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->location->destroyLocation($id);
+		$this->expertise->destroyExpertise($id);
 
 		return Redirect::home();
 	}

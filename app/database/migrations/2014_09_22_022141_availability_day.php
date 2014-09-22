@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Service extends Migration {
+class AvailabilityDay extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,11 @@ class Service extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('services', function($table)
+		Schema::create('availability_day', function($table)
 		{
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->integer('duration');
-		    $table->text('notes');
-		    $table->dateTime('created_at');
-		    $table->dateTime('updated_at');
+		    $table->integer('availability_id');
+		    $table->integer('day_id');
 		});
 	}
 
@@ -30,7 +27,7 @@ class Service extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('services');
+		Schema::drop('availability_day');
 	}
 
 }

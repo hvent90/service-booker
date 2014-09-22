@@ -18,7 +18,11 @@ class AdvisorController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('layouts.default');
+		$advisors = Advisor::all();
+
+		return View::make('advisors.index', compact([
+			'advisors'
+		]));
 	}
 
 
@@ -72,7 +76,11 @@ class AdvisorController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return View::make('layouts.default');
+		$advisor = Advisor::find($id);
+
+		return View::make('advisors.edit', compact([
+			'advisor'
+		]));
 	}
 
 
@@ -84,7 +92,11 @@ class AdvisorController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		return View::make('layouts.default');
+		extract(Input::only('first_name', 'last_name', 'email', 'password', 'id'));
+
+		$this->advisor->editAdvisor($first_name, $last_name, $email, $password, $id);
+
+		return Redirect::home();
 	}
 
 
@@ -96,7 +108,9 @@ class AdvisorController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		return View::make('layouts.default');
+		$this->advisor->destroyAdvisor($id);
+
+		return Redirect::home();
 	}
 
 	public function logIn()

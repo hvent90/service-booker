@@ -5,6 +5,13 @@ use Carbon\Carbon;
 
 class BaseController extends Controller {
 
+	protected $currentUser;
+
+	public function __construct(Advisor $currentUser)
+	{
+		$this->currentUser = Auth::user();
+	}
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

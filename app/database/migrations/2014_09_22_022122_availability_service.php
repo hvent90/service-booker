@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AdvisorServiceLocation extends Migration {
+class AvailabilityService extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class AdvisorServiceLocation extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('advisor_service_location', function($table)
+		Schema::create('availability_service', function($table)
 		{
 		    $table->increments('id');
-		    $table->integer('advisor_id');
+		    $table->integer('availability_id');
 		    $table->integer('service_id');
-		    $table->integer('location_id');
 		});
 	}
 
@@ -28,7 +27,7 @@ class AdvisorServiceLocation extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('advisor_service_location');
+		Schema::drop('availability_service');
 	}
 
 }

@@ -1,13 +1,13 @@
 <?php namespace MyApp;
 
-class Company extends \Eloquent {
+class AdvisorAndServiceAndLocation extends \Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'companies';
+	protected $table = 'advisor_service_location';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -20,7 +20,7 @@ class Company extends \Eloquent {
 	 * Attributes included in the model's JSON form.
 	 * @var [type]
 	 */
-	protected $fillable = ['name', 'email', 'website', 'admin_advisor_id'];
+	protected $fillable = ['advisor_id', 'service_id', 'location_id'];
 
 	/**
 	 * Many-to-many relationship
@@ -28,7 +28,7 @@ class Company extends \Eloquent {
 	 */
 	public function advisors()
     {
-        return $this->belongsToMany('\MyApp\Advisor');
+        return $this->belongsTo('\MyApp\Advisor');
     }
 
 }

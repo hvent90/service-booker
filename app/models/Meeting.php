@@ -46,7 +46,7 @@ class Meeting extends \Eloquent {
 	 */
 	public function locations()
     {
-        return $this->belongsToMany('Location');
+        return $this->belongsToMany('\MyApp\Location');
     }
 
 }

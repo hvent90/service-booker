@@ -4,28 +4,28 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<h1>New Location</h1>
+		<h1>New Service</h1>
 
 		@include('layouts.partials.errors')
 
-		{{ Form::open(['route' => 'locations.store']) }}
-		{{ Form::hidden('id', Auth::user()->id) }}
-		<!-- Username Form Input -->
+		{{ Form::open(['route' => 'services.store']) }}
+		{{ Form::hidden('advisor_id', Auth::user()->id) }}
+			<!-- Name Form Input -->
 			<div class="form-group">
 				{{ Form::label('name', 'Name:') }}
 				{{ Form::text('name', null, ['class' => 'form-control']) }}
 			</div>
 
-			<!-- Address Form Input -->
+			<!-- Duration Form Input -->
 			<div class="form-group">
-				{{ Form::label('address', 'Address:') }}
-				{{ Form::text('address', null, ['class' => 'form-control']) }}
+				{{ Form::label('duration', 'Duration (Minutes):') }}
+                {{ Form::input('number', 'duration', null, ['class' => 'form-control']) }}
 			</div>
 
-			<!-- Website Form Input -->
+			<!-- Notes Form Input -->
 			<div class="form-group">
-				{{ Form::label('website', 'Website URL:') }}
-				{{ Form::text('website', null, ['class' => 'form-control']) }}
+				{{ Form::label('notes', 'Notes:') }}
+				{{ Form::textarea('notes', null, ['class' => 'form-control']) }}
 			</div>
 
 			<div class="form-group">

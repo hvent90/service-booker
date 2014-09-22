@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Service extends Migration {
+class ServiceLocationAdvisor extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,12 @@ class Service extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('services', function($table)
+		Schema::create('service_location_advisor', function($table)
 		{
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->integer('duration');
-		    $table->text('notes');
-		    $table->dateTime('created_at');
-		    $table->dateTime('updated_at');
+		    $table->integer('service_id');
+		    $table->integer('location_id');
+		    $table->integer('advisor_id');
 		});
 	}
 
@@ -30,7 +28,7 @@ class Service extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('services');
+		Schema::drop('service_location_advisor');
 	}
 
 }

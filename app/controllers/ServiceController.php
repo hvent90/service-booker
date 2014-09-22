@@ -1,14 +1,14 @@
 <?php
 
-use \MyApp\Location;
+use \MyApp\Service;
 
-class LocationController extends \BaseController {
+class ServiceController extends \BaseController {
 
-	protected $location;
+	protected $service;
 
-	public function __construct(Location $Location)
+	public function __construct(Service $service)
 	{
-		$this->location = $Location;
+		$this->service = $service;
 	}
 
 	/**
@@ -18,10 +18,10 @@ class LocationController extends \BaseController {
 	 */
 	public function index()
 	{
-		$locations = Location::all();
+		$services = Service::all();
 
-		return View::make('locations.index', compact([
-			'locations'
+		return View::make('services.index', compact([
+			'services'
 		]));
 	}
 
@@ -33,7 +33,7 @@ class LocationController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('locations.create');
+		return View::make('services.create');
 	}
 
 
@@ -44,9 +44,9 @@ class LocationController extends \BaseController {
 	 */
 	public function store()
 	{
-		extract(Input::only('name', 'address', 'website', 'id'));
+		extract(Input::only('name', 'notes', 'duration', 'advisor_id'));
 
-		$this->location->createLocation($name, $address, $website, $id);
+		$this->service->createService($name, $notes, $duration, $advisor_id);
 
 		return Redirect::home();
 	}
@@ -59,10 +59,10 @@ class LocationController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$location = Location::find($id);
+		$service = Service::find($id);
 
-		return View::make('locations.show', compact([
-			'location'
+		return View::make('services.show', compact([
+			'service'
 		]));
 	}
 
@@ -75,10 +75,10 @@ class LocationController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$location = Location::find($id);
+		$service = Service::find($id);
 
-		return View::make('locations.edit', compact([
-			'location'
+		return View::make('services.edit', compact([
+			'service'
 		]));
 	}
 
@@ -91,9 +91,9 @@ class LocationController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		extract(Input::only('name', 'address', 'website', 'advisor_id', 'id'));
+		extract(Input::only('name', 'notes', 'duration','id'));
 
-		$this->location->editLocation($name, $address, $website, $advisor_id, $id);
+		$this->service->editService($name, $notes, $duration, $id);
 
 		return Redirect::home();
 	}
@@ -107,7 +107,7 @@ class LocationController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->location->destroyLocation($id);
+		$this->service->destroyService($id);
 
 		return Redirect::home();
 	}

@@ -9,6 +9,106 @@ Route::get('/', [
 ]);
 
 //=============================================================================
+// USER EXPERIENCE
+//=============================================================================
+
+	//=========================================================================
+	// DASHBOARD
+	//=========================================================================
+
+
+	Route::get('dashboard', [
+		'as'   => 'dashboard.index',
+		'uses' => 'App\Controllers\User\DashboardController@index'
+	]);
+
+	Route::group(['prefix' => 'dashboard'], function() {
+		//=====================================================================
+		// EXPERTISE
+		//=====================================================================
+		// User goes selection-page for choosing an Expertise to connect to.
+		Route::get('expertise/connect', [
+			'as'   => 'user.expertise.connect',
+			'uses' => 'App\Controllers\User\UserExpertiseController@connect'
+		]);
+
+		// User Stores the chosen Existing Expertise
+		Route::post('expertise/connect', [
+			'as'   => 'user.expertise.store',
+			'uses' => 'App\Controllers\User\UserExpertiseController@store'
+		]);
+
+		// User Destroys the chosen Existing Expertise
+		Route::delete('expertise/connect', [
+			'as'   => 'user.expertise.destroy',
+			'uses' => 'App\Controllers\User\UserExpertiseController@destroy'
+		]);
+
+		//=====================================================================
+		// SERVICE
+		//=====================================================================
+		// User goes selection-page for choosing an Service to connect to.
+		Route::get('services/connect', [
+			'as'   => 'user.services.connect',
+			'uses' => 'App\Controllers\User\UserServiceController@connect'
+		]);
+
+		// User Stores the chosen Existing Service
+		Route::post('services/connect', [
+			'as'   => 'user.services.store',
+			'uses' => 'App\Controllers\User\UserServiceController@store'
+		]);
+
+		// User Destroys the chosen Existing Service
+		Route::delete('services/connect', [
+			'as'   => 'user.services.destroy',
+			'uses' => 'App\Controllers\User\UserServiceController@destroy'
+		]);
+
+		// //=====================================================================
+		// // LOCATION
+		// //=====================================================================
+		// // User goes selection-page for choosing an Location to connect to.
+		// Route::get('locations/connect', [
+		// 	'as'   => 'user.locations.connect',
+		// 	'uses' => 'App\Controllers\User\UserLocationsController@connect'
+		// ]);
+
+		// // User Stores the chosen Existing Location
+		// Route::post('locations/connect', [
+		// 	'as'   => 'user.locations.store',
+		// 	'uses' => 'App\Controllers\User\UserLocationsController@store'
+		// ]);
+
+		// // User Destroys the chosen Existing Location
+		// Route::delete('locations/connect', [
+		// 	'as'   => 'user.locations.destroy',
+		// 	'uses' => 'App\Controllers\User\UserLocationsController@destroy'
+		// ]);
+
+		//=====================================================================
+		// AVAILABILITIES
+		//=====================================================================
+		// User goes selection-page for choosing an Availability.
+		Route::get('availabilities/create', [
+			'as'   => 'user.availabilities.create',
+			'uses' => 'App\Controllers\User\UserAvailabilityController@create'
+		]);
+
+		// User Stores the chosen Availability.
+		Route::post('availabilities/create', [
+			'as'   => 'user.availabilities.store',
+			'uses' => 'App\Controllers\User\UserAvailabilityController@store'
+		]);
+
+		// User Destroys the chosen Availability.
+		Route::delete('availabilities/create', [
+			'as'   => 'user.availabilities.destroy',
+			'uses' => 'App\Controllers\User\UserAvailabilityController@destroy'
+		]);
+	});
+
+//=============================================================================
 // ADVISORS
 //=============================================================================
 // Authenticate an Advisor
@@ -22,6 +122,7 @@ Route::get('logout', [
 	'uses' => 'AdvisorController@logOut'
 ]);
 
+// Index listing of all Advisors
 Route::get('advisors', [
 	'as'   => 'advisors.index',
 	'uses' => 'AdvisorController@index'
@@ -43,7 +144,7 @@ Route::group(['prefix' => 'advisors'], function() {
 		'as'   => 'advisors.edit',
 		'uses' => 'AdvisorController@edit'
 	]);
-	Route::put('edit{id}', [
+	Route::post('edit/{id}', [
 		'as'   => 'advisors.update',
 		'uses' => 'AdvisorController@update'
 	]);
@@ -55,9 +156,97 @@ Route::group(['prefix' => 'advisors'], function() {
 	]);
 
 	// Delete an existing Advisor
-	Route::delete('{id}', [
+	Route::get('destroy/{id}', [
 		'as'   => 'advisors.destroy',
 		'uses' => 'AdvisorController@destroy'
+	]);
+});
+
+
+//=============================================================================
+// EXPERTISE
+//=============================================================================
+
+Route::get('expertise', [
+	'as'   => 'expertise.index',
+	'uses' => 'ExpertiseController@index'
+]);
+
+Route::group(['prefix' => 'expertise'], function() {
+	// Create a new Expertise
+	Route::get('new', [
+		'as'   => 'expertise.create',
+		'uses' => 'ExpertiseController@create'
+	]);
+	Route::post('new', [
+		'as'   => 'expertise.store',
+		'uses' => 'ExpertiseController@store'
+	]);
+
+	// Update an existing Expertise
+	Route::get('edit/{id}', [
+		'as'   => 'expertise.edit',
+		'uses' => 'ExpertiseController@edit'
+	]);
+	Route::post('edit/{id}', [
+		'as'   => 'expertise.update',
+		'uses' => 'ExpertiseController@update'
+	]);
+
+	// Show an existing Expertise
+	Route::get('{id}', [
+		'as'   => 'expertise.show',
+		'uses' => 'ExpertiseController@show'
+	]);
+
+	// Delete an existing Expertise
+	Route::get('{id}', [
+		'as'   => 'expertise.destroy',
+		'uses' => 'ExpertiseController@destroy'
+	]);
+});
+
+
+//=============================================================================
+// SERVICES
+//=============================================================================
+
+Route::get('services', [
+	'as'   => 'services.index',
+	'uses' => 'ServiceController@index'
+]);
+
+Route::group(['prefix' => 'services'], function() {
+	// Create a new Service
+	Route::get('new', [
+		'as'   => 'services.create',
+		'uses' => 'ServiceController@create'
+	]);
+	Route::post('new', [
+		'as'   => 'services.store',
+		'uses' => 'ServiceController@store'
+	]);
+
+	// Update an existing Service
+	Route::get('edit/{id}', [
+		'as'   => 'services.edit',
+		'uses' => 'ServiceController@edit'
+	]);
+	Route::post('edit/{id}', [
+		'as'   => 'services.update',
+		'uses' => 'ServiceController@update'
+	]);
+
+	// Show an existing Service
+	Route::get('{id}', [
+		'as'   => 'services.show',
+		'uses' => 'ServiceController@show'
+	]);
+
+	// Delete an existing Service
+	Route::get('{id}', [
+		'as'   => 'services.destroy',
+		'uses' => 'ServiceController@destroy'
 	]);
 });
 
@@ -87,7 +276,7 @@ Route::group(['prefix' => 'locations'], function() {
 		'as'   => 'locations.edit',
 		'uses' => 'LocationController@edit'
 	]);
-	Route::put('edit{id}', [
+	Route::post('edit/{id}', [
 		'as'   => 'locations.update',
 		'uses' => 'LocationController@update'
 	]);
@@ -99,7 +288,7 @@ Route::group(['prefix' => 'locations'], function() {
 	]);
 
 	// Delete an existing Location
-	Route::delete('{id}', [
+	Route::get('{id}', [
 		'as'   => 'locations.destroy',
 		'uses' => 'LocationController@destroy'
 	]);

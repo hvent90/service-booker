@@ -29,6 +29,35 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
+	 * Edits an existing Advisor and returns the Advisor Object.
+	 * @return [type] [description]
+	 */
+	public function editAdvisor($first_name, $last_name, $email, $password, $id)
+	{
+		$advisor = Advisor::find($id);
+		$advisor->first_name = $first_name;
+		$advisor->email      = $email;
+		$advisor->last_name  = $last_name;
+		$advisor->password   = Hash::make($password);
+		$advisor->save();
+
+		return $advisor;
+	}
+
+	/**
+	 * Edits an existing Advisor and returns the Advisor Object.
+	 * @return [type] [description]
+	 */
+	public function destroyAdvisor($id)
+	{
+		$advisor = Advisor::find($id);
+
+		$advisor->delete();
+
+		return 'happy days';
+	}
+
+	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
@@ -54,7 +83,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function meetings()
     {
-        return $this->belongsToMany('Meeting');
+        return $this->belongsToMany('\MyApp\Meeting');
     }
 
     /**
@@ -63,7 +92,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function companies()
     {
-        return $this->belongsToMany('Company');
+        return $this->belongsToMany('\MyApp\Company');
     }
 
     /**
@@ -72,7 +101,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function services()
     {
-        return $this->belongsToMany('Service');
+        return $this->belongsToMany('\MyApp\Service');
     }
 
     /**
@@ -81,7 +110,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function expertise()
     {
-        return $this->belongsToMany('Expertise');
+        return $this->belongsToMany('\MyApp\Expertise');
     }
 
     /**
@@ -90,7 +119,12 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function serviceAndLocation()
     {
-        return $this->belongsToMany('Service', 'advisor_service_location')->withPivot('location_id');
+        return $this->hasMany('\MyApp\AdvisorAndServiceAndLocation', 'advisor_service_location');
+    }
+
+    public function availabilities()
+    {
+        return $this->belongsToMany('\MyApp\Availability', 'availability_advisor');
     }
 
 }

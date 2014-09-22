@@ -1,7 +1,7 @@
 # Creating functionality of Service booking through PHP & Laravel
 
-to-do: this readme
+## To-do
 
-## blah
-
-* blah
+* form-validation
+* proper redirects after CRUD resource creation
+* Create events for creation of all objects.

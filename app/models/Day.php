@@ -385,7 +385,12 @@ class Day extends \Eloquent  {
 	 */
 	public function meetings()
     {
-        return $this->belongsToMany('Meeting');
+        return $this->belongsToMany('\MyApp\Meeting');
+    }
+
+    public function availabilities()
+    {
+        return $this->belongsToMany('\MyApp\Availability');
     }
 
 }

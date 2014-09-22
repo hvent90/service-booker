@@ -14,9 +14,10 @@
     <!-- Left Side of Nav -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Advisors</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Locations</a></li>
+        <li class="active">{{ link_to_route('advisors.index', 'Advisors') }}</li>
+        <li>{{ link_to_route('expertise.index', 'Expertise') }}</li>
+        <li>{{ link_to_route('services.index', 'Services') }}</li>
+        <li>{{ link_to_route('locations.index', 'Locations') }}</li>
       </ul>
 
       <!-- Right Side of Nav -->
