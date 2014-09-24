@@ -48,7 +48,7 @@ class LocationController extends \BaseController {
 
 		$this->location->createLocation($name, $address, $website, $id);
 
-		return Redirect::home();
+		return Redirect::route('locations.index')->with('message', 'Location Created');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class LocationController extends \BaseController {
 
 		$this->location->editLocation($name, $address, $website, $advisor_id, $id);
 
-		return Redirect::home();
+		return Redirect::route('locations.index')->with('message', 'Location Edited');
 	}
 
 
@@ -109,7 +109,7 @@ class LocationController extends \BaseController {
 	{
 		$this->location->destroyLocation($id);
 
-		return Redirect::home();
+		return Redirect::route('locations.index')->with('message', 'Location Destroyed');
 	}
 
 

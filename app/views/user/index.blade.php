@@ -33,7 +33,7 @@
 						<h3>{{ $service->name }}</h3>
 						<li>{{ $service->notes }}</li>
 						<li>{{ $service->duration }} minutes</li>
-						<li>{{ $service->locationsWithAdvisor()->first()->name }}</li>
+						<li>{{ $service->locationsWithAdvisor()->first()['name'] }}</li>
 					</td>
 				</tr>
 				@endforeach
@@ -54,7 +54,8 @@
 						<li>{{ $availability->notes }}</li>
 						<li>{{ $availability->services()->first()->name }}</li>
 						<li>{{ $availability->locations()->first()->name }}</li>
-						<li>{{ $availability->days()->first()->date }}</li>
+						{{-- dd($availability->days()) --}}
+						<li>{{ $availability->days()->first()['date'] }}</li>
 					</td>
 				</tr>
 				@endforeach

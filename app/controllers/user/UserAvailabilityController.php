@@ -72,8 +72,6 @@ class UserAvailabilityController extends \BaseController {
 
 	public function store()
 	{
-		dd(Input::get('day_ids'));
-
 		$this->availability->CreateAvailability(
 			Input::get('title'),
 			Input::get('notes'),
@@ -83,14 +81,14 @@ class UserAvailabilityController extends \BaseController {
 			Input::get('advisor_id')
 		);
 
-		return Redirect::home();
+		return Redirect::route('dashboard.index')->with('message', 'Availability Added');
 	}
 
 	public function destroy()
 	{
 		$this->availablity->destroyAvailability(Input::get('availabilities'));
 
-		return Redirect::home();
+		return Redirect::route('dashboard.index')->with('message', 'Availability Removed');
 
 	}
 

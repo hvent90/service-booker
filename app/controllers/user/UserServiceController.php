@@ -41,14 +41,14 @@ class UserServiceController extends \BaseController {
 			Input::get('locations')
 		);
 
-		return Redirect::home();
+	 	return Redirect::route('dashboard.index')->with('message', 'Service Added');
 	}
 
 	public function destroy()
 	{
 		$this->service->disconnectService(Input::get('services'), Input::get('advisor_id'));
 
-		return Redirect::home();
+		return Redirect::route('dashboard.index')->with('message', 'Service Removed');
 
 	}
 

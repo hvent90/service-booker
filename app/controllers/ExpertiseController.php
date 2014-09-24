@@ -48,7 +48,7 @@ class ExpertiseController extends \BaseController {
 
 		$this->expertise->createExpertise($title, $notes, $advisor_id);
 
-		return Redirect::home();
+		return Redirect::route('expertise.index')->with('message', 'Expertise Created');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class ExpertiseController extends \BaseController {
 
 		$this->expertise->editExpertise($title, $notes, $id);
 
-		return Redirect::home();
+		return Redirect::route('expertise.index')->with('message', 'Expertise Edited');
 	}
 
 
@@ -109,7 +109,7 @@ class ExpertiseController extends \BaseController {
 	{
 		$this->expertise->destroyExpertise($id);
 
-		return Redirect::home();
+		return Redirect::route('expertise.index')->with('message', 'Expertise Destroyed');
 	}
 
 

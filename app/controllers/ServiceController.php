@@ -48,7 +48,7 @@ class ServiceController extends \BaseController {
 
 		$this->service->createService($name, $notes, $duration, $advisor_id);
 
-		return Redirect::home();
+		return Redirect::route('services.index')->with('message', 'Service Created');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class ServiceController extends \BaseController {
 
 		$this->service->editService($name, $notes, $duration, $id);
 
-		return Redirect::home();
+		return Redirect::route('services.index')->with('message', 'Service Edited');
 	}
 
 
@@ -109,7 +109,7 @@ class ServiceController extends \BaseController {
 	{
 		$this->service->destroyService($id);
 
-		return Redirect::home();
+		return Redirect::route('services.index')->with('message', 'Service Destroyed');
 	}
 
 

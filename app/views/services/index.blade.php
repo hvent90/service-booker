@@ -11,7 +11,12 @@
 				<li>{{ $service->notes }}</li>
 				<li>{{ $service->duration }} Minutes</li>
 			</td>
-			<td>{{ link_to_route('advisors.show', $service->advisors()->first()->first_name.' '.$service->advisors()->first()->last_name, $service->advisors()->first()->id) }} created this service.
+			<td>
+				@if ($service->advisors->first())
+				{{ link_to_route('advisors.show', $service->advisors()->first()->first_name.' '.$service->advisors()->first()->last_name, $service->advisors()->first()->id) }} created this service.
+				@else
+					not claimed
+				@endif
 			</td>
 			<td>
 				{{ link_to_route('services.edit',    'Edit',   $service->id, ['class' => 'btn btn-warning']) }}

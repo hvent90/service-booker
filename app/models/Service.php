@@ -54,6 +54,11 @@ class Service extends \Eloquent {
 		return 'happy days';
 	}
 
+	/**
+	 * Creates a relation between a specific Advisor and a specific Service
+	 *
+	 * @var array
+	 */
 	public function connectService($services, $advisor_id)
 	{
 		foreach ($services as $service_id)
@@ -65,6 +70,27 @@ class Service extends \Eloquent {
 		return $services;
 	}
 
+	/**
+	 * Removes the relation between a specific Advisor and a specific Service
+	 *
+	 * @var array
+	 */
+	public function disconnectService($services, $advisor_id)
+	{
+		foreach ($services as $service_id)
+		{
+			$advisor = Advisor::find($advisor_id);
+			$advisor->services()->detach($service_id);
+		}
+
+		return $services;
+	}
+
+	/**
+	 * Creates a relation between a specific Advisor and a specific Location
+	 *
+	 * @var array
+	 */
 	public function connectServiceWithLocation($services, $advisor_id, $location_id)
 	{
 
@@ -80,17 +106,11 @@ class Service extends \Eloquent {
 		return $services;
 	}
 
-	public function disconnectService($services, $advisor_id)
-	{
-		foreach ($services as $service_id)
-		{
-			$advisor = Advisor::find($advisor_id);
-			$advisor->services()->detach($service_id);
-		}
-
-		return $services;
-	}
-
+	/**
+	 * Returns all of the services that exist in the database which
+	 * the given Advisor does offer.
+	 * @var array
+	 */
 	public function servicesContainedByAdvisor($advisor_id, $just_id = null)
 	{
 		$advisor = Advisor::find($advisor_id);
@@ -104,6 +124,11 @@ class Service extends \Eloquent {
 		return $servicesContainedByAdvisor;
 	}
 
+	/**
+	 * Returns all of the services that exist in the database which
+	 * the given Advisor does not offer.
+	 * @var array
+	 */
 	public function servicesNotContainedByAdvisor($advisor_id)
 	{
 		if ($this->servicesContainedByAdvisor($advisor_id) == null)
@@ -148,11 +173,20 @@ class Service extends \Eloquent {
         return $this->belongsToMany('\MyApp\Advisor');
     }
 
+    /**
+     * This is the location for where a specific Advisor would like to use a service.
+     * NOT TIED TO AVAILABILITY.
+     * @return type
+     */
     public function locationsWithAdvisor()
     {
         return $this->belongsToMany('\MyApp\Location', 'service_location_advisor')->withPivot('advisor_id');
     }
 
+    /**
+     * Many-to-many relationship
+     * @return type
+     */
     public function availabilities()
     {
         return $this->belongsToMany('\MyApp\Availability');

@@ -10,7 +10,11 @@
 				<li>{{ $exp->title }}</li>
 				<li>{{ $exp->notes }}</li>
 			</td>
-			<td>{{ $exp->advisors()->first()->first_name }} {{ $exp->advisors()->first()->last_name }}</td>
+			<td>@if ($exp->advisors()->first())
+					{{ $exp->advisors()->first()->first_name }} {{ $exp->advisors()->first()->last_name }}</td>
+				@else
+					not claimed
+				@endif
 			<td>
 				{{ link_to_route('expertise.edit',    'Edit',   $exp->id, ['class' => 'btn btn-warning']) }}
 				{{ link_to_route('expertise.destroy', 'Delete', $exp->id, ['class' => 'btn btn-danger']) }}
