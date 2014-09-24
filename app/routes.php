@@ -111,6 +111,7 @@ Route::get('/', [
 //=============================================================================
 // ADVISORS
 //=============================================================================
+
 // Authenticate an Advisor
 Route::post('login', [
 	'as'   => 'advisors.login',
@@ -326,12 +327,11 @@ Route::group(array('prefix' => 'api'), function()
     	/**
 		 * Creates a new Day set to Today
 		 */
-	    Route::get('new', 'App\Controllers\Api\DayAPIController@createDay');
+		Route::get('{year}/{month}', [
+			'as' => 'api.calendar.month',
+			'uses' => 'App\Controllers\Api\DayAPIController@getCalendarMonthViewOfYearAndMonth'
+		]);
 
-	    /**
-		 * Creates a new Day set to the next Empty Date
-		 */
-	    Route::get('new', 'App\Controllers\Api\DayAPIController@createNextEmptyDay');
     });
 
     //==========================================

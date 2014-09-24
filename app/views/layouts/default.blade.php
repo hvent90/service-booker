@@ -25,5 +25,8 @@
 
       <hr>
       @include('layouts.partials.footer')
+
+      @yield('script')
+
     </body>
 </html>

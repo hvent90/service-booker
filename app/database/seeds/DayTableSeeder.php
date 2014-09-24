@@ -16,10 +16,12 @@ class DayTableSeeder extends Seeder {
     {
         DB::table('days')->delete();
 
-        $this->day->createDay();
+        $dt = Carbon::today()->subMonth(2);
+
+        $startDay = Day::createDay($dt);
 
         for ($i = 0; $i < 700; $i++) {
-		  $this->day->onNextEmptyDate($this->day->createDay());
+		  $this->day->onNextEmptyDate();
 		}
 
     }

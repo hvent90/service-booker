@@ -8,7 +8,7 @@
 
 		@include('layouts.partials.errors')
 
-		{{ Form::open(['route' => 'locations.store']) }}
+		{{ Form::open(['route' => 'advisors.store', 'method' => 'post']) }}
 		<!-- Username Form Input -->
 			<div class="form-group">
 				{{ Form::label('username', 'Username:') }}

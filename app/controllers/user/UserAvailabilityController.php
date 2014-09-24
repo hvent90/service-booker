@@ -9,15 +9,18 @@ use \MyApp\Expertise;
 use \MyApp\Location;
 use \MyApp\Service;
 
+
 use Carbon\Carbon;
 
 class UserAvailabilityController extends \BaseController {
 
 	protected $availability;
 	protected $service;
+	protected $day;
 
-	public function __construct(Availability $availability, Service $service)
+	public function __construct(Availability $availability, Service $service, Day $day)
 	{
+		$this->day = $day;
 		$this->availability = $availability;
 		$this->service      = $service;
 		$dayFormPopulator              = Day::lists('date', 'id');
@@ -35,17 +38,47 @@ class UserAvailabilityController extends \BaseController {
 
 	public function create()
 	{
+		$dt    = Carbon::today();
+		$month = $dt->month;
+		$year  = $dt->year;
+
+		$oneMonthViewOfDaysWithTelomeres = Day::oneMonthViewOfDaysWithTelomeres($month, $year);
+
+		if ($month == 12){
+			$nextMonth = 1;
+			$yearNext = $year + 1;
+		} else {
+			$nextMonth = $month + 1;
+			$yearNext = $year;
+		}
+
+		if ($month == 1){
+			$previousMonth = 12;
+			$yearPrevious = $year - 1;
+		} else {
+			$previousMonth = $month - 1;
+			$yearPrevious = $year;
+		}
+
 		return View::make('user.availabilities.create', compact([
+			'oneMonthViewOfDaysWithTelomeres',
+			'nextMonth',
+			'previousMonth',
+			'year',
+			'yearNext',
+			'yearPrevious'
 		]));
 	}
 
 	public function store()
 	{
+		dd(Input::get('day_ids'));
+
 		$this->availability->CreateAvailability(
 			Input::get('title'),
 			Input::get('notes'),
 			Input::get('services'),
-			Input::get('days'),
+			Input::get('days_id'),
 			Input::get('locations'),
 			Input::get('advisor_id')
 		);

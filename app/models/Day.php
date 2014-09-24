@@ -9,13 +9,19 @@ class Day extends \Eloquent  {
 	 * Creates a Day object with its date set to Today.
 	 * @return [type] [description]
 	 */
-	public static function createDay()
+	public static function createDay($date = null)
 	{
-		$day = new Day;
-		$day->date = Carbon::today();
-		$day->save();
+		$newDay = new Day;
 
-		return $day;
+		if ($date != null)
+		{
+			$newDay->date = $date;
+		} else {
+			$newDay->date = Carbon::today();
+		}
+		$newDay->save();
+
+		return $newDay;
 	}
 
 	/**
@@ -23,15 +29,17 @@ class Day extends \Eloquent  {
 	 * @param  Day    $day [description]
 	 * @return [type]      [description]
 	 */
-	public function onNextEmptyDate(Day $day)
+	public static function onNextEmptyDate()
 	{
-		$farthestDay = $this->getFarthestOutDay();
+		$farthestDay = Day::getFarthestOutDay();
 
-		$day->date = Carbon::parse($farthestDay->date)->addDay();
+		$fdt = Carbon::parse($farthestDay->date);
 
-		$day->save();
+		$fdt = $fdt->addDay();
 
-		return $day;
+		$newDay = Day::createDay($fdt);
+
+		return $newDay;
 	}
 
 	public function getNextDay()
@@ -49,7 +57,7 @@ class Day extends \Eloquent  {
 	 * Returns the day who's date is the farthest away
 	 * @return [type] [description]
 	 */
-	public function getFarthestOutDay()
+	public static function getFarthestOutDay()
 	{
 		$farthestDay = Day::select()->orderBy('date','desc')->first();
 
@@ -150,6 +158,7 @@ class Day extends \Eloquent  {
 
 		// get the first day of the month
 		$firstDayInMonth = Day::getFirstDayInSelectedMonth($month, $year);
+
 		// get the week of that day, get the first day in that week
 		$firstDayInFirstWeek = $firstDayInMonth->firstDayInWeek();
 
@@ -354,6 +363,7 @@ class Day extends \Eloquent  {
 			Day::where( DB::raw('MONTH(date)'), '=', date($month) )
 			->where( DB::raw('YEAR(date)'), '=', date($year) )
 			->get();
+
 
 		return $daysInMonth;
 	}

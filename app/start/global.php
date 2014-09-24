@@ -79,3 +79,12 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Load The Custom Form Macros
+|--------------------------------------------------------------------------
+|
+*/
+
+require app_path().'/start/formMacros.php';
