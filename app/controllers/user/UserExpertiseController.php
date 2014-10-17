@@ -33,14 +33,14 @@ class UserExpertiseController extends \BaseController {
 
 	public function store()
 	{
-		$this->expertise->connectExpertise(Input::get('expertise'), Input::get('advisor_id'));
+		$this->expertise->connectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
 
 		return Redirect::route('dashboard.index')->with('message', 'Expertise Added');
 	}
 
 	public function destroy()
 	{
-		$this->expertise->disconnectExpertise(Input::get('expertise'), Input::get('advisor_id'));
+		$this->expertise->disconnectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
 
 		return Redirect::route('dashboard.index')->with('message', 'Expertise Removed');
 

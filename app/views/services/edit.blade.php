@@ -13,19 +13,19 @@
             <!-- Name Form Input -->
             <div class="form-group">
                 {{ Form::label('name', 'Name:') }}
-                {{ Form::text('name', null, ['class' => 'form-control']) }}
+                {{ Form::text('name', $service->name, ['class' => 'form-control']) }}
             </div>
 
             <!-- Duration Form Input -->
             <div class="form-group">
                 {{ Form::label('duration', 'Duration (Minutes):') }}
-                {{ Form::input('number', 'duration', null, ['class' => 'form-control']) }}
+                {{ Form::input('number', 'duration', $service->duration, ['class' => 'form-control']) }}
             </div>
 
             <!-- Notes Form Input -->
             <div class="form-group">
                 {{ Form::label('notes', 'Notes:') }}
-                {{ Form::textarea('notes', null, ['class' => 'form-control']) }}
+                {{ Form::textarea('notes', $service->notes, ['class' => 'form-control']) }}
             </div>
 
             <div class="form-group">

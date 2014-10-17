@@ -111,14 +111,24 @@ class Service extends \Eloquent {
 	 * the given Advisor does offer.
 	 * @var array
 	 */
-	public function servicesContainedByAdvisor($advisor_id, $just_id = null)
+	public function servicesContainedByAdvisor($advisor_id, $api = null, $just_id = null)
 	{
+		// Get the Advisor whos services you will be fetching
 		$advisor = Advisor::find($advisor_id);
+
+		// This is to return the full JSON body of all services
+		if ($api == 'api')
+		{
+			return $advisor->services()->get();
+		}
+
+		// This is to prevent some type of error. Don't remember what.
 		if ($just_id == '1')
 		{
 			return $servicesContainedByAdvisor = $advisor->services()->lists('service_id');
 		}
 
+		// Grab the name, unique ID, and duration of the services.
 		$servicesContainedByAdvisor = $advisor->services()->lists('name', 'service_id');
 
 		return $servicesContainedByAdvisor;

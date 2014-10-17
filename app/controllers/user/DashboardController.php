@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\User;
 
 use View;
+use Auth;
 
 use \MyApp\Advisor;
 use \MyApp\Day;
@@ -14,7 +15,15 @@ class DashboardController extends \BaseController {
 
 	public function index()
 	{
+		$currentUser = Auth::user();
+
+		$pendingMeetingRequests = $currentUser->meetings()->where('status', '=', 0)->get();
+
+		$acceptedMeetings = $currentUser->meetings()->where('status', '=', 1)->get();
+
 		return View::make('user.index', compact([
+			'pendingMeetingRequests',
+			'acceptedMeetings'
 		]));
 	}
 

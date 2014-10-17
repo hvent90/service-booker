@@ -10,17 +10,20 @@ use Carbon\Carbon;
 
 class Availability extends \Eloquent {
 
-	public function createAvailability($title, $notes, $services_id, $days_id, $locations_id, $advisor_id)
+	public function createAvailability($title, $notes, $services_id, $locations_id, $advisor_id, $dateAndTimes)
 	{
-		$availability = new Availability;
-		$availability->title = $title;
-		$availability->notes = $notes;
-		$availability->save();
+		foreach ($dateAndTimes as $dateAndTime)
+		{
+			$availability = new Availability;
+			$availability->title = $title;
+			$availability->notes = $notes;
+			$availability->save();
 
-		$availability->locations()->attach($locations_id);
-		$availability->services()->attach($services_id);
-		$availability->advisors()->attach($advisor_id);
-		$availability->days()->attach($days_id);
+			$availability->locations()->attach($locations_id);
+			$availability->services()->attach($services_id);
+			$availability->advisors()->attach($advisor_id);
+			$availability->days()->attach($dateAndTime['day_id'], ['time' => $dateAndTime['time']]);
+		}
 
 		return $availability;
 	}
@@ -38,11 +41,29 @@ class Availability extends \Eloquent {
 	{
 		$availability = Availability::find($id);
 
+		$availability->advisors()->detach();
+		$availability->days()->detach();
+		$availability->locations()->detach();
+		$availability->services()->detach();
+
 		$availability->delete();
 
 		return 'happy days';
 	}
 
+	public function book()
+	{
+		$this->is_booked = true;
+
+		$this->save();
+	}
+
+	public function unbook()
+	{
+		$this->is_booked = false;
+
+		$this->save();
+	}
 
 	/**
 	 * The database table used by the model.
@@ -85,7 +106,7 @@ class Availability extends \Eloquent {
 
     public function days()
     {
-        return $this->belongsToMany('\MyApp\Day');
+        return $this->belongsToMany('\MyApp\Day')->withPivot('time');
     }
 
 }

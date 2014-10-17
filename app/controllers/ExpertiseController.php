@@ -112,5 +112,38 @@ class ExpertiseController extends \BaseController {
 		return Redirect::route('expertise.index')->with('message', 'Expertise Destroyed');
 	}
 
+	public function connect($id)
+	{
+		$expertise = Expertise::find($id);
+		$expertiseGroupsNotContainedByExpertise = $expertise->expertiseGroupsNotContainedByExpertise();
+		$expertiseGroupsContainedByExpertise    = $expertise->expertiseGroupsContainedByExpertise();
+
+		return View::make('expertise.connect-group', compact([
+			'expertiseGroupsNotContainedByExpertise',
+			'expertiseGroupsContainedByExpertise',
+			'expertise'
+		]));
+	}
+
+	public function connectToExpertiseGroup()
+	{
+		$expertise_id 	   = Input::get('expertise_id');
+		$expertiseGroup_id = Input::get('expertiseGroup_id');
+
+		$this->expertise->connectExpertiseToExpertiseGroup($expertise_id, $expertiseGroup_id);
+
+		return Redirect::route('expertise.index')->with('message', 'Expertise Groups Connected');
+	}
+
+	public function disconnectToExpertiseGroup()
+	{
+		$expertise_id 	   = Input::get('expertise_id');
+		$expertiseGroup_id = Input::get('expertiseGroup_id');
+
+		$this->expertise->disconnectExpertiseToExpertiseGroup($expertise_id, $expertiseGroup_id);
+
+		return Redirect::route('expertise.index')->with('message', 'Expertise Groups Disconnected');
+	}
+
 
 }

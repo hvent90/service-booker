@@ -1,6 +1,7 @@
 <?php
 
 use \MyApp\Advisor;
+use \MyApp\ExpertiseGroup;
 
 class PagesController extends \BaseController {
 
@@ -13,7 +14,11 @@ class PagesController extends \BaseController {
 
 	public function home()
 	{
-		return View::make('layouts.default');
+		$expertiseGroups = ExpertiseGroup::all();
+
+		return View::make('cxp.index', compact([
+			'expertiseGroups'
+		]));
 	}
 
 }

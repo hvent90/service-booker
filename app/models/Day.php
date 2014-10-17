@@ -24,6 +24,31 @@ class Day extends \Eloquent  {
 		return $newDay;
 	}
 
+	public static function findDay($year, $month, $day)
+	{
+		$d = Carbon::parse($month.'/'.$day.'/'.$year);
+
+		$day = Day::where('date', $d->toDateTimeString())->first();
+
+		return $day;
+	}
+
+	public static function formatTime($time)
+	{
+
+		$availabilityTimes = [];
+
+		foreach (json_decode($time) as $day)
+		{
+			$availabilityTimes[] = [
+				'day_id' => $day->dayId,
+				'time'   => $day->startHour.'-'.$day->endHour
+			];
+		}
+
+		return $availabilityTimes;
+	}
+
 	/**
 	 * Takes a Day and sets its date to the net empty Date.
 	 * @param  Day    $day [description]

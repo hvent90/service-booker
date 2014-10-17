@@ -25,8 +25,13 @@
 
       <hr>
       @include('layouts.partials.footer')
+      </div>
+
+      @include('layouts.partials.common-scripts')
 
       @yield('script')
 
+      <script>
+      </script>
     </body>
 </html>

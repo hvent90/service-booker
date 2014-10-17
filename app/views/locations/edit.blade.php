@@ -14,19 +14,19 @@
         <!-- Username Form Input -->
             <div class="form-group">
                 {{ Form::label('name', 'Name:') }}
-                {{ Form::text('name', null, ['class' => 'form-control']) }}
+                {{ Form::text('name', $location->name, ['class' => 'form-control']) }}
             </div>
 
             <!-- Address Form Input -->
             <div class="form-group">
                 {{ Form::label('address', 'Address:') }}
-                {{ Form::text('address', null, ['class' => 'form-control']) }}
+                {{ Form::text('address', $location->address, ['class' => 'form-control']) }}
             </div>
 
             <!-- Website Form Input -->
             <div class="form-group">
                 {{ Form::label('website', 'Website URL:') }}
-                {{ Form::text('website', null, ['class' => 'form-control']) }}
+                {{ Form::text('website', $location->website, ['class' => 'form-control']) }}
             </div>
 
             <div class="form-group">

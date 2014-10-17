@@ -33,6 +33,12 @@
                                         @endif
                                     </div>
                                 </a>
+                                <div id="{{$day->id}}-hours">
+                                    <div class="col-sm-6" id="{{$day->id}}-start-half">
+                                    </div>
+                                    <div class="col-sm-6" id="{{$day->id}}-end-half">
+                                    </div>
+                                </div>
                             </td>
                         @endforeach
                     </tr>

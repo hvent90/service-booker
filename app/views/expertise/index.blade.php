@@ -11,10 +11,14 @@
 				<li>{{ $exp->notes }}</li>
 			</td>
 			<td>@if ($exp->advisors()->first())
-					{{ $exp->advisors()->first()->first_name }} {{ $exp->advisors()->first()->last_name }}</td>
+					{{ $exp->advisors()->first()->first_name }} {{ $exp->advisors()->first()->last_name }}
 				@else
 					not claimed
 				@endif
+			</td>
+			<td>
+				{{ link_to_route('expertise.group-connect-and-disconnect', 'Groups',   $exp->id, ['class' => 'btn btn-info']) }}
+			</td>
 			<td>
 				{{ link_to_route('expertise.edit',    'Edit',   $exp->id, ['class' => 'btn btn-warning']) }}
 				{{ link_to_route('expertise.destroy', 'Delete', $exp->id, ['class' => 'btn btn-danger']) }}

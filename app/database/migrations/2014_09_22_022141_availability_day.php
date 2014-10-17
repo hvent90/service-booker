@@ -17,6 +17,7 @@ class AvailabilityDay extends Migration {
 		    $table->increments('id');
 		    $table->integer('availability_id');
 		    $table->integer('day_id');
+		    $table->string('time');
 		});
 	}
 

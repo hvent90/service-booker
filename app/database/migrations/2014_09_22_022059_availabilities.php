@@ -17,6 +17,7 @@ class Availabilities extends Migration {
 		    $table->increments('id');
 		    $table->string('title');
 		    $table->text('notes');
+		    $table->boolean('is_booked');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');
 		});

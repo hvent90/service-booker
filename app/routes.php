@@ -8,6 +8,23 @@ Route::get('/', [
 	'uses' => 'PagesController@home'
 ]);
 
+Route::post('mail', [
+	'as'   => 'mail.test',
+	'uses' => 'MailController@availabilityRequest'
+]);
+
+//==========================================
+// Expertise Groups
+//==========================================
+
+/**
+ * Returns all specific Expertise
+ */
+Route::get('expertise-groups/{id}', [
+	'as'   => 'api.expertise-groups.homepage',
+	'uses' => 'App\Controllers\Api\ExpertiseGroupAPIController@getExpertiseGroup'
+]);
+
 //=============================================================================
 // USER EXPERIENCE
 //=============================================================================
@@ -102,7 +119,7 @@ Route::get('/', [
 		]);
 
 		// User Destroys the chosen Availability.
-		Route::delete('availabilities/create', [
+		Route::post('availabilities/destroy', [
 			'as'   => 'user.availabilities.destroy',
 			'uses' => 'App\Controllers\User\UserAvailabilityController@destroy'
 		]);
@@ -205,6 +222,65 @@ Route::group(['prefix' => 'expertise'], function() {
 		'as'   => 'expertise.destroy',
 		'uses' => 'ExpertiseController@destroy'
 	]);
+
+	// Connect to Groups
+	Route::get('{id}/groups', [
+		'as'   => 'expertise.group-connect-and-disconnect',
+		'uses' => 'ExpertiseController@connect'
+	]);
+
+	Route::post('{id}/groups', [
+		'as'   => 'expertise.group-connect',
+		'uses' => 'ExpertiseController@connectToExpertiseGroup'
+	]);
+
+	Route::delete('{id}/groups', [
+		'as'   => 'expertise.group-disconnect',
+		'uses' => 'ExpertiseController@disconnectToExpertiseGroup'
+	]);
+});
+
+//=============================================================================
+// EXPERTISE GROUP
+//=============================================================================
+
+Route::get('expertise-group', [
+	'as'   => 'expertise-groups.index',
+	'uses' => 'ExpertiseGroupController@index'
+]);
+
+Route::group(['prefix' => 'expertise-group'], function() {
+	// Create a new Expertise Group
+	Route::get('new', [
+		'as'   => 'expertise-groups.create',
+		'uses' => 'ExpertiseGroupController@create'
+	]);
+	Route::post('new', [
+		'as'   => 'expertise-groups.store',
+		'uses' => 'ExpertiseGroupController@store'
+	]);
+
+	// Update an existing Expertise Group
+	Route::get('edit/{id}', [
+		'as'   => 'expertise-groups.edit',
+		'uses' => 'ExpertiseGroupController@edit'
+	]);
+	Route::post('edit/{id}', [
+		'as'   => 'expertise-groups.update',
+		'uses' => 'ExpertiseGroupController@update'
+	]);
+
+	// Show an existing Expertise Group
+	Route::get('{id}', [
+		'as'   => 'expertise-groups.show',
+		'uses' => 'ExpertiseGroupController@show'
+	]);
+
+	// Delete an existing Expertise Group
+	Route::get('{id}', [
+		'as'   => 'expertise-groups.destroy',
+		'uses' => 'ExpertiseGroupController@destroy'
+	]);
 });
 
 
@@ -296,19 +372,63 @@ Route::group(['prefix' => 'locations'], function() {
 });
 
 //=============================================================================
+// AVAILABILITIES
+//=============================================================================
+
+Route::get('availabilities', [
+	'as'   => 'availabilities.index',
+	'uses' => 'AvailabilityController@index'
+]);
+
+//=============================================================================
+// MEETINGS
+//=============================================================================
+
+Route::group(['prefix' => 'meetings'], function() {
+	Route::post('/', [
+		'as'   => 'meetings.request.create',
+		'uses' => 'MeetingController@storeRequest'
+	]);
+
+	Route::post('accept', [
+		'as'   => 'meetings.request.accept',
+		'uses' => 'MeetingController@acceptRequest'
+	]);
+	Route::post('reject', [
+		'as'   => 'meetings.request.reject',
+		'uses' => 'MeetingController@rejectRequest'
+	]);
+});
+Route::group(['prefix' => 'api'], function() {
+	//==========================================
+	// Advisors
+	//==========================================
+	Route::group(['prefix' => 'advisors'], function() {
+		Route::get('expertise', [
+			'as'   => 'api.advisors.by-expertise',
+			'uses' => 'App\Controllers\Api\AdvisorAPIController@getAdvisorsWhoHaveAvailabilitiesWithGivenExpertise'
+		]);
+	});
+});
+
+
+//=============================================================================
 // DAYS
 //=============================================================================
 
 Route::get('{year}/{month}', [
-	'as' => 'calendar.month',
+	'as'   => 'calendar.month',
 	'uses' => 'DayController@indexMonth'
 ]);
 
+Route::get('{year}/{month}/{day}', [
+	'as'   => 'calendar.day',
+	'uses' => 'DayController@indexDay'
+]);
 
 //=============================================================================
 // API
 //=============================================================================
-
 
 Route::group(array('prefix' => 'api'), function()
 {
@@ -349,9 +469,14 @@ Route::group(array('prefix' => 'api'), function()
     Route::group(['prefix' => 'advisors'], function()
     {
     	/**
-		 * Creates a new Advisor
+		 * Enter the Advisor's ID and you shall receive its JSON.
 		 */
-	    Route::get('new', '');
+	    Route::get('{id}', 'App\Controllers\Api\AdvisorAPIController@getAdvisor');
+
+	    /**
+	     * Enter the Advisor's ID and you shall recieve the JSON of all of its Services.
+	     */
+	    Route::get('{id}/services', 'App\Controllers\Api\AdvisorAPIController@getServicesByAdvisor');
     });
 
 
@@ -394,7 +519,6 @@ Route::group(array('prefix' => 'api'), function()
 		 */
 	    Route::get('new', '');
     });
-
 
     //==========================================
 	// LOCATION

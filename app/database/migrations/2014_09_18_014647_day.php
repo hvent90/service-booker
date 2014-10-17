@@ -15,7 +15,7 @@ class Day extends Migration {
 		Schema::create('days', function($table)
 		{
 		    $table->increments('id');
-		    $table->dateTime('date');
+		    $table->date('date');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');
 		});

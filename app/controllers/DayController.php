@@ -66,4 +66,13 @@ class DayController extends BaseController {
 			'yearPrevious'
 		]));
 	}
+
+	public function indexDay($year, $month, $day)
+	{
+		$theDay = Day::findDay($year, $month, $day);
+
+		return View::make('days.single', compact([
+			'theDay'
+		]));
+	}
 }

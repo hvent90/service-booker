@@ -13,13 +13,13 @@
             <!-- Title Form Input -->
             <div class="form-group">
                 {{ Form::label('title', 'Title:') }}
-                {{ Form::text('title', null, ['class' => 'form-control']) }}
+                {{ Form::text('title', $expertise->title, ['class' => 'form-control']) }}
             </div>
 
             <!-- Notes Form Input -->
             <div class="form-group">
                 {{ Form::label('notes', 'Notes:') }}
-                {{ Form::textarea('notes', null, ['class' => 'form-control']) }}
+                {{ Form::textarea('notes', $expertise->notes, ['class' => 'form-control']) }}
             </div>
 
             <div class="form-group">

@@ -17,6 +17,7 @@ class Meeting extends Migration {
 		    $table->increments('id');
 		    $table->string('title');
 		    $table->text('notes');
+		    $table->integer('status');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');
 		});

@@ -17,9 +17,12 @@ class Advisor extends Migration {
 		    $table->increments('id');
 		    $table->string('first_name');
 		    $table->string('last_name');
+		    $table->string('subtitle');
+		    $table->text('bio');
 		    $table->string('email')->unique();
 		    $table->string('password');
 		    $table->integer('company_id');
+		    $table->integer('permissions');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');
 		    $table->rememberToken();

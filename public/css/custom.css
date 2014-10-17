@@ -1,3 +1,118 @@
+body {
+	max-width: 110%;
+	overflow-x: hidden;
+	background-color: #efefef;
+}
+
+#advisor-with-availability-content {
+	padding: 10px;
+}
+
+.homepage-advisor-list {
+	margin-top: -20px;
+	z-index: 100;
+	/*height: 300vh;*/
+	width: 100%;
+	position: absolute;
+	/*color: white;*/
+	padding-left: 10px;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.homepage-advisor-list-bg {
+	border-radius: 4px 0 0 4px;
+	padding: 50px;
+	background-color: rgb(155, 0, 05);
+	/*height: 300vh;*/
+	width: 100%;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.advisor-homepage {
+	padding: 0;
+	background-color: #efefef;
+	border: 1px solid #D5D5D5;
+	border-radius: 4px;
+	width: 45%;
+	margin: 2%;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    display: inline-block;
+}
+
+.selected-avail {
+	width: 100% !important;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.advisor-homepage .title-advisor {
+	padding: 5px 5px 1px 5px;
+	border-bottom: 1px solid #D5D5D5;
+	background-color: #E0E0E0;
+}
+
+.advisor-avail-single {
+	padding: 5px;
+}
+
+.advisor-avail-single:hover {
+	/*background-color: white;*/
+	/*cursor: pointer;*/
+}
+
+
+.expertise-homepage {
+	border-radius: 4px;
+	margin: 2px;
+	background-color: rgba(155, 0, 05, 1);
+	min-height: 50px;
+	color: #efefef;
+}
+
+.expertise-homepage p {
+	font-weight: bold;
+}
+
+.expertise-homepage:hover {
+	cursor: pointer;
+	box-shadow: 2px solid black;
+}
+
+.heading-text {
+	text-align: center;
+}
+
+.heading-text h2 {
+	font-size: 52px;
+}
+
+.exp-group-list {
+	background-color: rgba(155, 0, 05, 1);
+	padding: 5px;
+	border-radius: 0px 8px 8px 0;
+}
+
+.exp-group-list li {
+	list-style: none;
+}
+
+.exp-group-list a {
+	color: #efefef;
+	font-size: 18px;
+	margin: 4px;
+}
+
 .nav-login {
 	padding-bottom: 0;
 	border-bottom: 0;
@@ -24,4 +139,49 @@
 
 #monthView td {
 	padding: 0;
+}
+
+#popup-logout {
+	position: absolute;
+  	top: 50px;
+  	width: 200px;
+  	height: 200px;
+  	line-height: 200px;
+  	text-decoration: none;
+  	right: -50%;
+  	margin-left: -50px;
+  	padding: 10px;
+  	border-radius: 6px;
+  	background-color: #51A351;
+  	color: white;
+  	font-weight: bold;
+  	z-index: 100;
+  	font-size: 24px;
+  	vertical-align: center !important;
+  	text-align: center !important;
+}
+
+#popup-logout-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 99;
+	height: 100%;
+}
+
+.full-height {
+	height: 100%vh;
+}
+
+.availability-form {
+	padding: 50px;
+	margin-top: -20px;
+	z-index: 100;
+	height: 100vh;
+	width: 50%;
+	position: absolute;
+	background-color: rgb(155, 0, 05);
+	left: 100%;
+	color: white;
 }

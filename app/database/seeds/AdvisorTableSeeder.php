@@ -18,8 +18,9 @@ class AdvisorTableSeeder extends Seeder {
         $this->advisor->createAdvisor(
             'Barry',
             'White',
-            'my@email.com',
-            'password'
+            'hvent90@gmail.com',
+            'password',
+            100
         );
     }
 

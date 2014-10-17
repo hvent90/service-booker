@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'smtp',
+	'driver' => 'mailgun',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'postmaster@sandboxdafcb2ecfe9b47bcbc38dc391a578e51.mailgun.org', 'name' => 'Henry Ventura'),
 
 	/*
 	|--------------------------------------------------------------------------

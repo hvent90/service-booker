@@ -16,8 +16,10 @@
       <ul class="nav navbar-nav">
         <li class="active">{{ link_to_route('advisors.index', 'Advisors') }}</li>
         <li>{{ link_to_route('expertise.index', 'Expertise') }}</li>
+        <li>{{ link_to_route('expertise-groups.index', 'Expertise Groups') }}</li>
         <li>{{ link_to_route('services.index', 'Services') }}</li>
         <li>{{ link_to_route('locations.index', 'Locations') }}</li>
+        <li>{{ link_to_route('availabilities.index', 'Availabilities') }}</li>
       </ul>
 
       <!-- Right Side of Nav -->

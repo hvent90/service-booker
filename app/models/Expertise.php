@@ -8,11 +8,13 @@ class Expertise extends \Eloquent {
 	 */
 	public function createExpertise($title, $notes, $id = null)
 	{
-		$advisor = Advisor::find($id);
+		$advisor 		= Advisor::find($id);
+		// $expertiseGroup = ExpertiseGroup::find($expertiseGroup_id);
 
-		$expertise = new Expertise;
-		$expertise->title  = $title;
+		$expertise        = new Expertise;
+		$expertise->title = $title;
 		$expertise->notes = $notes;
+
 		$expertise->save();
 
 		if ($id == null)
@@ -20,7 +22,12 @@ class Expertise extends \Eloquent {
 			return $expertise;
 		}
 
+		// if ($expertiseGroup_id == null) {
+		// 	return $expertise;
+		// }
+
 		$advisor->expertise()->attach($expertise);
+		// $expertiseGroup->expertise()->attach($expertise);
 
 		return $expertise;
 	}
@@ -39,12 +46,23 @@ class Expertise extends \Eloquent {
 		return $expertise;
 	}
 
-	public function connectExpertise($expertise, $advisor_id)
+	public function connectExpertiseToAdvisor($expertise, $advisor_id)
 	{
 		foreach ($expertise as $exp_id)
 		{
 			$advisor = Advisor::find($advisor_id);
 			$advisor->expertise()->attach($exp_id);
+		}
+
+		return $expertise;
+	}
+
+	public function connectExpertiseToExpertiseGroup($expertise, $expertiseGroup_id)
+	{
+		foreach ($expertiseGroup_id as $expG_id)
+		{
+			$expertiseGroup = ExpertiseGroup::find($expG_id);
+			$expertiseGroup->expertise()->attach($expertise);
 		}
 
 		return $expertise;
@@ -63,12 +81,23 @@ class Expertise extends \Eloquent {
 		return 'happy days';
 	}
 
-	public function disconnectExpertise($expertise, $advisor_id)
+	public function disconnectExpertiseToAdvisor($expertise, $advisor_id)
 	{
 		foreach ($expertise as $exp_id)
 		{
 			$advisor = Advisor::find($advisor_id);
 			$advisor->expertise()->detach($exp_id);
+		}
+
+		return $expertise;
+	}
+
+	public function disconnectExpertiseToExpertiseGroup($expertise, $expertiseGroup_id)
+	{
+		foreach ($expertiseGroup_id as $expG_id)
+		{
+			$expertiseGroup = ExpertiseGroup::find($expG_id);
+			$expertiseGroup->expertise()->detach($expertise);
 		}
 
 		return $expertise;
@@ -87,6 +116,18 @@ class Expertise extends \Eloquent {
 		return $expertiseContainedByAdvisor;
 	}
 
+	public function expertiseGroupsContainedByExpertise($just_id = null)
+	{
+		if ($just_id == '1')
+		{
+			return $expertiseGroupsContainedByExpertise = $this->expertiseGroups()->lists('name', 'expertise_group_id');
+		}
+
+		$expertiseGroupsContainedByExpertise = $this->expertiseGroups()->lists('name', 'expertise_group_id');
+
+		return $expertiseGroupsContainedByExpertise;
+	}
+
 	public function expertiseNotContainedByAdvisor($advisor_id)
 	{
 		if ($this->expertiseContainedByAdvisor($advisor_id) == null)
@@ -99,7 +140,35 @@ class Expertise extends \Eloquent {
 			Expertise::whereNotIn('id', $this->expertiseContainedByAdvisor($advisor_id, 1))
 			->lists('title', 'id');
 
+
 		return $expertiseNotContainedByAdvisor;
+	}
+
+	public function expertiseGroupsNotContainedByExpertise()
+	{
+
+		$listOfIdsOfGroupsContainedByExpertise = [];
+
+		foreach ($this->expertiseGroups()->get() as $expGroup) {
+			$listOfIdsOfGroupsContainedByExpertise[] = $expGroup->id;
+		}
+
+		if ($listOfIdsOfGroupsContainedByExpertise != null) {
+			$expertiseGroupsNotContainedByExpertise =
+				ExpertiseGroup::whereNotIn('id', $listOfIdsOfGroupsContainedByExpertise)
+				->lists('name', 'id');
+		}
+
+
+		if ($this->expertiseGroupsContainedByExpertise() == null)
+		{
+			$expertiseGroupsNotContainedByExpertise = ExpertiseGroup::lists('name', 'id');
+
+			return $expertiseGroupsNotContainedByExpertise;
+		}
+
+		// dd(ExpertiseGroup::whereNotIn('id', $this->expertiseGroupsContainedByExpertise(1)->lists('name', 'id')));
+		return $expertiseGroupsNotContainedByExpertise;
 	}
 
 	/**
@@ -134,6 +203,11 @@ class Expertise extends \Eloquent {
     public function availabilities()
     {
         return $this->belongsToMany('\MyApp\Availability');
+    }
+
+    public function expertiseGroups()
+    {
+    	return $this->belongsToMany('\MyApp\ExpertiseGroup', 'expertisegroup_expertise');
     }
 
 }
