@@ -26,11 +26,6 @@
                                 <a href="#" class="date" id="{{$day->id}}">
                                     <div class="dateCell" id="{{$day->id}}">
                                         {{ $day->ofMonth() }}
-                                        @if ( $day->availabilities()->get() )
-                                            @foreach ( $day->availabilities()->get() as $availability )
-                                                <li>{{ $availability->title }}</li>
-                                            @endforeach
-                                        @endif
                                     </div>
                                 </a>
                                 <div id="{{$day->id}}-hours">

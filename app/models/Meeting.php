@@ -37,10 +37,11 @@ class Meeting extends \Eloquent {
 		$availability_id,
 		$requestee_name,
 		$requestee_email,
-		$requestee_notes
+		$requestee_notes,
+		$requestee_phone
 	)
 	{
-		$requestee = Requestee::createRequestee($requestee_name, $requestee_email, $requestee_notes);
+		$requestee = Requestee::createRequestee($requestee_name, $requestee_email, $requestee_notes, $requestee_phone);
 
 		$meeting = new Meeting;
 		$meeting->status = 0;
@@ -63,7 +64,8 @@ class Meeting extends \Eloquent {
 			$availability_id,
 			$requestee_name,
 			$requestee_email,
-			$requestee_notes
+			$requestee_notes,
+			$requestee_phone
 		);
 
 		return $meeting;
@@ -158,7 +160,8 @@ class Meeting extends \Eloquent {
 		$availability_id,
 		$requestee_name,
 		$requestee_email,
-		$requestee_notes
+		$requestee_notes,
+		$requestee_phone
 	)
     {
     	$data = [
@@ -169,7 +172,8 @@ class Meeting extends \Eloquent {
 			$availability_id,
 			$requestee_name,
 			$requestee_email,
-			$requestee_notes
+			$requestee_notes,
+			$requestee_phone
     	];
 
     	\Mail::queue('emails.requests.initialize', $data, function($message)
@@ -181,7 +185,8 @@ class Meeting extends \Eloquent {
 				$availability_id,
 				$requestee_name,
 				$requestee_email,
-				$requestee_notes
+				$requestee_notes,
+				$requestee_phone
     		)
 		{
 		    $message->to($requestee_email, $requestee_name)
@@ -197,7 +202,8 @@ class Meeting extends \Eloquent {
 				$availability_id,
 				$requestee_name,
 				$requestee_email,
-				$requestee_notes
+				$requestee_notes,
+				$requestee_phone
     		)
 		{
 			$advisor = Advisor::find($advisor_id);

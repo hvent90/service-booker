@@ -134,6 +134,16 @@ class Service extends \Eloquent {
 		return $servicesContainedByAdvisor;
 	}
 
+	public function justTheFirstServiceBecauseMyCodeSucks($advisor_id)
+	{
+		// Get the Advisor, MF
+		$advisor = Advisor::find($advisor_id);
+
+		$firstService = $advisor->services->first();
+
+		return $firstService;
+	}
+
 	/**
 	 * Returns all of the services that exist in the database which
 	 * the given Advisor does not offer.

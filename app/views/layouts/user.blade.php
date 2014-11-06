@@ -17,20 +17,16 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-      @if(Auth::user())
-        @if($currentUser->id == 100)
-          @include('layouts.partials.nav.default')
-        @endif
-      @endif
-      <!-- <div class="container"> -->
+      @include('layouts.partials.nav.advisor-authed')
       @include('layouts.partials.nav.advisor-dash')
+
+      <div class="container">
 
       @yield('content')
 
-      <div class="container">
-        @include('layouts.partials.footer')
+      <hr>
+      @include('layouts.partials.footer')
       </div>
-      <!-- </div> -->
 
       @include('layouts.partials.common-scripts')
 
@@ -40,4 +36,3 @@
       </script>
     </body>
 </html>
-

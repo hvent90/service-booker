@@ -1,11 +1,133 @@
+html {
+  overflow-y: scroll;
+}
+
 body {
 	max-width: 110%;
 	overflow-x: hidden;
-	background-color: #efefef;
+	background-image: url('/img/grey.png');
+	background-color: #fff;
 }
 
 #advisor-with-availability-content {
 	padding: 10px;
+}
+
+.expertise-group-listing {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.expertise-group-listing h3 {
+	display: inline-block;
+	font-weight: bold;
+	margin: 2px;
+	margin-top: 10px;
+}
+
+.expertise-group-listing a {
+	text-decoration: none;
+	color: white !important;
+}
+
+.expertise-group-listing-hover {
+	width: 40px;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.advisor-listing {
+	margin-top: 20px;
+	border-radius: 4px;
+}
+
+.advisor-header {
+	padding-left: 30px;
+	background-color: white;
+}
+
+.advisor-listing h3 {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.advisor-listing button {
+	margin-bottom: 8px;
+}
+
+.advisor-header {
+	border-left: 1px solid rgb(195, 195, 195);
+	border-top: 1px solid rgb(195, 195, 195);
+	border-right: 1px solid rgb(195, 195, 195);
+	border-bottom: 1px solid rgb(195, 195, 195);
+	border-radius: 4px 4px 0 0;
+}
+
+.advisor-availability-listings {
+	background-color: rgba(236, 233, 167, 0.52);
+	padding-left: 20px;
+}
+
+.container-fix-avail {
+	width: 100%;
+	padding-left: 8px;
+}
+
+.align-right {
+	text-align: right;
+	padding-right: 5px;
+	font-weight: normal;
+	border-right: 1px solid black;
+}
+
+.advisor-availability-listings .item {
+	padding-left: 5px;
+	font-weight: normal;
+}
+
+.advisor-avail-single div {
+	background-color: white;
+	border-radius: 4px;
+	padding: 10px;
+	text-decoration: none;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.advisor-avail-single div:hover {
+	box-shadow: black 0 0 5px;
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.advisor-login {
+	list-style: none;
+	border: 1px solid #eaeaea;
+	display: inline-block;
+	position: absolute;
+	left: 70%;
+	z-index: 100;
+	text-align: center;
+	width: 125px;
+	height: 23px;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background-color: #eee;
+	border-radius: 0 0 4px 4px;
+}
+
+.advisor-login a {
+	color: #666 !important;
+	text-decoration: none;
+}
+
+.advisor-availability-listings table {
+	font-weight: normal;
 }
 
 .homepage-advisor-list {
@@ -71,6 +193,10 @@ body {
 	/*cursor: pointer;*/
 }
 
+form.avail-request-form {
+	margin-top: 10px;
+}
+
 
 .expertise-homepage {
 	border-radius: 4px;
@@ -131,6 +257,19 @@ body {
 	height: 100%;
 	width: 100%;
 	padding: 5px;
+	text-decoration: none;
+}
+
+.dateCell:hover {
+	background-color: rgba(100, 100, 100, .3);
+}
+
+a.date {
+	color: #666;
+}
+
+a.date:hover {
+	text-decoration: none;
 }
 
 .dateCell-selected {
@@ -184,4 +323,119 @@ body {
 	background-color: rgb(155, 0, 05);
 	left: 100%;
 	color: white;
+}
+
+.advisor-column {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.advisor-column .btn {
+	display: block;
+	font-weight: bold;
+	border-radius: 4px 4px 0 0;
+}
+
+.advisor-column .you-offer {
+	color: #777;
+	text-align: center;
+	padding-top: 8px;
+	font-weight: bold;
+	height: 56px;
+	background-color: rgba(10,10,10, .2);
+}
+
+.advisor-column .col-xs-3 {
+	padding: 0;
+}
+
+.advisor-column .add-avail .btn {
+	text-align: center;
+	padding-top: 8px;
+	font-weight: bold;
+	height: 56px;
+	background-color: rgba(87, 190, 221, .7);
+}
+
+.add-avail a {
+	color: #fff;
+}
+
+.btn-info {
+	background-color: rgba(87, 190, 221, .7) !important;
+}
+
+.btn-danger {
+	background-color: rgba(217, 83, 79, .7) !important;
+}
+
+.btn-success {
+	background-color: rgba(92, 184, 92, .7) !important;
+}
+
+/*button.btn {
+	background-color: rgba(10,10,10, .2) !important;
+}*/
+
+.availabilities-header {
+	border-bottom: 1px solid #ccc;
+}
+
+.availability-dashboard-listing {
+	padding: 5px;
+}
+
+.availability-dashboard-listing .body {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.availability-listing-header {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	color: #444;
+}
+
+.body .accepted {
+	height: 34px;
+}
+
+.body .accepted .btn {
+	display: block;
+	width: 100%;
+	background-color: rgba(92, 184, 92, .7);
+	height: 34px;
+}
+
+.body .availabile {
+	background-color: rgba(10, 10, 10, .08);
+	height: 34px;
+}
+
+.body .requested {
+	height: 34px;
+}
+
+.body .requested .btn {
+	display: block;
+	width: 100%;
+	background-color: rgba(240, 173, 78, 0.74) !important;
+}
+
+.body .full-width {
+	display: block;
+	width: 100%;
+}
+
+.contains-full-width {
+	padding: 0;
+}
+
+.avail-user-content {
+	padding: 15px;
+}
+
+.availabilities-row, .expertise-row {
+	margin-top: 40px;
 }

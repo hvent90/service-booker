@@ -48,9 +48,19 @@ class Expertise extends \Eloquent {
 
 	public function connectExpertiseToAdvisor($expertise, $advisor_id)
 	{
+		$advisor = Advisor::find($advisor_id);
+
+		// The following if-condition is used if $expertise is a string.
+		// Currently this mainly caters to the AdvisorTableSeeder.php.
+		if (is_string($expertise)) {
+			$expertiseObject = Expertise::where('title', $expertise)->first();
+			$advisor->expertise()->attach($expertiseObject->id);
+
+			return $expertiseObject;
+		}
+
 		foreach ($expertise as $exp_id)
 		{
-			$advisor = Advisor::find($advisor_id);
 			$advisor->expertise()->attach($exp_id);
 		}
 

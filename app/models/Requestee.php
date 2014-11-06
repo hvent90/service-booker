@@ -9,12 +9,13 @@ class Requestee extends \Eloquent {
 	 */
 	protected $table = 'requestees';
 
-	public static function createRequestee($name, $email, $notes)
+	public static function createRequestee($name, $email, $notes, $phone)
 	{
 		$requestee = new Requestee;
 		$requestee->name  = $name;
 		$requestee->email = $email;
-		$requestee->notes  = $notes;
+		$requestee->notes = $notes;
+		$requestee->phone = $phone;
 
 		$requestee->save();
 

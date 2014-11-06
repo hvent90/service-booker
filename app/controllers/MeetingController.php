@@ -15,6 +15,7 @@ class MeetingController extends BaseController {
 		$requestee_name  = Input::get('name');
 		$requestee_email = Input::get('email');
 		$requestee_notes = Input::get('notes');
+		$requestee_phone = Input::get('phonenumber');
 
 		$meeting = Meeting::createMeetingRequest(
 			$day_id,
@@ -24,7 +25,8 @@ class MeetingController extends BaseController {
 			$availability_id,
 			$requestee_name,
 			$requestee_email,
-			$requestee_notes
+			$requestee_notes,
+			$requestee_phone
 		);
 
 		return Redirect::route('home')->with('message', 'Request Created');

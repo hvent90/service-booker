@@ -22,9 +22,15 @@ class LocationTableSeeder extends Seeder {
         );
 
         $this->location->createLocation(
-            "Buddy's Burgers",
-            '10 W. Gay St.',
-            'http://buddysburgers.com'
+            "ICE",
+            'some address',
+            'some website'
+        );
+
+        $this->location->createLocation(
+            "Evolve IP",
+            'some address',
+            'some website'
         );
     }
 

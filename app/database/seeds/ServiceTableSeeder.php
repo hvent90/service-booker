@@ -16,15 +16,9 @@ class ServiceTableSeeder extends Seeder {
         DB::table('services')->delete();
 
         $this->service->createService(
-            'Kenpo Karate class',
-            'Intermediate high endurance session.',
-            60
-        );
-
-        $this->service->createService(
-            'Polymorphism Tutorial',
-            'Class for beginners and pros alike.',
-            120
+            '25 Minute Free Consultation',
+            '',
+           25
         );
     }
 

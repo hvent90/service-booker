@@ -42,7 +42,9 @@ class ExpertiseGroup extends \Eloquent {
 		// dd($expertiseWithinGroup);
 		foreach ($expertiseWithinGroup as $exp) {
 			foreach ($exp->advisors()->get() as $adv) {
-				$advisorsWhoHaveAnExpertiseWithinGroup[] = $adv;
+				if ($adv->availabilities()->get() != null) {
+					$advisorsWhoHaveAnExpertiseWithinGroup[] = $adv;
+				}
 			}
 		}
 

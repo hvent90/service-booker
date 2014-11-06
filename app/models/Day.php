@@ -89,6 +89,18 @@ class Day extends \Eloquent  {
 		return $farthestDay;
 	}
 
+	public function prettyPrint()
+	{
+		$dt = Carbon::parse($this->date);
+
+		$dayOfWeek = $this->humanDayOfWeek();
+		$month 	   = $this->humanMonthOfYear();
+		$numerical = $this->ofMonth();
+		$year  = $dt->year;
+
+		return $dayOfWeek['full'].' '.$month['full'].' '.$numerical.', '.$year;
+	}
+
 	/**
 	 * Returns a descriptive array in regards to the Day's position in the Week.
 	 * @param  Day    $day [description]

@@ -28,4 +28,13 @@ class ExpertiseGroupAPIController extends \BaseController {
 		]));
 	}
 
+	public function getAdvisorsInGroup($id)
+	{
+		$expertiseGroup = ExpertiseGroup::find($id);
+		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+		return View::make('api.advisors.with-expertise-group', compact([
+			'advisors'
+		]));
+	}
+
 }

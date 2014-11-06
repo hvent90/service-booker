@@ -17,6 +17,7 @@ class Requestee extends Migration {
 		    $table->increments('id');
 		    $table->string('email');
 		    $table->string('name');
+		    $table->string('phone');
 		    $table->text('notes');
 		    $table->dateTime('created_at');
 		    $table->dateTime('updated_at');

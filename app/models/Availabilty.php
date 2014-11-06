@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class Availability extends \Eloquent {
 
-	public function createAvailability($title, $notes, $services_id, $locations_id, $advisor_id, $dateAndTimes)
+	public function OLDcreateAvailability($title, $notes, $services_id, $locations_id, $advisor_id, $dateAndTimes)
 	{
 		foreach ($dateAndTimes as $dateAndTime)
 		{
@@ -26,6 +26,34 @@ class Availability extends \Eloquent {
 		}
 
 		return $availability;
+	}
+
+	public function createAvailability($data, $day_id, $advisor_id, $service_id)
+	{
+		$times = [$data[0], $data[0].':30'];
+
+		foreach ($times as $time) {
+			$availability = new Availability;
+			$availability->save();
+
+			switch ($data[2]) {
+				case ('wsl'):
+					$data[2] = 0;
+					break;
+				case ('ice'):
+					$data[2] = 1;
+					break;
+				case ('evolve'):
+					$data[2] = 2;
+					break;
+			}
+
+			$availability->locations()->attach($data[2]);
+			$availability->advisors()->attach($advisor_id);
+			$availability->services()->attach($service_id);
+			$availability->days()->attach($day_id, ['time' => $time.' '.$data[1]]);
+		}
+
 	}
 
 	public function createRecurringAvailability()
@@ -63,6 +91,28 @@ class Availability extends \Eloquent {
 		$this->is_booked = false;
 
 		$this->save();
+	}
+
+	public function hasRequests()
+	{
+		$meetings = $this->meetings()->where('status', '!=', -1)->get();
+		if ($meetings->first() == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function isBooked()
+	{
+		$meetings = $this->meetings()->get();
+
+		foreach ($meetings as $meeting) {
+			if ($meeting->status == 1)
+				return $meeting;
+		}
+
+		return false;
 	}
 
 	/**
@@ -107,6 +157,11 @@ class Availability extends \Eloquent {
     public function days()
     {
         return $this->belongsToMany('\MyApp\Day')->withPivot('time');
+    }
+
+    public function meetings()
+    {
+    	return $this->belongsToMany('\MyApp\Meeting', 'meeting_availability', 'availability_id', 'meeting_id');
     }
 
 }

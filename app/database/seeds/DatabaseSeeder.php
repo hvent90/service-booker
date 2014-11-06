@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder {
 
 		DB::table('expertisegroups')->delete();
 
-		$this->call('AdvisorTableSeeder');
-		$this->call('ServiceTableSeeder');
-		$this->call('ExpertiseTableSeeder');
-		$this->call('ExpertiseGroupTableSeeder');
 		$this->call('LocationTableSeeder');
+		$this->call('ServiceTableSeeder');
+		$this->call('ExpertiseGroupTableSeeder');
+		$this->call('ExpertiseTableSeeder');
+		$this->call('AdvisorTableSeeder');
 		$this->call('DayTableSeeder');
 	}
 

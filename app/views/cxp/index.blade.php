@@ -1,13 +1,23 @@
 @extends('layouts.full-width')
 
 @section('content')
-
-<div class="row">
-	<div class="heading-text col-sm-12">
-		<h2>Get Advice. Free.</h2>
+<div class="container">
+	<div class="row">
+		<div class="heading-text col-sm-12">
+			<h2>Get Advice. Free.</h2>
+		</div>
+	</div>
+	<div class="row col-sm-12 expertise-group-listing">
+		@foreach ($expertiseGroups as $expG)
+			<a href="#" id="{{ $expG->id }}">
+				<h3 class="btn btn-info">{{ $expG->name }}</h3>
+			</a>
+		@endforeach
+	</div>
+	<div id="advisor-container" class="row">
 	</div>
 </div>
-<div class="row">
+<!-- <div class="row">
 	<div class="exp-group-list col-sm-2">
 		<ul>
 		@foreach ($expertiseGroups as $expG)
@@ -20,7 +30,7 @@
 	<div id="expertise-group-content" class="col-sm-4">
 	</div>
 	<div id="advisor-with-availability-content" class="col-sm-6"></div>
-</div>
+</div> -->
 
 @stop
 
@@ -28,8 +38,71 @@
 
 <script>
 $(document).ready(function() {
+	// Not as awesome as I want it yet
+	// $('.expertise-group-listing h3').hover(
+	// 	function() {
+	// 		$(this).toggleClass('expertise-group-listing-hover');
+	// 	}, function() {
+	// 		$(this).toggleClass('expertise-group-listing-hover');
+	// 	}
+	// );
+
+	// Pull advisors based off of expertise expertise group
+	// Expertise Group -> Expertises -> Advisors
+	var expertiseGroupId;
+	$('.expertise-group-listing a').click(function() {
+		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
+		expertiseGroupId = $(this).attr('id');
+		$.ajax({
+			type: "GET",
+			url: "expertise-groups/" + expertiseGroupId + "/advisors",
+		})
+		.done(function (payload) {
+			$('#advisor-container').html(payload).hide().fadeIn(200);
+		});
+
+		return false;
+	});
+
+	$('body').on('click', '#cancel-button', function (event) {
+		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
+		$.ajax({
+			type: "GET",
+			url: "expertise-groups/" + expertiseGroupId + "/advisors",
+		})
+		.done(function (payload) {
+			$('#advisor-container').html(payload).hide().fadeIn(200);
+		});
+
+		return false;
+	});
+
+	var availContentStorage;
+	var id;
+	var container;
+	// Delegate hover to advisor avail hover effect
+	$('body').on('click', '.advisor-avail-single-a', function( event ) {
+		id = $(this).attr('id');
+		container = $(this).parent().parent();
+		availContentStorage = $(this).parent();
+	    $.ajax({
+	    	type: "GET",
+	    	url: "api/availabilities/request/" + id
+	    })
+	    .done(function (payload) {
+	    	$('.the-word-availabilities').fadeOut(300);
+	    	$(availContentStorage).fadeOut(300, function() {
+	    		$(availContentStorage)
+	    			.empty()
+	    			.html(payload)
+	    			.hide()
+	    			.fadeIn(300);
+	    	})
+	    });
+	});
+
 	$('.exp-group-list a').click(function() {
-		var expertiseGroupId = $(this).attr('id');+
+		var expertiseGroupId = $(this).attr('id');
 		$.ajax({
 		  type: "GET",
 		  url: "expertise-groups/" + expertiseGroupId,
@@ -103,7 +176,7 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$(document).on('click', '.advisor-avail-single', function(event) {
+	$(document).on('click', '.advisor-avail-single-a', function(event) {
 		var availId = $(this).attr('id');
 		var target = $(event.target);
 		console.log(target.text());

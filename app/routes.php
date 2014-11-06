@@ -13,6 +13,26 @@ Route::post('mail', [
 	'uses' => 'MailController@availabilityRequest'
 ]);
 
+Route::get('/api/availabilities/request/{id}', [
+	'as'   => 'api.availabilities.request',
+	'uses' => 'App\Controllers\Api\AvailabilityAPIController@getAvailabilityRequestForm'
+]);
+
+Route::get('/api/availabilities/request/', [
+	'as'   => 'api.availabilities.all',
+	'uses' => 'App\Controllers\Api\AvailabilityAPIController@getAllAvailabilities'
+]);
+
+Route::post('/dashboard/requests', [
+	'as'   => 'user.availabilities.show-request',
+	'uses' => 'App\Controllers\User\DashboardController@showRequests'
+]);
+
+Route::post('/dashboard/booked', [
+	'as'   => 'user.availabilities.show-booked-request',
+	'uses' => 'App\Controllers\User\DashboardController@showBookedRequest'
+]);
+
 //==========================================
 // Expertise Groups
 //==========================================
@@ -23,6 +43,11 @@ Route::post('mail', [
 Route::get('expertise-groups/{id}', [
 	'as'   => 'api.expertise-groups.homepage',
 	'uses' => 'App\Controllers\Api\ExpertiseGroupAPIController@getExpertiseGroup'
+]);
+
+Route::get('expertise-groups/{id}/advisors', [
+	'as'   => 'api.expertise-groups.homepage.advisors',
+	'uses' => 'App\Controllers\Api\ExpertiseGroupAPIController@getAdvisorsInGroup'
 ]);
 
 //=============================================================================

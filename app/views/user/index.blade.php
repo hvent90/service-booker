@@ -1,11 +1,70 @@
-@extends('layouts.default')
+@extends('layouts.user')
 
 @section('content')
 
-<div class="row">
-	<div class="col-md-4">
+<div class="row availabilities-row">
+<div class="col-md-12 advisor-column">
+		<div class="availabilities-header row">
+			<div class="heading">
+				<div class="you-offer col-xs-1">
+					You offer...
+				</div>
+				<div class="col-xs-8">
+					@foreach ($currentUser->services()->get() as $service)
+						<h3 style="display:inline-block">{{ $service->name }}</h3>
+					@endforeach
+				</div>
+				<div class="col-xs-3 add-avail">
+					{{ link_to_route('user.availabilities.create', 'Add an Availability', null, ['class' => 'btn btn-info']) }}
+				</div>
+			</div>
+		</div>
 		<div class="row">
-			{{ link_to_route('user.expertise.connect', 'Add an Expertise', null, ['class' => 'btn btn-info']) }}
+			@foreach ($currentUser->availabilities()->get() as $availability)
+			<div class="col-sm-3 availability-dashboard-listing">
+				<div class="body">
+					@if ($availability->hasRequests())
+						@if ($availability->isBooked())
+							<div class="availability-listing-header accepted">
+								{{ form::open(['route' => 'user.availabilities.show-booked-request'])}}
+								{{ form::hidden('availability_id', $availability->id) }}
+								{{ form::submit('Booked', ['class' => 'btn btn-success']) }}
+								{{ form::close() }}
+							</div>
+						@else
+							<div class="availability-listing-header requested">
+								{{ form::open(['route' => 'user.availabilities.show-request'])}}
+								{{ form::hidden('availability_id', $availability->id) }}
+								{{ form::submit('Requested', ['class' => 'btn btn-warning']) }}
+								{{ form::close() }}
+							</div>
+						@endif
+					@else
+						<div class="availability-listing-header availabile">
+							<p>Availabile</p>
+						</div>
+					@endif
+					<div class="avail-user-content">
+						{{ $availability->days()->first()->prettyPrint() }}<br />
+						{{ $availability->days()->first()->pivot->time }}<br />
+						<a href="{{ $availability->locations()->first()->website }}">{{ $availability->locations()->first()->name }}</a>
+					</div>
+					<div class="contains-full-width col-xs-12">
+						{{ form::open(['route' => 'user.availabilities.destroy']) }}
+						{{ form::hidden('avail_id', $availability->id)}}
+						{{ form::submit('Delete', ['class' => 'full-width btn btn-danger']) }}
+						{{ form::close() }}
+					</div>
+				</div>
+			</div>
+			@endforeach
+		</div>
+	</div>
+</div>
+<div class="row expertise-row">
+	<div class="col-xs-12 advisor-column">
+		<div class="row">
+			{{ link_to_route('user.expertise.connect', 'Manage Expertise', null, ['class' => 'btn btn-info']) }}
 		</div>
 		<table class="table">
 			<tbody>
@@ -13,105 +72,11 @@
 				@foreach ($currentUser->expertise()->get() as $exp)
 					<td>
 						<h3>{{ $exp->title }}</h3>
-						<li>{{ $exp->notes }}</li>
 					</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
-	</div>
-
-	<div class="col-md-4">
-		<div class="row">
-			{{ link_to_route('user.services.connect', 'Add an Service', null, ['class' => 'btn btn-info']) }}
-		</div>
-		<table class="table">
-			<tbody>
-				@foreach ($currentUser->services()->get() as $service)
-				<tr>
-					<td>
-						<h3>{{ $service->name }}</h3>
-						<li>{{ $service->notes }}</li>
-						<li>{{ $service->locationsWithAdvisor()->first()['name'] }}</li>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
-	</div>
-
-	<div class="col-md-4">
-		<div class="row">
-			{{ link_to_route('user.availabilities.create', 'Add an Availability', null, ['class' => 'btn btn-info']) }}
-		</div>
-		<table class="table">
-			<tbody>
-				@foreach ($currentUser->availabilities()->get() as $availability)
-				<tr>
-					<td>
-						<h3>{{ $availability->title }}</h3>
-						{{ form::open(['route' => 'user.availabilities.destroy']) }}
-						{{ form::hidden('avail_id', $availability->id)}}
-						{{ form::submit('Delete', ['class' => 'btn btn-danger']) }}
-						{{ form::close() }}
-						<li>{{ $availability->notes }}</li>
-						<li>{{ $availability->services()->first()->name }}</li>
-						<li>{{ $availability->locations()->first()->name }}</li>
-						<li>{{ $availability->days()->first()['date'] }}</li>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-xs-4">
-		@foreach($pendingMeetingRequests as $meeting)
-		<div>
-			<li>{{ $meeting->title }}</li>
-			<li>{{ $meeting->services()->first()->name }}</li>
-			<li>{{ $meeting->locations()->first()->name }}</li>
-			<li>{{ $meeting->days()->first()->date }} at {{ $meeting->availabilities()->first()->days()->first()->pivot->time }}</li>
-			<li>{{ $meeting->requestees()->first()->name }}</li>
-			<li>{{ $meeting->requestees()->first()->email }}</li>
-			<li>{{ $meeting->requestees()->first()->notes }}</li>
-			<li>{{ $meeting->status }}</li>
-			<div class="col-xs-3">
-				{{ form::open(['route' => 'meetings.request.accept', 'class' => 'form-inline']) }}
-				{{ form::hidden('meeting_id', $meeting->id) }}
-				{{ form::submit('Accept', ['class' => 'btn btn-success']) }}
-				{{ form::close() }}
-			</div>
-			<div class="col-xs-3">
-				{{ form::open(['route' => 'meetings.request.reject', 'class' => 'form-inline']) }}
-				{{ form::hidden('meeting_id', $meeting->id) }}
-				{{ form::submit('Reject', ['class' => 'btn btn-danger']) }}
-				{{ form::close() }}
-			</div>
-		</div>
-		@endforeach
-	</div>
-	<div class="col-xs-4">
-		@foreach($acceptedMeetings as $meeting)
-		<div>
-			<li>{{ $meeting->title }}</li>
-			<li>{{ $meeting->services()->first()->name }}</li>
-			<li>{{ $meeting->locations()->first()->name }}</li>
-			<li>{{ $meeting->days()->first()->date }} at {{ $meeting->availabilities()->first()->days()->first()->pivot->time }}</li>
-			<li>{{ $meeting->requestees()->first()->name }}</li>
-			<li>{{ $meeting->requestees()->first()->email }}</li>
-			<li>{{ $meeting->requestees()->first()->notes }}</li>
-			<li>{{ $meeting->status }}</li>
-			<div class="col-xs-3">
-				{{ form::open(['route' => 'meetings.request.reject', 'class' => 'form-inline']) }}
-				{{ form::hidden('meeting_id', $meeting->id) }}
-				{{ form::submit('Cancel', ['class' => 'btn btn-danger']) }}
-				{{ form::close() }}
-			</div>
-		</div>
-		@endforeach
 	</div>
 </div>
 

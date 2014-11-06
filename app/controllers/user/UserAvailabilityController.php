@@ -27,10 +27,9 @@ class UserAvailabilityController extends \BaseController {
 		$locationFormPopulator         = Location::lists('name', 'id');
 		$advisorAvailabilities         = Auth::user()->availabilities();
 		$servicesContainedByAdvisor    = $this->service->servicesContainedByAdvisor(Auth::user()->id);
+		$firstService                  = $this->service->justTheFirstServiceBecauseMyCodeSucks(Auth::user()->id);
 
-
-
-		View::share('servicesContainedByAdvisor',    $servicesContainedByAdvisor);
+		View::share('firstService',    			     $firstService);
 		View::share('locationFormPopulator',         $locationFormPopulator);
 		View::share('advisorAvailabilities',         $advisorAvailabilities);
 		View::share('dayFormPopulator',              $dayFormPopulator);
@@ -72,16 +71,11 @@ class UserAvailabilityController extends \BaseController {
 
 	public function store()
 	{
-		$dt = Day::formatTime(Input::get('datetime'));
+		$times = json_decode(Input::get('day_ids'));
 
-		$this->availability->CreateAvailability(
-			Input::get('title'),
-			Input::get('notes'),
-			Input::get('services'),
-			Input::get('locations'),
-			Input::get('advisor_id'),
-			$dt
-		);
+		foreach ($times as $key => $value) {
+			$this->availability->createAvailability($value, $key, Input::get('advisor_id'), Input::get('service_id'));
+		}
 
 		return Redirect::route('dashboard.index')->with('message', 'Availability Added');
 	}

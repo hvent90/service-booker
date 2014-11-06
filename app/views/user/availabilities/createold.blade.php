@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.default')
 
 @section('content')
 
@@ -8,17 +8,34 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h3>Here is how it works:</h3>
-        <ul>
-            <li>Choose an hour in a day</li>
-            <li>You will be available for two 25-minute meetings. The first is at the start of the hour. The second is at 30 minutes in to the hour.</li>
-        </ul>
         @include('layouts.partials.errors')
 
         {{ Form::open(['route' => 'user.availabilities.store']) }}
+        {{ Form::hidden('advisor_id', $currentUser->id) }}
+            <!-- Title Form Input -->
+            <div class="form-group">
+                {{ Form::label('title', 'Title:') }}
+                {{ Form::text('title', null, ['class' => 'form-control']) }}
+            </div>
 
-            {{ Form::hidden('advisor_id', $currentUser->id) }}
-            {{ Form::hidden('service_id', $firstService->id)}}
+            <!-- Service Form Input -->
+            <div class="form-group">
+                {{ Form::label('services', 'Service:') }}
+                {{ Form::select('services[]', $servicesContainedByAdvisor, ['multiple' => true, 'class' => 'form-control']) }}
+            </div>
+
+            <!-- Location Form Input -->
+            <div class="form-group">
+                {{ Form::label('locations', 'Location:') }}
+                {{ Form::select('locations[]', $locationFormPopulator, ['multiple' => true, 'class' => 'form-control']) }}
+            </div>
+
+             <!-- Notes Form Input -->
+            <div class="form-group">
+                {{ Form::label('notes', 'Notes:') }}
+                {{ Form::textarea('notes', null, ['class' => 'form-control']) }}
+            </div>
+
             {{ Form::hidden('day_ids', '', ['id' => 'day_ids']) }}
             {{ Form::hidden('datetime', '', ['id' => 'datetime']) }}
 
@@ -92,7 +109,6 @@ $(document).ready(function() {
 
     var selected = [];
     var selectedTimes = [];
-    var times = {};
 
     function removeA(arr) {
         var what, a = arguments, L = a.length, ax;
@@ -103,20 +119,6 @@ $(document).ready(function() {
             }
         }
         return arr;
-    }
-
-    function hourSelection(id) {
-        var hours = '<span id="'+ id + '-time"> <select class="start-hour"><option value="null">Select Hour</option>';
-        var i = 1;
-        for(i = 1; i < 13; i++)
-        {
-            hours += '<option value="' + i + '">' + i + '</option>';
-        }
-        hours += '</select>'
-        period = '<select class="period"><option value="null">Period</option><option value="AM">AM</option><option value="PM">PM</option></select>'
-        locations = '<select class="location"><option value="null">Location</option><option value="wsl">Walnut St. Labs</option><option value="ice">ICE</option><option value="evolve">Evolve IP</option></select></span>'
-
-        return hours+period+locations;
     }
 
     function initialHourSelection() {
@@ -155,71 +157,70 @@ $(document).ready(function() {
         $('#' + dayId + '-end').val(prevChosenEnd);
     };
 
-    // $('body').delegate('.end-hour', 'change', function (e) {
-    //     var dayId = $(this).parent().attr('id');
-    //     var endInput = $(this);
-    //     var endValueSelected   = parseInt($(this).val());
-    //     var startValueSelected = parseInt($(this).prev().val());
-    //     var indexToRemove = -1;
+    $('body').delegate('.end-hour', 'change', function (e) {
+        var dayId = $(this).parent().attr('id');
+        var endInput = $(this);
+        var endValueSelected   = parseInt($(this).val());
+        var startValueSelected = parseInt($(this).prev().val());
+        var indexToRemove = -1;
 
-    //     $.each(selectedTimes, function(index) {
-    //         if ( this.dayId == dayId )
-    //         {
-    //             indexToRemove = index;
-    //         }
-    //     })
+        $.each(selectedTimes, function(index) {
+            if ( this.dayId == dayId )
+            {
+                indexToRemove = index;
+            }
+        })
 
-    //     if ( indexToRemove > -1 )
-    //     {
-    //         selectedTimes.splice(indexToRemove, 1);
-    //     }
+        if ( indexToRemove > -1 )
+        {
+            selectedTimes.splice(indexToRemove, 1);
+        }
 
-    //     selectedTimes.push({
-    //         dayId: dayId,
-    //         startHour: startValueSelected,
-    //         endHour: endValueSelected
-    //     });
+        selectedTimes.push({
+            dayId: dayId,
+            startHour: startValueSelected,
+            endHour: endValueSelected
+        });
 
-    //     $('#datetime').val(JSON.stringify(selectedTimes));
+        $('#datetime').val(JSON.stringify(selectedTimes));
 
-    //     console.log(selectedTimes);
-    // });
+        console.log(selectedTimes);
+    });
 
+    $('body').delegate('.start-hour', 'change', function (e) {
+        var startInput = $(this);
 
-    // $('body').delegate('.start-hour', 'change', function (e) {
-    //     var startInput = $(this);
+        var valueSelected  = parseInt(this.value) + 1;
 
-    //     var valueSelected  = parseInt(this.value) + 1;
+        var hours = '<select class="end-hour"><option value="null">end</option>';
 
-    //     var hours = '<select class="end-hour"><option value="null">end</option>';
+        if( $(this).next().attr('class') == 'end-hour' )
+        {
+            var startInput = $(this);
 
-    //     if( $(this).next().attr('class') == 'end-hour' )
-    //     {
-    //         var startInput = $(this);
+            var valueSelected  = parseInt(this.value) + 1;
 
-    //         var valueSelected  = parseInt(this.value) + 1;
+            var hours = '<select onchange="endVal(this.value)" class="end-hour"><option value="'+valueSelected+'">'+valueSelected+'</option>';
 
-    //         var hours = '<select onchange="endVal(this.value)" class="end-hour"><option value="'+valueSelected+'">'+valueSelected+'</option>';
+            for( valueSelected; valueSelected < 24; valueSelected++ )
+            {
+                hours += '<option value="' + valueSelected + '">' + valueSelected + '</option>';
+            }
+            hours += '</select>'
 
-    //         for( valueSelected; valueSelected < 24; valueSelected++ )
-    //         {
-    //             hours += '<option value="' + valueSelected + '">' + valueSelected + '</option>';
-    //         }
-    //         hours += '</select>'
+            $(this).next().html(hours);
 
-    //         $(this).next().html(hours);
+        } else {
+            for( valueSelected; valueSelected < 24; valueSelected++ )
+            {
+                hours += '<option value="' + valueSelected + '">' + valueSelected + '</option>';
+            }
+            hours += '</select>'
 
-    //     } else {
-    //         for( valueSelected; valueSelected < 24; valueSelected++ )
-    //         {
-    //             hours += '<option value="' + valueSelected + '">' + valueSelected + '</option>';
-    //         }
-    //         hours += '</select>'
+            $(startInput).after(hours);
+        }
 
-    //         $(startInput).after(hours);
-    //     }
-
-    // });
+    });
 
 
     $('#monthSingleContainer').on('click', '#monthView a', function() {
@@ -227,43 +228,20 @@ $(document).ready(function() {
 
         $("div", this).toggleClass('dateCell-selected');
 
-        if (times[id] == null) {
-            times[id] = [];
-            console.log(times);
-            $(this).after(hourSelection(id));
+        $(this).after(initialHourSelection());
 
-            $('#day_ids').val(JSON.stringify(times));
+        if ($.inArray(id, selected) == -1)
+        {
+            selected.push(id);
+            console.log(selected);
+
+            $('#day_ids').val(selected);
         } else {
-            delete times[id];
-            console.log(times);
-            $('#'+id+'-time').remove();
+            removeA(selected, id);
+            console.log(selected);
 
-            $('#day_ids').val(JSON.stringify(times));
+            $('#day_ids').val(selected);
         }
-    });
-
-    $('body').delegate('.start-hour', 'change', function(e) {
-        var hourSelected = parseInt(this.value);
-        var id = $(this).parent().parent().attr('id');
-        times[id][0] = hourSelected;
-
-        $('#day_ids').val(JSON.stringify(times));
-    });
-
-    $('body').delegate('.period', 'change', function(e) {
-        var period = this.value;
-        var id = $(this).parent().parent().attr('id');
-        times[id][1] = period;
-
-        $('#day_ids').val(JSON.stringify(times));
-    });
-
-    $('body').delegate('.location', 'change', function(e) {
-        var location = this.value;
-        var id = $(this).parent().parent().attr('id');
-        times[id][2] = location;
-
-        $('#day_ids').val(JSON.stringify(times));
     });
 
     $('#monthSingleContainer').on('click', '#monthNav a', function() {

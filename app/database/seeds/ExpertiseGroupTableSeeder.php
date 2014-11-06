@@ -19,17 +19,15 @@ class ExpertiseGroupTableSeeder extends Seeder {
         DB::table('expertisegroups')->delete();
 
         $expertiseGroupNames = [
-            'Product',
+            'Government',
+            'Law',
+            'Real Estate',
+            'Technical Development',
             'Management',
             'Financial',
             'Startups',
-            'Cloud Services',
-            'Technical',
-            'Government',
-            'Sales',
             'Marketing',
-            'Consulting'
-
+            'Health'
         ];
 
         foreach ($expertiseGroupNames as $groupName) {
