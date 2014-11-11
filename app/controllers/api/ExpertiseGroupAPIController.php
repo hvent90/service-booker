@@ -32,7 +32,6 @@ class ExpertiseGroupAPIController extends \BaseController {
 	{
 		$expertiseGroup = ExpertiseGroup::find($id);
 		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
-		dd($advisors);
 
 		if ($advisors == false) {
 			$advisors = '<h2>There are currently no advisors with an availability.</h2>';
