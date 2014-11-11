@@ -31,8 +31,8 @@ class ExpertiseGroupAPIController extends \BaseController {
 	public function getAdvisorsInGroup($id)
 	{
 		$expertiseGroup = ExpertiseGroup::find($id);
-		dd($expertiseGroup);
 		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+		dd($advisors);
 
 		if ($advisors == false) {
 			$advisors = '<h2>There are currently no advisors with an availability.</h2>';
