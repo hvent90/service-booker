@@ -52,7 +52,7 @@ $(document).ready(function() {
 		})
 		.done(function (payload) {
 			console.log('WOA');
-			$('#advisor-container').html(payload).fadeOut(0, function() { $(this).fadeIn(200); });
+			$('#advisor-container').html(payload).fadeOut(0, function() { $('#advisor-container').fadeIn(200); });
 		});
 
 		return false;
