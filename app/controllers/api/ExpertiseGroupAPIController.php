@@ -31,6 +31,7 @@ class ExpertiseGroupAPIController extends \BaseController {
 	public function getAdvisorsInGroup($id)
 	{
 		$expertiseGroup = ExpertiseGroup::find($id);
+		dd($expertiseGroup);
 		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
 
 		if ($advisors == false) {
