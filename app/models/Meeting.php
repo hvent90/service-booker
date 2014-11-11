@@ -204,7 +204,7 @@ class Meeting extends \Eloquent {
 				$requestee_phone
     		)
 		{
-		    $message->to($requestee_email, 'Office Hours')
+		    $message->to($requestee_email, $requestee_name)
 		    	->subject('Your request has been submitted!');
 		});
 
@@ -223,7 +223,7 @@ class Meeting extends \Eloquent {
 				$advisorEmail
     		)
 		{
-		    $message->to($advisorEmail, 'Office Hours')
+		    $message->to($advisorEmail, $advisorName)
 		    	->subject('You have been requested for an availability!');
 		});
     }
@@ -249,12 +249,12 @@ class Meeting extends \Eloquent {
 
 
     	\Mail::queue('emails.booked.advisor', $data, function($message) use ($advisorEmail, $advisorName) {
-    		$message->to($advisorEmail, 'Office Hours')
+    		$message->to($advisorEmail, $advisorName)
     			->subject('Your meeting has been scheduled!');
     	});
 
     	\Mail::queue('emails.booked.requestee', $data, function($message) use ($requestee) {
-    		$message->to($requestee->email, 'Office Hours')
+    		$message->to($requestee->email, $requestee->name)
     			->subject('Your request has been accepted!');
     	});
     }
@@ -279,12 +279,12 @@ class Meeting extends \Eloquent {
     	];
 
     	\Mail::queue('emails.cancelled.advisor', $data, function($message) use ($advisorEmail, $advisorName) {
-    		$message->to($advisorEmail, 'Office Hours')
+    		$message->to($advisorEmail, $advisorName)
     			->subject('Your meeting has been cancelled!');
     	});
 
     	\Mail::queue('emails.cancelled.requestee', $data, function($message) use ($requestee) {
-    		$message->to($requestee->email, 'Office Hours')
+    		$message->to($requestee->email, $requestee->name)
     			->subject('Your meeting has been cancelled!');
     	});
     }
