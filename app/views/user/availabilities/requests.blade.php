@@ -24,10 +24,9 @@
 			<div class="col-sm-3 availability-dashboard-listing">
 				<div class="body">
 					<div class="availability-listing-header availabile">
-						<p>{{$meeting->phone}}</p>
+						<p>{{$meeting->requestees()->first()->name}}</p>
 					</div>
 					<p><a href="mailto:{{$meeting->requestees()->first()->email}}">{{$meeting->requestees()->first()->email}}</a></p>
-					{{dd($meeting->requestees()->first())}}
 					<p>{{$meeting->requestees()->first()->phone}}</p>
 					<p>{{$meeting->requestees()->first()->notes}}</p>
 					<div class="col-xs-6 contains-full-width">

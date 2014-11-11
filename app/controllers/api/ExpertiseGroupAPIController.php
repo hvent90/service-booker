@@ -32,6 +32,14 @@ class ExpertiseGroupAPIController extends \BaseController {
 	{
 		$expertiseGroup = ExpertiseGroup::find($id);
 		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+
+		if ($advisors == false) {
+			$advisors = '<h2>There are currently no advisors with an availability.</h2>';
+
+			return View::make('api.advisors.with-expertise-group-none', compact([
+				'advisors'
+			]));
+		}
 		return View::make('api.advisors.with-expertise-group', compact([
 			'advisors'
 		]));

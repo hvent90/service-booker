@@ -101,9 +101,8 @@ class ExpertiseTableSeeder extends Seeder {
         foreach ($expertiseGroups as $group) {
             foreach ($group as $groupName => $expertiseNames ) {
                 foreach ($expertiseNames as $expertiseName) {
-                    dd($expertiseName);
+                    $this->expertise->connectExpertiseToExpertiseGroup($expertiseName, $groupName);
                 }
-                exit;
             }
         }
     }

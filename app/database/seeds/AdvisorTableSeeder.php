@@ -2,6 +2,7 @@
 
 use \MyApp\Advisor;
 use \MyApp\Expertise;
+use \MyApp\Service;
 
 class AdvisorTableSeeder extends Seeder {
 
@@ -145,15 +146,19 @@ class AdvisorTableSeeder extends Seeder {
                 $this->expertise->connectExpertiseToAdvisor($expertiseName, $advisorObject->id);
             }
 
+            $advisorObject->services()->attach(Service::first());
+
         }
 
-        $this->advisor->createAdvisor(
+        $advisorObject = $this->advisor->createAdvisor(
             'Barry',
             'White',
             'hvent90@gmail.com',
             'password',
             100
         );
+
+        $advisorObject->services()->attach(Service::first());
     }
 
 }

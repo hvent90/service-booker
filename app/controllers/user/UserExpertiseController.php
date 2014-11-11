@@ -33,6 +33,16 @@ class UserExpertiseController extends \BaseController {
 
 	public function store()
 	{
+		$userExpertises = Advisor::find(Input::get('advisor_id'))->expertise()->get();
+		$index = 0;
+
+		foreach ($userExpertises as $exp) {
+			$index++;
+		}
+		if ($index == 4) {
+			return Redirect::route('dashboard.index')->with('message', 'You may only have a maximum of 4 expertises.');
+		}
+
 		$this->expertise->connectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
 
 		return Redirect::route('dashboard.index')->with('message', 'Expertise Added');
@@ -44,6 +54,26 @@ class UserExpertiseController extends \BaseController {
 
 		return Redirect::route('dashboard.index')->with('message', 'Expertise Removed');
 
+	}
+
+	public function requestNewExpertise()
+	{
+		$advisor = Advisor::find(Input::get('advisor_id'));
+
+		$expertise = Input::get('requestedExpertise');
+
+		$data = [
+			'expertise'    => $expertise,
+			'advisorEmail' => $advisor->email,
+			'advisorName'  => $advisor->first_name.' '.$advisor->last_name
+		];
+
+		\Mail::queue('emails.expertise.request-new', $data, function($message) {
+    		$message->to('hvent90@gmail.com', 'Henry Ventura')
+    			->subject('An advisor has requested a new expertise.');
+    	});
+
+    	return Redirect::route('dashboard.index')->with('message', 'Your request has been submitted.');
 	}
 
 }

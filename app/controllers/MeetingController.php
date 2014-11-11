@@ -29,7 +29,7 @@ class MeetingController extends BaseController {
 			$requestee_phone
 		);
 
-		return Redirect::route('home')->with('message', 'Request Created');
+		return Redirect::route('home')->with('message', 'The Advisor has been notified of your request. You will be emailed if the Advisor accepts!');
 	}
 
 	public function acceptRequest()

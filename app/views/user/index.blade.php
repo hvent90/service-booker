@@ -3,7 +3,13 @@
 @section('content')
 
 <div class="row availabilities-row">
-<div class="col-md-12 advisor-column">
+	@if(Session::get('message'))
+		<br />
+		<div class="col-sm-12">
+			<div class="alert alert-warning" role="alert">{{ Session::get('message') }}</div>
+		</div>
+	@endif
+	<div class="col-md-12 advisor-column">
 		<div class="availabilities-header row">
 			<div class="heading">
 				<div class="you-offer col-xs-1">
@@ -62,7 +68,7 @@
 	</div>
 </div>
 <div class="row expertise-row">
-	<div class="col-xs-12 advisor-column">
+	<div class="col-xs-6 advisor-column">
 		<div class="row">
 			{{ link_to_route('user.expertise.connect', 'Manage Expertise', null, ['class' => 'btn btn-info']) }}
 		</div>
@@ -75,6 +81,23 @@
 					</td>
 				</tr>
 				@endforeach
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-6 advisor-column">
+		<div class="row">
+			{{ link_to_route('advisors.edit', 'Manage Profile', $currentUser->id, ['class' => 'btn btn-info']) }}
+		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>
+						<h3>{{ $currentUser->first_name }} {{ $currentUser->last_name }}</h3>
+					</td>
+					<td>
+						<h3>{{ $currentUser->email }}</h3>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

@@ -33,6 +33,21 @@ Route::post('/dashboard/booked', [
 	'uses' => 'App\Controllers\User\DashboardController@showBookedRequest'
 ]);
 
+Route::post('/reset-password', [
+	'as' => 'advisor.reset-password',
+	'uses' => 'AdvisorController@resetPassword'
+]);
+
+Route::get('/reset-password', [
+	'as' => 'advisor.reset-password',
+	'uses' => 'AdvisorController@requestNewPassword'
+]);
+
+Route::post('/user/expertise/request-new', [
+	'as'   => 'user.expertise.request-new',
+	'uses' => 'App\Controllers\User\UserExpertiseController@requestNewExpertise'
+]);
+
 //==========================================
 // Expertise Groups
 //==========================================

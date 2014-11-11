@@ -4,7 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="heading-text col-sm-12">
-			<h2>Get Advice. Free.</h2>
+			<h2 style="display: inline-block;">Advance Your Idea. Faster.</h2><img src="/img/wsllogo.jpg" class="img-responsive" style="display: inline-block">
+			<h4>Walnut St. Labs Office Hours is a joint project between Walnut St. Labs and the Chester County Economic Development Council that offers innovators the opportunity to gain expert advice from industry and domain experts from Chester County and Southeastern PA.</h4>
 		</div>
 	</div>
 	<div class="row col-sm-12 expertise-group-listing">
@@ -15,22 +16,13 @@
 		@endforeach
 	</div>
 	<div id="advisor-container" class="row">
+		@if(Session::get('message'))
+			<div class="col-sm-12">
+				<div class="alert alert-warning" role="alert">{{ Session::get('message') }}</div>
+			</div>
+		@endif
 	</div>
 </div>
-<!-- <div class="row">
-	<div class="exp-group-list col-sm-2">
-		<ul>
-		@foreach ($expertiseGroups as $expG)
-			<li>
-				<a href="#" id="{{ $expG->id }}">{{ $expG->name }}</a>
-			</li>
-		@endforeach
-		</ul>
-	</div>
-	<div id="expertise-group-content" class="col-sm-4">
-	</div>
-	<div id="advisor-with-availability-content" class="col-sm-6"></div>
-</div> -->
 
 @stop
 

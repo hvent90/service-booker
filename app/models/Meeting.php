@@ -86,9 +86,13 @@ class Meeting extends \Eloquent {
 
 	public function declineMeetingRequest()
 	{
-		$this->status = -1;
+		if ($this->status == 1) {
+			$this->sendCancelledMeetingEmail();
+		}
 
 		$this->availabilities()->first()->unbook();
+
+		$this->status = -1;
 
 		$this->save();
 	}
@@ -164,19 +168,30 @@ class Meeting extends \Eloquent {
 		$requestee_phone
 	)
     {
+    	$advisor = Advisor::find($advisor_id);
+		$availability = Availability::find($availability_id);
+		$advisorName = $advisor->first_name.' '.$advisor->last_name;
+		$advisorEmail = $advisor->email;
+
     	$data = [
-    		$day_id,
-			$service_id,
-			$advisor_id,
-			$location_id,
-			$availability_id,
-			$requestee_name,
-			$requestee_email,
-			$requestee_notes,
-			$requestee_phone
+    		'day_id'           => $day_id,
+			'service_id'       => $service_id,
+			'advisor_id'       => $advisor_id,
+			'location_id'      => $location_id,
+			'availabilitiy_id' => $availability_id,
+			'requestee_name'   => $requestee_name,
+			'requestee_email'  => $requestee_email,
+			'requestee_notes'  => $requestee_notes,
+			'requestee_phone'  => $requestee_phone,
+			'advisor'          => $advisor,
+			'advisorName'      => $advisor->first_name.' '.$advisor->last_name,
+			'locationWebsite'  => $availability->locations()->first()->website,
+			'locationName'     => $availability->locations()->first()->name,
+			'availability'     => $availability,
+			'availabilityTime' => $availability->days()->first()->prettyPrint(). ' at ' .$availability->days()->first()->pivot->time
     	];
 
-    	\Mail::queue('emails.requests.initialize', $data, function($message)
+    	\Mail::queue('emails.requests.requestee', $data, function($message)
     		use (
     			$day_id,
 				$service_id,
@@ -193,7 +208,7 @@ class Meeting extends \Eloquent {
 		    	->subject('Your request has been submitted!');
 		});
 
-		\Mail::queue('emails.requests.initialize', $data, function($message)
+		\Mail::queue('emails.requests.advisor', $data, function($message)
     		use (
     			$day_id,
 				$service_id,
@@ -203,33 +218,74 @@ class Meeting extends \Eloquent {
 				$requestee_name,
 				$requestee_email,
 				$requestee_notes,
-				$requestee_phone
+				$requestee_phone,
+				$advisorName,
+				$advisorEmail
     		)
 		{
-			$advisor = Advisor::find($advisor_id);
-			$availability = Availability::find($availability_id);
-		    $message->to($advisor->email, $advisor->first_name.' '.$advisor->last_name)
-		    	->subject('You have been requested for "'.$availability->title.'"');
+		    $message->to($advisorEmail, $advisorName)
+		    	->subject('You have been requested for an availability!');
 		});
     }
 
     public function sendAcceptMeetingRequestEmail()
     {
-    	$data = [
-
-    	];
-
     	$advisor = $this->advisors()->first();
     	$requestee = $this->requestees()->first();
+    	$availability = $this->availabilities()->first();
+    	$advisorName = $advisor->first_name.' '.$advisor->last_name;
+		$advisorEmail = $advisor->email;
 
-    	\Mail::queue('emails.requests.accept', $data, function($message) use ($advisor) {
-    		$message->to($advisor->email, $advisor->first_name.' '.$advisor->last_name)
+    	$data = [
+			'requestee_name'   => $requestee->name,
+			'requestee_email'  => $requestee->email,
+			'requestee_notes'  => $requestee->notes,
+			'requestee_phone'  => $requestee->phone,
+			'advisorName'      => $advisor->first_name.' '.$advisor->last_name,
+			'locationWebsite'  => $availability->locations()->first()->website,
+			'locationName'     => $availability->locations()->first()->name,
+			'availabilityTime' => $availability->days()->first()->prettyPrint(). ' at ' .$availability->days()->first()->pivot->time
+    	];
+
+
+    	\Mail::queue('emails.booked.advisor', $data, function($message) use ($advisorEmail, $advisorName) {
+    		$message->to($advisorEmail, $advisorName)
     			->subject('Your meeting has been scheduled!');
     	});
 
-    	\Mail::queue('emails.requests.accept', $data, function($message) use ($requestee) {
+    	\Mail::queue('emails.booked.requestee', $data, function($message) use ($requestee) {
     		$message->to($requestee->email, $requestee->name)
     			->subject('Your request has been accepted!');
+    	});
+    }
+
+    public function sendCancelledMeetingEmail()
+    {
+    	$advisor = $this->advisors()->first();
+    	$requestee = $this->requestees()->first();
+    	$availability = $this->availabilities()->first();
+    	$advisorName = $advisor->first_name.' '.$advisor->last_name;
+		$advisorEmail = $advisor->email;
+
+    	$data = [
+			'requestee_name'   => $requestee->name,
+			'requestee_email'  => $requestee->email,
+			'requestee_notes'  => $requestee->notes,
+			'requestee_phone'  => $requestee->phone,
+			'advisorName'      => $advisor->first_name.' '.$advisor->last_name,
+			'locationWebsite'  => $availability->locations()->first()->website,
+			'locationName'     => $availability->locations()->first()->name,
+			'availabilityTime' => $availability->days()->first()->prettyPrint(). ' at ' .$availability->days()->first()->pivot->time
+    	];
+
+    	\Mail::queue('emails.cancelled.advisor', $data, function($message) use ($advisorEmail, $advisorName) {
+    		$message->to($advisorEmail, $advisorName)
+    			->subject('Your meeting has been cancelled!');
+    	});
+
+    	\Mail::queue('emails.cancelled.requestee', $data, function($message) use ($requestee) {
+    		$message->to($requestee->email, $requestee->name)
+    			->subject('Your meeting has been cancelled!');
     	});
     }
 

@@ -38,13 +38,13 @@ class Availability extends \Eloquent {
 
 			switch ($data[2]) {
 				case ('wsl'):
-					$data[2] = 0;
+					$data[2] = Location::where('name', 'Walnut St. Labs')->first()->id;
 					break;
 				case ('ice'):
-					$data[2] = 1;
+					$data[2] = Location::where('name', 'ICE')->first()->id;
 					break;
 				case ('evolve'):
-					$data[2] = 2;
+					$data[2] = Location::where('name', 'Evolve IP')->first()->id;
 					break;
 			}
 

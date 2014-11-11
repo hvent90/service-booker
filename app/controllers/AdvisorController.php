@@ -94,6 +94,10 @@ class AdvisorController extends \BaseController {
 	{
 		extract(Input::only('first_name', 'last_name', 'email', 'password', 'id'));
 
+		if (Auth::user() !== Advisor::find($id)) {
+			return Redirect::home();
+		}
+
 		$this->advisor->editAdvisor($first_name, $last_name, $email, $password, $id);
 
 		return Redirect::home();
@@ -122,7 +126,7 @@ class AdvisorController extends \BaseController {
 			return Redirect::home();
 		}
 
-		return Redirect::home();
+		return Redirect::home()->with('message', 'You have entered incorrect login information. You can <a href="/reset-password"/>Reset your password</a>.');
 	}
 
 	public function logOut()
@@ -130,6 +134,35 @@ class AdvisorController extends \BaseController {
 		Auth::logout();
 
 		return Redirect::home();
+	}
+
+	public function resetPassword()
+	{
+		$advisor = Advisor::where('email', Input::get('email'))->first();
+		$advisorName = $advisor->first_name. ' '.$advisor->last_name;
+
+		if ($advisor == null) {
+			return Redirect::home()->with('message', 'There was no account associated with the email you provided.');
+		}
+
+		$newPassword = str_random(8);
+
+		$data = [ 'newPassword' => $newPassword ];
+
+		$advisor->password = Hash::make($newPassword);
+		$advisor->save();
+
+		\Mail::queue('emails.user.new-password', $data, function($message) use ($advisor, $advisorName) {
+    		$message->to($advisor->email, $advisorName)
+    			->subject('You have been assigned a new password.');
+    	});
+
+		return Redirect::home()->with('message', 'Your new password will be sent to your email shortly.');
+	}
+
+	public function requestNewPassword()
+	{
+		return View::make('user.reset-password');
 	}
 
 

@@ -69,6 +69,15 @@ class Expertise extends \Eloquent {
 
 	public function connectExpertiseToExpertiseGroup($expertise, $expertiseGroup_id)
 	{
+		if (is_string($expertise) && is_string($expertiseGroup_id)) {
+			$expertiseObject = Expertise::where('title', $expertise)->first();
+			$expertiseGroup  = ExpertiseGroup::where('name', $expertiseGroup_id)->first();
+
+			$expertiseGroup->expertise()->attach($expertiseObject->id);
+
+			return $expertise;
+		}
+
 		foreach ($expertiseGroup_id as $expG_id)
 		{
 			$expertiseGroup = ExpertiseGroup::find($expG_id);
