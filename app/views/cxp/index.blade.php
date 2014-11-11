@@ -43,6 +43,7 @@ $(document).ready(function() {
 	// Expertise Group -> Expertises -> Advisors
 	var expertiseGroupId;
 	$('.expertise-group-listing a').click(function() {
+		console.log('WOAa');
 		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
 		expertiseGroupId = $(this).attr('id');
 		$.ajax({
@@ -50,6 +51,7 @@ $(document).ready(function() {
 			url: "expertise-groups/" + expertiseGroupId + "/advisors",
 		})
 		.done(function (payload) {
+			console.log('WOA');
 			$('#advisor-container').html(payload).hide().fadeIn(200);
 		});
 
