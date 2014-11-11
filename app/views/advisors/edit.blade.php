@@ -1,6 +1,8 @@
 @extends('layouts.user')
 
 @section('content')
+<br />
+<br />
 
 {{ Form::open(['route' => 'advisors.update']) }}
 {{ Form::hidden('id', $advisor->id) }}

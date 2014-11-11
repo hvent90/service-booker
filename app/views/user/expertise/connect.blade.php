@@ -1,8 +1,6 @@
 @extends('layouts.user')
 
 @section('content')
-<br />
-<br />
 <div class="row">
     <div class="col-md-6">
         <h1>Add an Expertise</h1>
