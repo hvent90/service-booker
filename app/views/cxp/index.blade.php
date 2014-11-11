@@ -52,6 +52,7 @@ $(document).ready(function() {
 		})
 		.done(function (payload) {
 			console.log('WOA');
+			console.log(payload);
 			$('#advisor-container').html(payload);
 		});
 
