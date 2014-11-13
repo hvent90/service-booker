@@ -33,7 +33,7 @@ class ExpertiseGroupAPIController extends \BaseController {
 		$expertiseGroup = ExpertiseGroup::find($id);
 
 		if ($id == 'all') {
-			$advisors = Advisor::all()->where('permissions', '!==', 999)->sortBy('last_name');
+			$advisors = Advisor::where('permissions', '!==', 999)->get()->sortBy('last_name');
 
 			return View::make('api.advisors.with-expertise-group', compact([
 				'advisors'
