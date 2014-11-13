@@ -54,6 +54,26 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('admin', function()
+{
+	if (Auth::guest())
+	{
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::guest('/');
+		}
+	}
+
+	if (Auth::user()->permissions < 100)
+	{
+		return Redirect::route('home')->with('message', 'Insufficient Privelages.');
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

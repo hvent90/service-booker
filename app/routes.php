@@ -189,7 +189,7 @@ Route::get('advisors', [
 	'uses' => 'AdvisorController@index'
 ]);
 
-Route::group(['prefix' => 'advisors'], function() {
+Route::group(['prefix' => 'advisors', 'before'=>'admin'], function() {
 	// Create a new Advisor
 	Route::get('new', [
 		'as'   => 'advisors.create',
@@ -229,11 +229,12 @@ Route::group(['prefix' => 'advisors'], function() {
 //=============================================================================
 
 Route::get('expertise', [
-	'as'   => 'expertise.index',
-	'uses' => 'ExpertiseController@index'
+	'as'     => 'expertise.index',
+	'before' => 'admin',
+	'uses'   => 'ExpertiseController@index'
 ]);
 
-Route::group(['prefix' => 'expertise'], function() {
+Route::group(['prefix' => 'expertise', 'before' => 'admin'], function() {
 	// Create a new Expertise
 	Route::get('new', [
 		'as'   => 'expertise.create',
@@ -289,10 +290,11 @@ Route::group(['prefix' => 'expertise'], function() {
 
 Route::get('expertise-group', [
 	'as'   => 'expertise-groups.index',
+	'before'=>'admin',
 	'uses' => 'ExpertiseGroupController@index'
 ]);
 
-Route::group(['prefix' => 'expertise-group'], function() {
+Route::group(['prefix' => 'expertise-group', 'before'=>'admin'], function() {
 	// Create a new Expertise Group
 	Route::get('new', [
 		'as'   => 'expertise-groups.create',
@@ -333,10 +335,11 @@ Route::group(['prefix' => 'expertise-group'], function() {
 
 Route::get('services', [
 	'as'   => 'services.index',
+	'before'=>'admin',
 	'uses' => 'ServiceController@index'
 ]);
 
-Route::group(['prefix' => 'services'], function() {
+Route::group(['prefix' => 'services', 'before'=>'admin'], function() {
 	// Create a new Service
 	Route::get('new', [
 		'as'   => 'services.create',
@@ -377,10 +380,11 @@ Route::group(['prefix' => 'services'], function() {
 
 Route::get('locations', [
 	'as'   => 'locations.index',
+	'before'=>'admin',
 	'uses' => 'LocationController@index'
 ]);
 
-Route::group(['prefix' => 'locations'], function() {
+Route::group(['prefix' => 'locations', 'before'=>'admin'], function() {
 	// Create a new Location
 	Route::get('new', [
 		'as'   => 'locations.create',
@@ -420,6 +424,7 @@ Route::group(['prefix' => 'locations'], function() {
 
 Route::get('availabilities', [
 	'as'   => 'availabilities.index',
+	'before'=>'admin',
 	'uses' => 'AvailabilityController@index'
 ]);
 
@@ -427,7 +432,7 @@ Route::get('availabilities', [
 // MEETINGS
 //=============================================================================
 
-Route::group(['prefix' => 'meetings'], function() {
+Route::group(['prefix' => 'meetings', 'before'=>'admin'], function() {
 	Route::post('/', [
 		'as'   => 'meetings.request.create',
 		'uses' => 'MeetingController@storeRequest'
