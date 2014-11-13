@@ -24,7 +24,12 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 
-		View::share('currentUser', Auth::user());
+		$currentUser = Auth::user();
+		$currentUser->availabilities()->get()->sortByDesc(function($avail) {
+			return $avail->days()->first()['date'];
+		});
+
+		View::share('currentUser', $currentUser);
 		View::share('signedIn', Auth::user());
 		View::share('allDays', Day::all());
 	}

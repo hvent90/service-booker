@@ -26,7 +26,9 @@
 			</div>
 		</div>
 		<div class="row">
-			@foreach ($currentUser->availabilities()->get() as $availability)
+			@foreach ($currentUser->availabilities()->get()->sortBy(function($avail) {
+				return $avail->days()->first()['date'];
+			}) as $availability)
 			<div class="col-sm-3 availability-dashboard-listing">
 				<div class="body">
 					@if ($availability->hasRequests())

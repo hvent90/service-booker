@@ -5,12 +5,14 @@
 				@foreach ($advisor->expertise()->get() as $exp)
 					<button class="btn">{{$exp->title}}</button>
 				@endforeach
-				<p>{{$advisor->bio}}</p>
+				<p>{{nl2br($advisor->bio)}}</p>
 			</div>
 			<div class="row advisor-availability-listings">
 				<h4 class="the-word-availabilities">Availabilities:</h4>
 				<div class="row container-fix-avail">
-				@foreach ($advisor->availabilities()->where('is_booked', '!==', '1')->get() as $avail)
+				@foreach ($advisor->availabilities()->where('is_booked', '!==', '1')->get()->sortBy(function($availZ) {
+					return $availZ->days()->first()['date'];
+				}) as $avail)
 				<a href="#" id="{{$avail->id}}" class="advisor-avail-single-a">
 					<div class="col-xs-4 advisor-avail-single">
 						<div>
@@ -26,10 +28,6 @@
 								<tr>
 									<th class="align-right">During</th>
 									<th class="item">{{ $avail->days()->first()->pivot->time }}</th>
-								</tr>
-								<tr>
-									<th class="align-right">Notes</th>
-									<th class="item">{{ $avail->notes }}</th>
 								</tr>
 							</table>
 						</div>
