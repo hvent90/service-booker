@@ -25,9 +25,12 @@ class BaseController extends Controller {
 		}
 
 		$currentUser = Auth::user();
-		$currentUser->availabilities()->get()->sortByDesc(function($avail) {
-			return $avail->days()->first()['date'];
-		});
+
+		if (Auth::user()) {
+			$currentUser->availabilities()->get()->sortByDesc(function($avail) {
+				return $avail->days()->first()['date'];
+			});
+		}
 
 		View::share('currentUser', $currentUser);
 		View::share('signedIn', Auth::user());
