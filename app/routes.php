@@ -432,7 +432,7 @@ Route::get('availabilities', [
 // MEETINGS
 //=============================================================================
 
-Route::group(['prefix' => 'meetings', 'before'=>'admin'], function() {
+Route::group(['prefix' => 'meetings'], function() {
 	Route::post('/', [
 		'as'   => 'meetings.request.create',
 		'uses' => 'MeetingController@storeRequest'
