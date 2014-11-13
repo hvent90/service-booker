@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-
+{{ link_to_route('advisors.create', 'Add an Advisor', null, ['class' => 'btn btn-info']) }}
 <table class="table">
 	<tbody>
 		@foreach ($advisors as $advisor)

@@ -6,7 +6,7 @@
 
 {{ Form::open(['route' => 'advisors.update']) }}
 {{ Form::hidden('id', $advisor->id) }}
-<!-- Username Form Input -->
+    <!-- Username Form Input -->
     <div class="form-group">
         {{ Form::label('first_name', 'First Name (leave blank to not change)') }}
         {{ Form::text('first_name', $currentUser->first_name, ['class' => 'form-control']) }}
@@ -23,7 +23,7 @@
         {{ Form::text('email', $currentUser->email, ['class' => 'form-control']) }}
     </div>
 
-    <!-- Email Form Input -->
+    <!-- Bio Form Input -->
     <div class="form-group">
         {{ Form::label('bio', 'Bio (leave blank to not change)') }}
         {{ Form::textarea('bio', $currentUser->bio, ['class' => 'form-control']) }}
