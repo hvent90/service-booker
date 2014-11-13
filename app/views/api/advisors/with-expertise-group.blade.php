@@ -10,7 +10,7 @@
 			<div class="row advisor-availability-listings">
 				<h4 class="the-word-availabilities">Availabilities:</h4>
 				<div class="row container-fix-avail">
-				@foreach ($advisor->availabilities()->get() as $avail)
+				@foreach ($advisor->availabilities()->where('is_booked', '!==', '1')->get() as $avail)
 				<a href="#" id="{{$avail->id}}" class="advisor-avail-single-a">
 					<div class="col-xs-4 advisor-avail-single">
 						<div>

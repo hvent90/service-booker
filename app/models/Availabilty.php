@@ -115,6 +115,79 @@ class Availability extends \Eloquent {
 		return false;
 	}
 
+	public function scrubExpiredAvailabilities()
+	{
+		$expiredAvailabilities = [];
+
+		foreach (Availability::all() as $availability) {
+			$date = $availability->days()->first()->date;
+			$time = $availability->days()->first()->pivot->time;
+			$dt = Carbon::parse($date.' '.$availability->timeToTimeStamp($time));
+			if (Carbon::now()->diffInMinutes($dt, false) < 0) {
+				$expiredAvailabilities[] = $availability;
+			}
+		}
+
+		foreach ($expiredAvailabilities as $expAvail) {
+			$expAvail->delete();
+		}
+
+	}
+
+	public function timeToTimeStamp($time)
+	{
+		switch ($time) {
+			case '12 AM':
+				return '00:00';
+			case '1 AM':
+				return '01:00';
+			case '2 AM':
+				return '02:00';
+			case '3 AM':
+				return '03:00';
+			case '4 AM':
+				return '04:00';
+			case '5 AM':
+				return '05:00';
+			case '6 AM':
+				return '06:00';
+			case '7 AM':
+				return '07:00';
+			case '8 AM':
+				return '08:00';
+			case '9 AM':
+				return '09:00';
+			case '10 AM':
+				return '10:00';
+			case '11 AM':
+				return '11:00';
+			case '12 PM':
+				return '12:00';
+			case '1 PM':
+				return '13:00';
+			case '2 PM':
+				return '14:00';
+			case '3 PM':
+				return '15:00';
+			case '4 PM':
+				return '16:00';
+			case '5 PM':
+				return '17:00';
+			case '6 PM':
+				return '18:00';
+			case '7 PM':
+				return '19:00';
+			case '8 PM':
+				return '20:00';
+			case '9 PM':
+				return '21:00';
+			case '10 PM':
+				return '22:00';
+			case '11 PM':
+				return '23:00';
+		}
+	}
+
 	/**
 	 * The database table used by the model.
 	 *

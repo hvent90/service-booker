@@ -25,12 +25,14 @@ Route::get('/api/availabilities/request/', [
 
 Route::post('/dashboard/requests', [
 	'as'   => 'user.availabilities.show-request',
+	'before' => 'auth',
 	'uses' => 'App\Controllers\User\DashboardController@showRequests'
 ]);
 
 Route::post('/dashboard/booked', [
-	'as'   => 'user.availabilities.show-booked-request',
-	'uses' => 'App\Controllers\User\DashboardController@showBookedRequest'
+	'as'     => 'user.availabilities.show-booked-request',
+	'before' => 'auth',
+	'uses'   => 'App\Controllers\User\DashboardController@showBookedRequest'
 ]);
 
 Route::post('/reset-password', [
@@ -75,8 +77,9 @@ Route::get('expertise-groups/{id}/advisors', [
 
 
 	Route::get('dashboard', [
-		'as'   => 'dashboard.index',
-		'uses' => 'App\Controllers\User\DashboardController@index'
+		'as'     => 'dashboard.index',
+		'before' => 'auth',
+		'uses' 	 => 'App\Controllers\User\DashboardController@index'
 	]);
 
 	Route::group(['prefix' => 'dashboard'], function() {

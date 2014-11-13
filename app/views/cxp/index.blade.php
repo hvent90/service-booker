@@ -4,7 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="heading-text col-sm-12">
-			<h2 style="display: inline-block;">Advance Your Idea. Faster.</h2><img src="/img/wsllogo.jpg" class="img-responsive" style="display: inline-block">
+			<a href="http://walnutstlabs.com"><img src="/img/wsllogo.jpg" class="img-responsive"></a>
+			<h2 style="display: inline-block;">Advance Your Idea. Faster.</h2>
 			<h4>Walnut St. Labs Office Hours is a joint project between Walnut St. Labs and the Chester County Economic Development Council that offers innovators the opportunity to gain expert advice from industry and domain experts from Chester County and Southeastern PA.</h4>
 		</div>
 	</div>

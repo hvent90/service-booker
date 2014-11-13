@@ -1,4 +1,5 @@
 <h1>Hello {{ $advisorName }},</h1>
+<h3>Visit your <a href="http://officehours.walnutstlabs.com/dashboard">Dashboard</a> to accept or reject a pending request.</h3>
 
 <p>You have been requested to fulfill the following availability:</p>
 <ul>

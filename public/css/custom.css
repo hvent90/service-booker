@@ -219,8 +219,20 @@ form.avail-request-form {
 	text-align: center;
 }
 
+.heading-text h4 {
+	text-align: left;
+	font-size: 20px;
+	padding: 0 50px;
+}
+
 .heading-text h2 {
+	margin-top: 0;
 	font-size: 52px;
+}
+
+.heading-text img {
+	margin: 0 auto;
+	width: 100px;
 }
 
 .exp-group-list {
