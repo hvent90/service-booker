@@ -7,6 +7,7 @@
 				@endforeach
 				<p>{{nl2br($advisor->bio)}}</p>
 			</div>
+			@if ($advisor->availabilities()->first())
 			<div class="row advisor-availability-listings">
 				<h4 class="the-word-availabilities">Availabilities:</h4>
 				<div class="row container-fix-avail">
@@ -36,5 +37,6 @@
 				@endforeach
 				</div>
 			</div>
+			@endif
 	</div>
 @endforeach

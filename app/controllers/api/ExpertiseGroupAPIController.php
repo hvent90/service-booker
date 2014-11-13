@@ -31,7 +31,16 @@ class ExpertiseGroupAPIController extends \BaseController {
 	public function getAdvisorsInGroup($id)
 	{
 		$expertiseGroup = ExpertiseGroup::find($id);
-		$advisors       = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+
+		if ($id == 'all') {
+			$advisors = Advisor::all()->sortBy('last_name');
+
+			return View::make('api.advisors.with-expertise-group', compact([
+				'advisors'
+			]));
+		}
+
+		$advisors = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
 
 		if ($advisors == false) {
 			$advisors = '<h2>There are currently no advisors with an availability.</h2>';
@@ -40,6 +49,7 @@ class ExpertiseGroupAPIController extends \BaseController {
 				'advisors'
 			]));
 		}
+
 		return View::make('api.advisors.with-expertise-group', compact([
 			'advisors'
 		]));
