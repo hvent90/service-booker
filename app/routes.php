@@ -185,11 +185,12 @@ Route::get('logout', [
 
 // Index listing of all Advisors
 Route::get('advisors', [
-	'as'   => 'advisors.index',
-	'uses' => 'AdvisorController@index'
+	'as'     => 'advisors.index',
+	'before' =>'admin',
+	'uses'   => 'AdvisorController@index'
 ]);
 
-Route::group(['prefix' => 'advisors', 'before'=>'admin'], function() {
+Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	// Create a new Advisor
 	Route::get('new', [
 		'as'   => 'advisors.create',
