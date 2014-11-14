@@ -85,7 +85,7 @@ class meetingReminderEmailCommand extends Command {
 	    	});
 	    	$this->info($requestee->email.' emailed.');
 
-	    	$avail->is_booked = true;
+	    	$avail->reminder_sent = true;
 		}
 
 		$this->info('end.');
