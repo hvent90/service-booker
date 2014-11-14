@@ -6,7 +6,7 @@
 	<tbody>
 		@foreach ($advisors as $advisor)
 		<tr>
-			<td>{{ $advisor->first_name }} {{ $advisor->last_name }}</td>
+			<td>{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, $advisor->id) }}</td>
 			<td>{{ $advisor->email }}</td>
 			<td>
 				{{ link_to_route('advisors.edit', 'Edit', $advisor->id, ['class' => 'btn btn-warning']) }}

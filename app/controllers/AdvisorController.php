@@ -1,14 +1,20 @@
 <?php
 
 use \MyApp\Advisor;
+use \MyApp\Availability;
+use \MyApp\ExpertiseGroup;
 
 class AdvisorController extends \BaseController {
 
 	public $advisor;
+	public $availability;
+	public $expertiseGroup;
 
-	public function __construct(Advisor $advisor)
+	public function __construct(Advisor $advisor, Availability $availability, ExpertiseGroup $expertiseGroup)
 	{
 		$this->advisor = $advisor;
+		$this->availability = $availability;
+		$this->expertiseGroup = $expertiseGroup;
 	}
 
 	/**
@@ -62,8 +68,13 @@ class AdvisorController extends \BaseController {
 	{
 		$advisor = Advisor::find($id);
 
+		$this->availability->scrubExpiredAvailabilities();
+
+		$expertiseGroups = ExpertiseGroup::all();
+
 		return View::make('advisors.show', compact([
-			'advisor'
+			'advisor',
+			'expertiseGroups'
 		]));
 	}
 
