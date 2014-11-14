@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new createDayCommand);
+Artisan::add(new meetingReminderEmailCommand);
