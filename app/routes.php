@@ -212,7 +212,7 @@ Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	]);
 
 	// Show an existing Advisor
-	Route::get('{id}', [
+	Route::get('{id}/{firstName}{lastName}', [
 		'as'   => 'advisors.show',
 		'uses' => 'AdvisorController@show'
 	]);
