@@ -5,10 +5,18 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use \MyApp\Service;
 
 class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
+
+	private $service;
+
+	public function __construct(Service $service)
+	{
+		$this->service = $service;
+	}
 
 	/**
 	 * Creates a new Advisor and returns the Advisor Object.
@@ -24,6 +32,8 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$advisor->permissions = $permission;
 		$advisor->bio         = $bio;
 		$advisor->save();
+
+		$advisor->services()->attach(1);
 
 		Auth::login($advisor);
 
@@ -53,6 +63,10 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 
 		if ($bio !== '') {
 			$advisor->bio   = $bio;
+		}
+
+		if(!$advisor->services()->first()) {
+			$advisor->services()->attach(1);
 		}
 
 		$advisor->save();
