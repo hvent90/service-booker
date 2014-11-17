@@ -52,6 +52,7 @@ class meetingReminderEmailCommand extends Command {
 		}
 
 		foreach($availabilities as $avail) {
+			$this->info($avail->reminder_sent);
 			$meeting = $avail->meetings()->first();
 			$advisorEmail = $avail->advisors()->first()->email;
 			$adviseeEmail = $avail->meetings()->first()->requestees()->first()->email;
