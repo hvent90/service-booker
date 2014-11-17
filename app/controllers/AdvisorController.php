@@ -105,7 +105,7 @@ class AdvisorController extends \BaseController {
 	{
 		extract(Input::only('first_name', 'last_name', 'email', 'password', 'id', 'bio'));
 
-		if (Auth::user() !== Advisor::find($id)) {
+		if (Auth::user() !== Advisor::find($id) OR $currentUser->permissions < 100) {
 			return Redirect::home();
 		}
 
