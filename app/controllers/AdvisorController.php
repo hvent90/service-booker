@@ -50,9 +50,9 @@ class AdvisorController extends \BaseController {
 	 */
 	public function store()
 	{
-		extract(Input::only('first_name', 'last_name', 'email', 'password'));
+		extract(Input::only('first_name', 'last_name', 'email', 'password', 'bio'));
 
-		$this->advisor->createAdvisor($first_name, $last_name, $email, $password);
+		$this->advisor->createAdvisor($first_name, $last_name, $email, $password, $bio);
 
 		return Redirect::home();
 	}
@@ -103,13 +103,13 @@ class AdvisorController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		extract(Input::only('first_name', 'last_name', 'email', 'password', 'id'));
+		extract(Input::only('first_name', 'last_name', 'email', 'password', 'id', 'bio'));
 
 		if (Auth::user() !== Advisor::find($id)) {
 			return Redirect::home();
 		}
 
-		$this->advisor->editAdvisor($first_name, $last_name, $email, $password, $id);
+		$this->advisor->editAdvisor($first_name, $last_name, $email, $password, $id, $bio);
 
 		return Redirect::home();
 	}
