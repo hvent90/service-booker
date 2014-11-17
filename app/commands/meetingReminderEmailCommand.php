@@ -43,10 +43,15 @@ class meetingReminderEmailCommand extends Command {
 
 		foreach (Availability::where('reminder_sent', false)
 			->where('is_booked', true)->get() as $availability) {
+
+			if ($availability->reminder_sent == true) {
+				continue;
+			}
+
 			$date = $availability->days()->first()->date;
 			$time = $availability->days()->first()->pivot->time;
 			$dt = Carbon::parse($date.' '.$availability->timeToTimeStamp($time));
-			if (Carbon::now()->diffInMinutes($dt, false) > 0) {
+			if (Carbon::now()->diffInHours($dt, false) < 48) {
 				$availabilities[] = $availability;
 			}
 		}
@@ -57,10 +62,10 @@ class meetingReminderEmailCommand extends Command {
 			$advisorEmail = $avail->advisors()->first()->email;
 			$adviseeEmail = $avail->meetings()->first()->requestees()->first()->email;
 
-			$advisor = $meeting->advisors()->first();
-	    	$requestee = $meeting->requestees()->first();
-	    	$avail = $meeting->availabilities()->first();
-	    	$advisorName = $advisor->first_name.' '.$advisor->last_name;
+			$advisor 	  = $meeting->advisors()->first();
+	    	$requestee 	  = $meeting->requestees()->first();
+	    	$avail 		  = $meeting->availabilities()->first();
+	    	$advisorName  = $advisor->first_name.' '.$advisor->last_name;
 			$advisorEmail = $advisor->email;
 
 	    	$data = [
@@ -85,8 +90,8 @@ class meetingReminderEmailCommand extends Command {
 	    			->subject('Reminder: Your Office Hours meeting is tomorrow.');
 	    	});
 	    	$this->info($requestee->email.' emailed.');
-
 	    	$avail->reminder_sent = true;
+	    	$avail->save();
 		}
 
 		$this->info('end.');
