@@ -5,18 +5,10 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
-use \MyApp\Service;
 
 class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
-
-	private $service;
-
-	public function __construct(Service $service)
-	{
-		$this->service = $service;
-	}
 
 	/**
 	 * Creates a new Advisor and returns the Advisor Object.
