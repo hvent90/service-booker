@@ -14,7 +14,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Creates a new Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function createAdvisor($first_name, $last_name, $email, $password, $permission = 1)
+	public function createAdvisor($first_name, $last_name, $email, $password, $bio, $permission = 1)
 	{
 		$advisor = new Advisor;
 		$advisor->first_name  = $first_name;
@@ -22,6 +22,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$advisor->last_name   = $last_name;
 		$advisor->password    = Hash::make($password);
 		$advisor->permissions = $permission;
+		$advisor->bio         = $bio;
 		$advisor->save();
 
 		Auth::login($advisor);
@@ -33,9 +34,10 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Edits an existing Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function editAdvisor($first_name, $last_name, $email, $password, $id)
+	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio)
 	{
 		$advisor = Advisor::find($id);
+
 		if ($first_name !== '') {
 			$advisor->first_name = $first_name;
 		}
@@ -48,6 +50,11 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		if ($password !== '') {
 			$advisor->password   = Hash::make($password);
 		}
+
+		if ($bio !== '') {
+			$advisor->bio   = $bio;
+		}
+
 		$advisor->save();
 
 		return $advisor;
