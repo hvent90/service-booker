@@ -36,6 +36,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio)
 	{
+		dd($bio);
 		$advisor = Advisor::find($id);
 
 		if ($first_name !== '') {
