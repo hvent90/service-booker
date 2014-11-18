@@ -90,18 +90,19 @@
 		<div class="row">
 			{{ link_to_route('advisors.edit', 'Manage Profile', $currentUser->id, ['class' => 'btn btn-info']) }}
 		</div>
-		<table class="table">
-			<tbody>
-				<tr>
-					<td>
-						<h3>{{ $currentUser->first_name }} {{ $currentUser->last_name }}</h3>
-					</td>
-					<td>
-						<h3>{{ $currentUser->email }}</h3>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="row">
+			<div class="col-xs-6">
+				<h3>{{ $currentUser->first_name }} {{ $currentUser->last_name }}</h3>
+			</div>
+			<div class="col-xs-6">
+				<h3>{{ $currentUser->email }}</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{ $currentUser->bio }}</p>
+			</div>
+		</div>
 	</div>
 </div>
 

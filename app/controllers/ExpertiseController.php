@@ -1,6 +1,7 @@
 <?php
 
 use \MyApp\Expertise;
+use \MyApp\ExpertiseGroup;
 
 class ExpertiseController extends \BaseController {
 
@@ -18,10 +19,23 @@ class ExpertiseController extends \BaseController {
 	 */
 	public function index()
 	{
-		$expertise = Expertise::all();
+		$expertise = Expertise::where('requested', '!=', true)->get();
+		$requested = Expertise::where('requested', true)->get();
 
 		return View::make('expertise.index', compact([
-			'expertise'
+			'expertise',
+			'requested'
+		]));
+	}
+
+	public function approve($id)
+	{
+		$expertise = Expertise::find($id);
+		$expertiseGroups = ExpertiseGroup::all()->lists('id', 'name');
+
+		return View::make('expertise.approve', compact([
+			'expertise',
+			'expertiseGroups'
 		]));
 	}
 

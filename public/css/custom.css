@@ -446,3 +446,7 @@ background-color: rgb(155, 0, 05);
 .availabilities-row, .expertise-row {
 	margin-top: 40px;
 }
+
+h3 {
+	word-wrap: break-word;
+}

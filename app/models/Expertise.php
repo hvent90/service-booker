@@ -6,10 +6,9 @@ class Expertise extends \Eloquent {
 	 * Creates a new Expertise and returns the Expertise Object.
 	 * @return [type] [description]
 	 */
-	public function createExpertise($title, $notes, $id = null)
+	public function createExpertise($title, $notes = null, $id = null, $requested = null)
 	{
 		$advisor 		= Advisor::find($id);
-		// $expertiseGroup = ExpertiseGroup::find($expertiseGroup_id);
 
 		$expertise        = new Expertise;
 		$expertise->title = $title;
@@ -22,12 +21,11 @@ class Expertise extends \Eloquent {
 			return $expertise;
 		}
 
-		// if ($expertiseGroup_id == null) {
-		// 	return $expertise;
-		// }
-
-		$advisor->expertise()->attach($expertise);
-		// $expertiseGroup->expertise()->attach($expertise);
+		if($requested == true) {
+			$expertise->requested_adv_id = $id;
+			$expertise->requested = true;
+			$expertise->save();
+		}
 
 		return $expertise;
 	}
@@ -157,7 +155,7 @@ class Expertise extends \Eloquent {
 		}
 		$expertiseNotContainedByAdvisor =
 			Expertise::whereNotIn('id', $this->expertiseContainedByAdvisor($advisor_id, 1))
-			->lists('title', 'id');
+			->where('requested', '!=', true)->lists('title', 'id');
 
 
 		return $expertiseNotContainedByAdvisor;

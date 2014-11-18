@@ -60,23 +60,23 @@ class UserExpertiseController extends \BaseController {
 	{
 		$advisor = Advisor::find(Input::get('advisor_id'));
 
-		$expertise = Input::get('requestedExpertise');
+		$this->expertise->createExpertise(Input::get('requestedExpertise'), 'Description goes here.', $advisor->id, true);
 
 		$data = [
-			'expertise'    => $expertise,
+			'expertise'    => Input::get('requestedExpertise'),
 			'advisorEmail' => $advisor->email,
 			'advisorName'  => $advisor->first_name.' '.$advisor->last_name
 		];
 
-		\Mail::queue('emails.expertise.request-new', $data, function($message) {
-    		$message->to('hvent90@gmail.com', 'Henry Ventura')
-    			->subject('An advisor has requested a new expertise.');
-    	});
+		// \Mail::queue('emails.expertise.request-new', $data, function($message) {
+  //   		$message->to('hvent90@gmail.com', 'Henry Ventura')
+  //   			->subject('An advisor has requested a new expertise.');
+  //   	});
 
-    	\Mail::queue('emails.expertise.request-new', $data, function($message) {
-    		$message->to('ben@walnutstlabs.com', 'Ben Bock')
-    			->subject('An advisor has requested a new expertise.');
-    	});
+  //   	\Mail::queue('emails.expertise.request-new', $data, function($message) {
+  //   		$message->to('ben@walnutstlabs.com', 'Ben Bock')
+  //   			->subject('An advisor has requested a new expertise.');
+  //   	});
 
     	return Redirect::route('dashboard.index')->with('message', 'Your request has been submitted.');
 	}
