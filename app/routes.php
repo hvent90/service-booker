@@ -8,6 +8,12 @@ Route::get('/', [
 	'uses' => 'PagesController@home'
 ]);
 
+// Update an existing Advisor
+Route::get('advisors/edit/{id}', [
+	'as'   => 'advisors.edit',
+	'uses' => 'AdvisorController@edit'
+]);
+
 Route::post('mail', [
 	'as'   => 'mail.test',
 	'uses' => 'MailController@availabilityRequest'
@@ -190,11 +196,7 @@ Route::get('advisors', [
 	'uses'   => 'AdvisorController@index'
 ]);
 
-// Update an existing Advisor
-Route::get('advisors/edit/{id}', [
-	'as'   => 'advisors.edit',
-	'uses' => 'AdvisorController@edit'
-]);
+
 
 Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	// Create a new Advisor
