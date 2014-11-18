@@ -210,10 +210,10 @@ Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	]);
 
 	// Update an existing Advisor
-	Route::get('edit/{id}', [
-		'as'   => 'advisors.edit',
-		'uses' => 'AdvisorController@edit'
-	]);
+	// Route::get('edit/{id}', [
+	// 	'as'   => 'advisors.edit',
+	// 	'uses' => 'AdvisorController@edit'
+	// ]);
 	Route::post('edit/{id}', [
 		'as'   => 'advisors.update',
 		'uses' => 'AdvisorController@update'
