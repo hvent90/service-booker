@@ -283,7 +283,7 @@ Route::group(['prefix' => 'expertise', 'before' => 'admin'], function() {
 	]);
 	Route::post('approve/{id}', [
 		'as'   => 'expertise.submit-approval',
-		'uses' => 'ExpertiseController@update'
+		'uses' => 'ExpertiseController@submitApproval'
 	]);
 
 	// Show an existing Expertise

@@ -30,13 +30,25 @@ class ExpertiseController extends \BaseController {
 
 	public function approve($id)
 	{
-		$expertise = Expertise::find($id);
-		$expertiseGroups = ExpertiseGroup::all()->lists('id', 'name');
+		$expertise 		 = Expertise::find($id);
+		$expertiseGroups = ExpertiseGroup::all();
 
 		return View::make('expertise.approve', compact([
 			'expertise',
 			'expertiseGroups'
 		]));
+	}
+
+	public function submitApproval()
+	{
+		extract(Input::only('id', 'title', 'notes', 'expertiseGroups'));
+
+		$expertise = Expertise::find($id);
+		$expertise->approve('title', 'notes', 'expertiseGroups');
+		dd($expertiseGroups);
+		dd('test');
+
+		return Redirect::route('expertise.index')->with('message', 'Expertise has been approved.');
 	}
 
 

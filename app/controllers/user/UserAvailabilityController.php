@@ -77,6 +77,10 @@ class UserAvailabilityController extends \BaseController {
 			return Redirect::route('user.availabilities.create')->with('message', 'You must fill in all of the required inputs.');
 		}
 
+		if(current($times) == null) {
+			return Redirect::route('user.availabilities.create')->with('message', 'You must fill in all of the required inputs.');
+		}
+
 		if(current($times)[0] == null) {
 			return Redirect::route('user.availabilities.create')->with('message', 'You must fill in all of the required inputs.');
 		}
