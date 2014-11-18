@@ -166,7 +166,7 @@ class Expertise extends \Eloquent {
 		}
 		$expertiseNotContainedByAdvisor =
 			Expertise::whereNotIn('id', $this->expertiseContainedByAdvisor($advisor_id, 1))
-			->where('requested', '!=', true)->lists('title', 'id');
+			->where('requested', '!=', true)->orderBy('title')->lists('title', 'id');
 
 
 		return $expertiseNotContainedByAdvisor;
