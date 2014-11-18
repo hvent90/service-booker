@@ -35,31 +35,40 @@ class ExpertiseGroup extends \Eloquent {
 		return 'happy days';
 	}
 
+	public static function hasExpertiseInGroup($expertiseGroup, $expertise)
+	{
+		
+	}
+
 	public function getAdvisorsWhoHaveAnAvailabilityWithinGroup()
 	{
+		$advisors = Advisor::all();
 		$expertiseWithinGroup = $this->expertise()->get();
 		$advisorsWhoHaveAnExpertiseWithinGroup = [];
-		// dd($expertiseWithinGroup);
-		foreach ($expertiseWithinGroup as $exp) {
-			foreach ($exp->advisors()->get() as $adv) {
-				if ($adv->availabilities()->first() != null) {
-					foreach ($advisorsWhoHaveAnExpertiseWithinGroup as $advisie) {
-						if ($advisie->id == $adv->id) {
-							$adv = null;
-						}
+		$alreadyAddedAdvisorIds = [];
+		$break = 0;
+
+		foreach($advisors as $advisor) {
+			if($advisor->availabilities()->first() !== null) {
+				$expertisesOfAdv = $advisor->expertise()->get();
+				foreach($expertisesOfAdv as $exp) {
+					if($exp->isInGroup($this)) {
+						$advisorsWhoHaveAnExpertiseWithinGroup[] = $advisor;
+						$break = 1;
 					}
-					if ($adv !== null) {
-						$advisorsWhoHaveAnExpertiseWithinGroup[] = $adv;
+					if($break == 1) {
+						break;
 					}
 				}
 			}
 		}
 
 		if ($advisorsWhoHaveAnExpertiseWithinGroup == null) {
-			$advisorsWhoHaveAnExpertiseWithinGroup = false;
+			return false;
 		}
 
-		return $advisorsWhoHaveAnExpertiseWithinGroup;
+
+		return array_unique($advisorsWhoHaveAnExpertiseWithinGroup);
 
 	}
 

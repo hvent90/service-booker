@@ -87,6 +87,17 @@ class Expertise extends \Eloquent {
 		return $expertise;
 	}
 
+	public function isInGroup($expGroup)
+	{
+		foreach($expGroup->expertise()->get() as $exp) {
+			if($exp->id == $this->id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * Edits an existing Expertise and returns the Expertise Object.
 	 * @return [type] [description]
