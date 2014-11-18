@@ -44,6 +44,12 @@ class Expertise extends \Eloquent {
 		return $expertise;
 	}
 
+	public function approve($title, $notes, $expertiseGroups)
+	{
+		dd('test');
+		dd($expertiseGroups);
+	}
+
 	public function connectExpertiseToAdvisor($expertise, $advisor_id)
 	{
 		$advisor = Advisor::find($advisor_id);
