@@ -89,6 +89,10 @@ class AdvisorController extends \BaseController {
 	{
 		$advisor = Advisor::find($id);
 
+		if(!Auth::user() == $advisor) {
+			return Redirect::route('home');
+		}
+
 		return View::make('advisors.edit', compact([
 			'advisor'
 		]));

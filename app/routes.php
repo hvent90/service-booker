@@ -10,9 +10,11 @@ Route::get('/', [
 
 // Update an existing Advisor
 Route::get('advisors/edit/{id}', [
-	'as'   => 'advisors.edit',
-	'uses' => 'AdvisorController@edit'
+	'as'     => 'advisors.edit',
+	'before' => 'user-editing',
+	'uses'   => 'AdvisorController@edit'
 ]);
+
 Route::post('edit/{id}', [
 	'as'   => 'advisors.update',
 	'uses' => 'AdvisorController@update'
