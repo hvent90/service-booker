@@ -73,6 +73,22 @@ class UserAvailabilityController extends \BaseController {
 	{
 		$times = json_decode(Input::get('day_ids'));
 
+		if($times == null) {
+			return Redirect::route('user.availabilities.create')->with('message', 'You must fill in all of the required inputs.');
+		}
+
+		$safety = 0;
+		foreach($times as $key => $value) {
+			foreach($value as $val) {
+				$safety++;
+			}
+
+			if($safety < 3) {
+				return Redirect::route('user.availabilities.create')->with('message', 'You must fill in all of the required inputs.');
+			}
+			$safety = 0;
+		}
+
 		foreach ($times as $key => $value) {
 			$this->availability->createAvailability($value, $key, Input::get('advisor_id'), Input::get('service_id'));
 		}

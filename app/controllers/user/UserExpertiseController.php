@@ -60,10 +60,10 @@ class UserExpertiseController extends \BaseController {
 	{
 		$advisor = Advisor::find(Input::get('advisor_id'));
 
-		$expertise = Input::get('requestedExpertise');
+		$this->expertise->createExpertise(Input::get('requestedExpertise'), 'Description goes here.', $advisor->id, true);
 
 		$data = [
-			'expertise'    => $expertise,
+			'expertise'    => Input::get('requestedExpertise'),
 			'advisorEmail' => $advisor->email,
 			'advisorName'  => $advisor->first_name.' '.$advisor->last_name
 		];

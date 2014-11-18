@@ -1,7 +1,11 @@
 @extends('layouts.user')
 
 @section('content')
-
+@if(Session::get('message'))
+    <div class="col-sm-12">
+        <div class="alert alert-warning" role="alert">{{ Session::get('message') }}</div>
+    </div>
+@endif
 <div class="row">
     <h1>Add an Availability</h1>
 </div>
