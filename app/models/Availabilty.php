@@ -120,8 +120,11 @@ class Availability extends \Eloquent {
 		$expiredAvailabilities = [];
 
 		foreach (Availability::all() as $availability) {
-			$date = $availability->days()->first()->date;
-			$time = $availability->days()->first()->pivot->time;
+			if($availability->days()->first() == null) {
+				continue;
+			}
+			$time = $availability->days()->first()->pivot->date;
+			$date = $availability->days()->first()['date'];
 			$dt = Carbon::parse($date.' '.$availability->timeToTimeStamp($time));
 			if (Carbon::now()->diffInMinutes($dt, false) < 0) {
 				$expiredAvailabilities[] = $availability;
