@@ -13,6 +13,16 @@ Route::get('advisors/edit/{id}', [
 	'as'   => 'advisors.edit',
 	'uses' => 'AdvisorController@edit'
 ]);
+Route::post('edit/{id}', [
+	'as'   => 'advisors.update',
+	'uses' => 'AdvisorController@update'
+]);
+
+// Show an existing Advisor
+Route::get('{id}/{firstName}{lastName}', [
+	'as'   => 'advisors.show',
+	'uses' => 'AdvisorController@show'
+]);
 
 Route::post('mail', [
 	'as'   => 'mail.test',
@@ -214,16 +224,16 @@ Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	// 	'as'   => 'advisors.edit',
 	// 	'uses' => 'AdvisorController@edit'
 	// ]);
-	Route::post('edit/{id}', [
-		'as'   => 'advisors.update',
-		'uses' => 'AdvisorController@update'
-	]);
+	// Route::post('edit/{id}', [
+	// 	'as'   => 'advisors.update',
+	// 	'uses' => 'AdvisorController@update'
+	// ]);
 
-	// Show an existing Advisor
-	Route::get('{id}/{firstName}{lastName}', [
-		'as'   => 'advisors.show',
-		'uses' => 'AdvisorController@show'
-	]);
+	// // Show an existing Advisor
+	// Route::get('{id}/{firstName}{lastName}', [
+	// 	'as'   => 'advisors.show',
+	// 	'uses' => 'AdvisorController@show'
+	// ]);
 
 	// Delete an existing Advisor
 	Route::get('destroy/{id}', [
