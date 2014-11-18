@@ -190,6 +190,12 @@ Route::get('advisors', [
 	'uses'   => 'AdvisorController@index'
 ]);
 
+// Update an existing Advisor
+Route::get('advisors/edit/{id}', [
+	'as'   => 'advisors.edit',
+	'uses' => 'AdvisorController@edit'
+]);
+
 Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 	// Create a new Advisor
 	Route::get('new', [
