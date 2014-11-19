@@ -476,3 +476,7 @@ h3 {
 #i2n-tag a:hover, #wsl-tag a:hover {
 	text-decoration: none;
 }
+
+.sweet-alert {
+	display:none;
+}

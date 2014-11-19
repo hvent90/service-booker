@@ -98,7 +98,7 @@ $(document).ready(function() {
 		availContentStorage = $(this).parent();
 
 		if ($(event.target).text() == 'Remote') {
-			sweetAlert("The advisor is availabile for a consultation through Phone or an online service.");
+			sweetAlert("The advisor is availabile for a meeting through Phone or an online service. Please consult with the advisor for more information.");
 			return false;
 		} else if ($(event.target).text() == 'Walnut St. Labs') {
 			window.location.href = 'http://www.walnutstlabs.com/';
