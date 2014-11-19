@@ -108,3 +108,10 @@
 
 @stop
 
+@section('script')
+<script>
+$(document).ready(function() {
+	$('.sweet-alert').hide();
+});
+</script>
+@stop
