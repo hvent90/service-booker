@@ -4,10 +4,11 @@
 <div class="container">
 	<div class="row">
 		<div class="heading-text col-sm-12">
-			<a href="http://walnutstlabs.com"><img src="/img/wsllogo.jpg" class="img-responsive"></a>
+			<a href="http://walnutstlabs.com"><img src="/img/wsllogo.jpg" ></a>
+			<a href="http://www.i2npa.org/"><img src="/img/i2n.png" ></a>
 			<br />
 			<h2>Advance Your Idea. Faster.</h2>
-			<h4>Walnut St. Labs Office Hours is a joint project between Walnut St. Labs and the Chester County Economic Development Council that offers innovators the opportunity to gain expert advice from industry and domain experts from Chester County and Southeastern PA.</h4>
+			<h4>Office Hours is a joint project between <span id="wsl-tag"><a href="http://walnutstlabs.com">Walnut St. Labs</a></span> and the <span id="i2n-tag"><a href="http://www.i2npa.org/">Ideas x Innovation Network</a></span> that offers innovators the opportunity to gain expert advice from industry and domain experts from Chester County and Southeastern PA.</h4>
 		</div>
 	</div>
 	<div class="row col-sm-12 expertise-group-listing">
@@ -35,6 +36,17 @@
 
 <script>
 $(document).ready(function() {
+	$('#i2n-tag').qtip({
+		content: 'i2n is an initiative of the Chester County Economic Development Council and is funded in part by private sector support, educational partners and the Pennsylvania Department of Community & Economic Development’s Discovered in PA, Developed in PA program.',
+		show: 'mouseover',
+		hide: 'mouseout'
+	});
+
+	$('#wsl-tag').qtip({
+		content: 'Walnut St. Labs is an innovation hub located in West Chester, PA. It’s mission is to promote and create innovation in greater Chester County and Southeastern PA. Walnut St. Labs has three parts: it runs events, it provides coworking space, and it runs an early-stage incubator.',
+		show: 'mouseover',
+		hide: 'mouseout'
+	})
 	// Not as awesome as I want it yet
 	// $('.expertise-group-listing h3').hover(
 	// 	function() {

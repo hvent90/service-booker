@@ -46,8 +46,13 @@ class Expertise extends \Eloquent {
 
 	public function approve($title, $notes, $expertiseGroups)
 	{
-		dd('test');
-		dd($expertiseGroups);
+		$expertiseGroupsIds = explode(',',$expertiseGroups);
+
+		$this->connectExpertiseToExpertiseGroup($this, $expertiseGroupsIds);
+
+		$this->requested = false;
+		$this->save();
+
 	}
 
 	public function connectExpertiseToAdvisor($expertise, $advisor_id)
@@ -109,7 +114,6 @@ class Expertise extends \Eloquent {
 	public function destroyExpertise($id)
 	{
 		$expertise = Expertise::find($id);
-
 		$expertise->delete();
 
 		return 'happy days';

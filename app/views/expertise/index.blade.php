@@ -17,7 +17,10 @@
 			</td>
 			<td>
 				{{ link_to_route('expertise.approve',    'Finalize and Approve',   $exp->id, ['class' => 'btn btn-success']) }}
-				{{ link_to_route('expertise.destroy', 'Cast it in to the fire', $exp->id, ['class' => 'btn btn-danger']) }}
+				{{ form::open(['route' => 'expertise.destroy']) }}
+				{{ form::hidden('id', $exp->id)}}
+				{{ form::submit('Delete', ['class' => 'full-width btn btn-danger']) }}
+				{{ form::close() }}
 			</td>
 		</tr>
 		@endforeach
@@ -43,7 +46,10 @@
 			</td>
 			<td>
 				{{ link_to_route('expertise.edit',    'Edit',   $exp->id, ['class' => 'btn btn-warning']) }}
-				{{ link_to_route('expertise.destroy', 'Delete', $exp->id, ['class' => 'btn btn-danger']) }}
+				{{ form::open(['route' => 'expertise.destroy']) }}
+				{{ form::hidden('id', $exp->id)}}
+				{{ form::submit('Delete', ['class' => 'full-width btn btn-danger']) }}
+				{{ form::close() }}
 			</td>
 		</tr>
 		@endforeach
