@@ -9,6 +9,8 @@ body {
 	background-color: #fff;
 }
 
+
+
 #advisor-with-availability-content {
 	padding: 10px;
 }
@@ -56,6 +58,11 @@ body {
 .advisor-listing button {
 	margin-bottom: 8px;
 }
+
+.advisor-header button {
+	cursor: default;
+}
+
 
 .advisor-header {
 	  border-left: 1px solid rgb(195, 195, 195);

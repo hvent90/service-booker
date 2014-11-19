@@ -3,7 +3,7 @@
 		'role'  => 'form',
 		'route' =>'meetings.request.create'
 	]) }}
-	<h4>Request to meet with {{$availability->advisors()->first()->first_name}} {{$availability->advisors()->first()->last_name}} at {{$availability->locations()->first()->name}} on {{ $availability->days()->first()['date'] }} during {{ $availability->days()->first()->pivot->time }}.</h4>
+	<h4>Request to meet with {{$availability->advisors()->first()->first_name}} {{$availability->advisors()->first()->last_name}} at {{$availability->locations()->first()->name}} on {{ $availability->days()->first()->prettyPrint() }} at {{ $availability->days()->first()->pivot->time }}.</h4>
 	<div class="form-group">
 		{{ Form::label('email', 'E-Mail Address') }}
 		{{ Form::text('email', '', ['class' => 'form-control']) }}

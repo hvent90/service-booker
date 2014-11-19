@@ -24,7 +24,7 @@
 								</tr>
 								<tr>
 									<th class="align-right">On</th>
-									<th class="item">{{ $avail->days()->first()['date'] }}</th>
+									<th class="item">{{ $avail->days()->first()->prettyPrint() }}</th>
 								</tr>
 								<tr>
 									<th class="align-right">During</th>
