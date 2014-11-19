@@ -55,7 +55,7 @@
 					<div class="avail-user-content">
 						{{ $availability->days()->first()->prettyPrint() }}<br />
 						{{ $availability->days()->first()->pivot->time }}<br />
-						<a href="{{ $availability->locations()->first()->website }}">{{ $availability->locations()->first()->name }}</a>
+						<a href="{{ $availability->locations()->first()['website'] }}">{{ $availability->locations()->first()['name'] }}</a>
 					</div>
 					<div class="contains-full-width col-xs-12">
 						{{ form::open(['route' => 'user.availabilities.destroy']) }}
