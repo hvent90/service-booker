@@ -42,11 +42,9 @@ class ExpertiseController extends \BaseController {
 	public function submitApproval()
 	{
 		extract(Input::only('id', 'title', 'notes', 'expertiseGroups'));
-
 		$expertise = Expertise::find($id);
-		$expertise->approve('title', 'notes', 'expertiseGroups');
-		dd($expertiseGroups);
-		dd('test');
+
+		$expertise->approve($title, $notes, $expertiseGroups);
 
 		return Redirect::route('expertise.index')->with('message', 'Expertise has been approved.');
 	}
@@ -131,9 +129,9 @@ class ExpertiseController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		$this->expertise->destroyExpertise($id);
+		$this->expertise->destroyExpertise(Input::get('id'));
 
 		return Redirect::route('expertise.index')->with('message', 'Expertise Destroyed');
 	}

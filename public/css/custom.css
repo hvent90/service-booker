@@ -462,3 +462,17 @@ background-color: rgb(155, 0, 05);
 h3 {
 	word-wrap: break-word;
 }
+
+#i2n-tag, #wsl-tag {
+	border-bottom: 1px dashed #333;
+}
+
+#i2n-tag a, #wsl-tag a {
+	font-style: none;
+	color: #333;
+	text-decoration: none;
+}
+
+#i2n-tag a:hover, #wsl-tag a:hover {
+	text-decoration: none;
+}

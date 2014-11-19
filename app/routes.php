@@ -3,6 +3,8 @@
 use \MyApp\Day;
 use Carbon\Carbon;
 
+// dd($app);
+
 Route::get('/', [
 	'as'   => 'home',
 	'uses' => 'PagesController@home'
@@ -21,7 +23,7 @@ Route::post('edit/{id}', [
 ]);
 
 // Show an existing Advisor
-Route::get('{id}/{firstName}{lastName}', [
+Route::get('users/{id}/{firstName}{lastName}', [
 	'as'   => 'advisors.show',
 	'uses' => 'AdvisorController@show'
 ]);
@@ -67,6 +69,13 @@ Route::post('/user/expertise/request-new', [
 	'as'   => 'user.expertise.request-new',
 	'uses' => 'App\Controllers\User\UserExpertiseController@requestNewExpertise'
 ]);
+
+// Delete an existing Expertise
+Route::post('expertise/delete/x', [
+	'as'   => 'expertise.destroy',
+	'uses' => 'ExpertiseController@destroy'
+]);
+
 
 //==========================================
 // Expertise Groups
@@ -221,22 +230,6 @@ Route::group(['prefix' => 'advisors', 'before' => 'admin'], function() {
 		'uses' => 'AdvisorController@store'
 	]);
 
-	// Update an existing Advisor
-	// Route::get('edit/{id}', [
-	// 	'as'   => 'advisors.edit',
-	// 	'uses' => 'AdvisorController@edit'
-	// ]);
-	// Route::post('edit/{id}', [
-	// 	'as'   => 'advisors.update',
-	// 	'uses' => 'AdvisorController@update'
-	// ]);
-
-	// // Show an existing Advisor
-	// Route::get('{id}/{firstName}{lastName}', [
-	// 	'as'   => 'advisors.show',
-	// 	'uses' => 'AdvisorController@show'
-	// ]);
-
 	// Delete an existing Advisor
 	Route::get('destroy/{id}', [
 		'as'   => 'advisors.destroy',
@@ -292,11 +285,11 @@ Route::group(['prefix' => 'expertise', 'before' => 'admin'], function() {
 		'uses' => 'ExpertiseController@show'
 	]);
 
-	// Delete an existing Expertise
-	Route::get('{id}', [
-		'as'   => 'expertise.destroy',
-		'uses' => 'ExpertiseController@destroy'
-	]);
+	// // Delete an existing Expertise
+	// Route::delete('{id}', [
+	// 	'as'   => 'expertise.destroy',
+	// 	'uses' => 'ExpertiseController@destroy'
+	// ]);
 
 	// Connect to Groups
 	Route::get('{id}/groups', [
