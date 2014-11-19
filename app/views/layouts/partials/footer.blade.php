@@ -9,3 +9,4 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
 <script src="js/qtip-rc3.js"></script>
+<script src="js/sweetAlert.js"></script>

@@ -76,6 +76,11 @@ Route::post('expertise/delete/x', [
 	'uses' => 'ExpertiseController@destroy'
 ]);
 
+Route::get('remote', [
+	'as'   => 'home.remote',
+	'uses' => 'PagesController@remote'
+]);
+
 
 //==========================================
 // Expertise Groups

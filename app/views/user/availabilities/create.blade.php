@@ -118,7 +118,7 @@ $(document).ready(function() {
         }
         hours += '</select>'
         period = '<select class="period"><option value="null">Period</option><option value="AM">AM</option><option value="PM">PM</option></select>'
-        locations = '<select class="location"><option value="null">Location</option><option value="wsl">Walnut St. Labs</option><option value="ice">ICE</option><option value="evolve">Evolve IP</option></select></span>'
+        locations = '<select class="location"><option value="null">Location</option><option value="wsl">Walnut St. Labs</option><option value="ice">ICE</option><option value="evolve">Evolve IP</option><option value="evolve">ICE</option><option value="remote">Remote</option></select></span>'
 
         return hours+period+locations;
     }

@@ -12,7 +12,8 @@
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
         <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/jquery.qtip.min.css" rel="stylesheet">
-        {{ HTML::style('css/custom.css'); }}
+        {{ HTML::style('css/sweetAlert.css') }}
+        {{ HTML::style('css/custom.css') }}
     </head>
     <body>
         <!--[if lt IE 7]>

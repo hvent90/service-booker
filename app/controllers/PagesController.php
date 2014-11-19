@@ -26,4 +26,9 @@ class PagesController extends \BaseController {
 		]));
 	}
 
+	public function remote()
+	{
+		return View::make('cxp.remote');
+	}
+
 }

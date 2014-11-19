@@ -96,6 +96,18 @@ $(document).ready(function() {
 		id = $(this).attr('id');
 		container = $(this).parent().parent();
 		availContentStorage = $(this).parent();
+
+		if ($(event.target).text() == 'Remote') {
+			sweetAlert("The advisor is availabile for a consultation through Phone or an online service.");
+			return false;
+		} else if ($(event.target).text() == 'Walnut St. Labs') {
+			window.location.href = 'http://www.walnutstlabs.com/';
+		} else if ($(event.target).text() == 'Evolve IP') {
+		 	window.location.href = 'http://www.evolveip.net/';
+		} else if ($(event.target).text() == 'ICE') {
+			window.location.href = 'http://www.ineagleview.com/?p=558';
+		}
+
 	    $.ajax({
 	    	type: "GET",
 	    	url: "api/availabilities/request/" + id
@@ -137,6 +149,7 @@ $(document).ready(function() {
 
 		return false;
 	});
+
 
 	// $(document).on('mouseenter', '.expertise-homepage', function( event ) {
 	// 	var expId = $(this).attr('id');
