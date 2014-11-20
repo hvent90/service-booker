@@ -480,3 +480,7 @@ h3 {
 .sweet-alert {
 	display:none;
 }
+
+.inline-this-form {
+	display: inline-block !important;
+}
