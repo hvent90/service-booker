@@ -37,7 +37,7 @@ class ExpertiseGroup extends \Eloquent {
 
 	public static function hasExpertiseInGroup($expertiseGroup, $expertise)
 	{
-		
+
 	}
 
 	public function getAdvisorsWhoHaveAnAvailabilityWithinGroup()
@@ -57,7 +57,7 @@ class ExpertiseGroup extends \Eloquent {
 						$break = 1;
 					}
 					if($break == 1) {
-						break;
+						// break;
 					}
 				}
 			}
