@@ -47,7 +47,7 @@ body {
 }
 
 .advisor-header {
-	    padding-left: 30px;
+	    /*padding-left: 30px;*/
 	background-color: white;
 }
 
@@ -617,4 +617,10 @@ h1 ul li.active-expertise {
 
 .upper-margin {
 	margin-top: 20px;
+}
+
+.advisor-header img {
+	width: 150px;
+	float: left;
+	margin-right: 10px;
 }
