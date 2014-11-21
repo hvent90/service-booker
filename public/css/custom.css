@@ -55,6 +55,10 @@ body {
 	padding: 10px;
 }
 
+.advisor-header h3 {
+	padding: 10px;
+}
+
 .advisor-listing h3 {
 	     display: inline-block;
 	margin-right: 20px;
@@ -627,4 +631,8 @@ h1 ul li.active-expertise {
 	width: 150px;
 	float: left;
 	margin-right: 10px;
+}
+
+.height-fix {
+	height: 100px;
 }

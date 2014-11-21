@@ -17,7 +17,7 @@
 				}) as $avail)
 				<a href="#" id="{{$avail->id}}" class="advisor-avail-single-a">
 					<div class="col-xs-4 advisor-avail-single">
-						<div>
+						<div class="height-fix">
 							<table>
 								<tr>
 									<th class="align-right">At</th>
