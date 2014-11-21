@@ -636,3 +636,11 @@ h1 ul li.active-expertise {
 .height-fix {
 	height: 100px;
 }
+
+.tt-dropdown-menu {
+	text-align: left !important;
+}
+
+.tooltippls {
+	cursor: pointer;
+}
