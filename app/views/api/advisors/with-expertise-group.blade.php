@@ -2,6 +2,9 @@
 	<div class="row col-sm-8 col-sm-offset-2 advisor-listing">
 			<div class="row advisor-header">
 				<img src="{{ $advisor->profile_img }}" class="img-responsive">
+				@if($advisor->linkedin)
+					<a href="{{ $advisor->linkedin }}"><i class="fa fa-linkedin-square"></i></a>
+				@endif
 				<h3>{{$advisor->first_name}} {{$advisor->last_name}}</h3>
 				@foreach ($advisor->expertise()->get() as $exp)
 					<button class="btn">{{$exp->title}}</button>

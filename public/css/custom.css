@@ -644,3 +644,7 @@ h1 ul li.active-expertise {
 .tooltippls {
 	cursor: pointer;
 }
+
+.advisor-header i {
+	font-size: 24px;
+}

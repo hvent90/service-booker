@@ -8,24 +8,30 @@
 {{ Form::hidden('id', $advisor->id) }}
     <!-- Username Form Input -->
     <div class="form-group">
-        {{ Form::label('first_name', 'First Name (leave blank to not change)') }}
+        {{ Form::label('first_name', 'First Name') }}
         {{ Form::text('first_name', $advisor->first_name, ['class' => 'form-control']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('last_name', 'Last Name (leave blank to not change)') }}
+        {{ Form::label('last_name', 'Last Name') }}
         {{ Form::text('last_name', $advisor->last_name, ['class' => 'form-control']) }}
     </div>
 
     <!-- Email Form Input -->
     <div class="form-group">
-        {{ Form::label('email', 'Email (leave blank to not change)') }}
+        {{ Form::label('email', 'Email') }}
         {{ Form::text('email', $advisor->email, ['class' => 'form-control']) }}
+    </div>
+
+    <!-- Email Form Input -->
+    <div class="form-group">
+        {{ Form::label('linkedin', 'LinkedIn Profile URL') }}
+        {{ Form::text('linkedin', $advisor->linkedin, ['class' => 'form-control']) }}
     </div>
 
     <!-- Bio Form Input -->
     <div class="form-group">
-        {{ Form::label('bio', 'Bio (leave blank to not change)') }}
+        {{ Form::label('bio', 'Bio') }}
         {{ Form::textarea('bio', $advisor->bio, ['class' => 'form-control']) }}
     </div>
 
