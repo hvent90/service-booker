@@ -8,7 +8,7 @@ class Expertise extends \Eloquent {
 	 */
 	public function createExpertise($title, $notes = null, $id = null, $requested = null)
 	{
-		$advisor 		= Advisor::find($id);
+		$advisor = Advisor::find($id);
 
 		$expertise        = new Expertise;
 		$expertise->title = $title;
@@ -63,6 +63,7 @@ class Expertise extends \Eloquent {
 		// Currently this mainly caters to the AdvisorTableSeeder.php.
 		if (is_string($expertise)) {
 			$expertiseObject = Expertise::where('title', $expertise)->first();
+
 			$advisor->expertise()->attach($expertiseObject->id);
 
 			return $expertiseObject;
@@ -90,7 +91,7 @@ class Expertise extends \Eloquent {
 		foreach ($expertiseGroup_id as $expG_id)
 		{
 			$expertiseGroup = ExpertiseGroup::find($expG_id);
-			$expertiseGroup->expertise()->attach($expertise);
+			$expertiseGroup->expertise()->attach($expertise->id);
 		}
 
 		return $expertise;
@@ -119,7 +120,7 @@ class Expertise extends \Eloquent {
 		return 'happy days';
 	}
 
-	public function disconnectExpertiseToAdvisor($expertise, $advisor_id)
+	public function disconnectExpertiseToAdvisorOld($expertise, $advisor_id)
 	{
 		foreach ($expertise as $exp_id)
 		{
@@ -128,6 +129,16 @@ class Expertise extends \Eloquent {
 		}
 
 		return $expertise;
+	}
+
+	public function disconnectExpertiseToAdvisor($expertiseIds, $advisor_id)
+	{
+		$expertiseIds = explode(',',$expertiseIds);
+		$advisor = Advisor::find($advisor_id);
+
+		foreach ($expertiseIds as $exp_id) {
+			$advisor->expertise()->detach($exp_id);
+		}
 	}
 
 	public function disconnectExpertiseToExpertiseGroup($expertise, $expertiseGroup_id)

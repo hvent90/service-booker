@@ -7,6 +7,7 @@ use \MyApp\Day;
 use \MyApp\Expertise;
 use \MyApp\Location;
 use \MyApp\Service;
+use \MyApp\ExpertiseGroup;
 
 use Carbon\Carbon;
 
@@ -26,34 +27,44 @@ class UserExpertiseController extends \BaseController {
 
 	public function connect()
 	{
+		$expertiseGroups = ExpertiseGroup::all();
 
 		return View::make('user.expertise.connect', compact([
+			'expertiseGroups'
 		]));
 	}
 
 	public function store()
 	{
-		$userExpertises = Advisor::find(Input::get('advisor_id'))->expertise()->get();
-		$index = 0;
+		if(Expertise::where('title', Input::get('expertise'))->first()) {
 
-		foreach ($userExpertises as $exp) {
-			$index++;
+			$this->expertise->connectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
+
+			return 'added';
+
+		} else {
+			if(!Input::get('expertiseGroups')) {
+				return 'create';
+			} else {
+				$expertise = $this->expertise->createExpertise(Input::get('expertise'), 'Description', Input::get('advisor_id'));
+				$this->expertise->connectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
+				$expertiseGroupsIds = explode(',', Input::get('expertiseGroups'));
+
+				$this->expertise->connectExpertiseToExpertiseGroup($expertise, $expertiseGroupsIds);
+
+				return 'expG received';
+			}
 		}
-		if ($index == 4) {
-			return Redirect::route('dashboard.index')->with('message', 'You may only have a maximum of 4 expertises.');
-		}
 
-		$this->expertise->connectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
-
-		return Redirect::route('dashboard.index')->with('message', 'Expertise Added');
 	}
 
 	public function destroy()
 	{
-		$this->expertise->disconnectExpertiseToAdvisor(Input::get('expertise'), Input::get('advisor_id'));
+		extract(Input::only('advisor_id', 'expertisesToRemove'));
+
+		$this->expertise->disconnectExpertiseToAdvisor($expertisesToRemove, $advisor_id);
 
 		return Redirect::route('dashboard.index')->with('message', 'Expertise Removed');
-
 	}
 
 	public function requestNewExpertise()
