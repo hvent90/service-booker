@@ -31,4 +31,31 @@ class PagesController extends \BaseController {
 		return View::make('cxp.remote');
 	}
 
+	public function composeEmailToAdvisors()
+	{
+		return View::make('emails.compose.all-advisors');
+	}
+
+	public function sendEmailToAdvisors()
+	{
+		extract(Input::only('subject', 'body'));
+
+		$advisors = Advisor::all();
+
+		foreach ($advisors as $advisor) {
+			$advisorName = $advisor->first_name.' '.$advisor->last_name;
+
+			$data = [
+				'body'        => $body,
+				'advisorName' => $advisorName
+			];
+
+			\Mail::queue('emails.compose.all-advisors-template', $data, function($message) use ($advisor, $advisorName, $subject) {
+	    		$message->to($advisor->email, $advisorName)
+	    			->subject($subject);
+	    	});
+		}
+
+		return Redirect::route('home');
+	}
 }
