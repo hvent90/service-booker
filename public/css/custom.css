@@ -636,3 +636,7 @@ h1 ul li.active-expertise {
 .height-fix {
 	height: 100px;
 }
+
+.advisor-header i {
+	font-size: 24px;
+}

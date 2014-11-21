@@ -14,8 +14,15 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Creates a new Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function createAdvisor($first_name, $last_name, $email, $password, $bio, $permission = 1)
+	public function createAdvisor($first_name, $last_name, $email, $password, $bio, $linkedin = null, $permission = 1)
 	{
+		if ($linkedin !== null) {
+			$parsed = parse_url($linkedin);
+			if (empty($parsed['scheme'])) {
+			    $linkedin = 'http://' . ltrim($linkedin, '/');
+			}
+		}
+
 		$advisor = new Advisor;
 		$advisor->first_name  = $first_name;
 		$advisor->email       = $email;
@@ -23,6 +30,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$advisor->password    = Hash::make($password);
 		$advisor->permissions = $permission;
 		$advisor->bio         = $bio;
+		$advisor->linkedin    = $linkedin;
 		$advisor->save();
 
 		$advisor->services()->attach(1);
@@ -36,7 +44,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Edits an existing Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio)
+	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio, $linkedin)
 	{
 		$advisor = Advisor::find($id);
 
@@ -44,21 +52,31 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 			$advisor->first_name = $first_name;
 		}
 		if ($last_name !== '') {
-			$advisor->last_name  = $last_name;
+			$advisor->last_name = $last_name;
 		}
 		if ($email !== '') {
-			$advisor->email      = $email;
+			$advisor->email = $email;
 		}
 		if ($password !== '') {
-			$advisor->password   = Hash::make($password);
+			$advisor->password = Hash::make($password);
 		}
 
 		if ($bio !== '') {
-			$advisor->bio   = $bio;
+			$advisor->bio = $bio;
 		}
 
 		if(!$advisor->services()->first()) {
 			$advisor->services()->attach(1);
+		}
+
+		if ($linkedin !== '') {
+			$parsed = parse_url($linkedin);
+
+			if (empty($parsed['scheme'])) {
+			    $linkedin = 'http://' . ltrim($linkedin, '/');
+			}
+
+			$advisor->linkedin = $linkedin;
 		}
 
 		$advisor->save();

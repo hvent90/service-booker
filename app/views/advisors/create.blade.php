@@ -25,9 +25,15 @@
 				{{ Form::text('email', null, ['class' => 'form-control']) }}
 			</div>
 
+		    <!-- Linkedin Form Input -->
+		    <div class="form-group">
+		        {{ Form::label('linkedin', 'LinkedIn Profile URL:') }}
+		        {{ Form::text('linkedin', null, ['class' => 'form-control']) }}
+		    </div>
+
 			<!-- Bio Form Input -->
 		    <div class="form-group">
-		        {{ Form::label('bio', 'Bio') }}
+		        {{ Form::label('bio', 'Bio:') }}
 		        {{ Form::textarea('bio', null, ['class' => 'form-control']) }}
 		    </div>
 
