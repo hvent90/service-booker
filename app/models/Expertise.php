@@ -88,6 +88,10 @@ class Expertise extends \Eloquent {
 			return $expertise;
 		}
 
+		if (is_string($expertise)) {
+			$expertise = Expertise::find($expertise);
+		}
+
 		foreach ($expertiseGroup_id as $expG_id)
 		{
 			$expertiseGroup = ExpertiseGroup::find($expG_id);
