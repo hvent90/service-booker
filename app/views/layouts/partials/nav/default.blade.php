@@ -20,6 +20,7 @@
         <li>{{ link_to_route('services.index', 'Services') }}</li>
         <li>{{ link_to_route('locations.index', 'Locations') }}</li>
         <li>{{ link_to_route('availabilities.index', 'Availabilities') }}</li>
+        <li>{{ link_to_route('emails.compose-all-advisors', 'Compose an Email to All Advisors') }}</li>
       </ul>
 
       <!-- Right Side of Nav -->

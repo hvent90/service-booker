@@ -81,6 +81,20 @@ Route::get('remote', [
 	'uses' => 'PagesController@remote'
 ]);
 
+// Compose an email for all advisors
+Route::get('email/all-advisors', [
+	'as'     => 'emails.compose-all-advisors',
+	'before' => 'admin',
+	'uses'   => 'PagesController@composeEmailToAdvisors'
+]);
+
+// Send an email to all advisors
+Route::post('email/all-advisors', [
+	'as'     => 'emails.send-all-advisors',
+	'before' => 'admin',
+	'uses'   => 'PagesController@sendEmailToAdvisors'
+]);
+
 
 //==========================================
 // Expertise Groups
@@ -218,7 +232,7 @@ Route::get('logout', [
 // Index listing of all Advisors
 Route::get('advisors', [
 	'as'     => 'advisors.index',
-	'before' =>'admin',
+	'before' => 'admin',
 	'uses'   => 'AdvisorController@index'
 ]);
 
