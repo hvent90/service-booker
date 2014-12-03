@@ -90,7 +90,9 @@ class AdvisorController extends \BaseController {
 		$advisor = Advisor::find($id);
 
 		if(Auth::user()->id !== $id) {
-			return Redirect::route('home');
+			if(Auth::user()->permissions < 100) {
+				return Redirect::route('home');
+			}
 		}
 
 
