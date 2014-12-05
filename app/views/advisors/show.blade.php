@@ -92,7 +92,7 @@ $(document).ready(function() {
 		expertiseGroupId = $(this).attr('id');
 		$.ajax({
 			type: "GET",
-			url: "expertise-groups/" + expertiseGroupId + "/advisors",
+			url: "/expertise-groups/" + expertiseGroupId + "/advisors",
 		})
 		.done(function (payload) {
 			console.log('WOA');
@@ -106,7 +106,7 @@ $(document).ready(function() {
 		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
 		$.ajax({
 			type: "GET",
-			url: "expertise-groups/" + expertiseGroupId + "/advisors",
+			url: "/expertise-groups/" + expertiseGroupId + "/advisors",
 		})
 		.done(function (payload) {
 			$('#advisor-container').html(payload).hide().fadeIn(200);
@@ -125,7 +125,7 @@ $(document).ready(function() {
 		availContentStorage = $(this).parent();
 	    $.ajax({
 	    	type: "GET",
-	    	url: "api/availabilities/request/" + id
+	    	url: "/api/availabilities/request/" + id
 	    })
 	    .done(function (payload) {
 	    	$('.the-word-availabilities').fadeOut(300);
@@ -143,7 +143,7 @@ $(document).ready(function() {
 		var expertiseGroupId = $(this).attr('id');
 		$.ajax({
 		  type: "GET",
-		  url: "expertise-groups/" + expertiseGroupId,
+		  url: "/expertise-groups/" + expertiseGroupId,
 		  data: {
 		  	expertiseGroup_id: expertiseGroupId
 		  }
@@ -185,7 +185,7 @@ $(document).ready(function() {
 		var expertiseId = $(this).attr('id');
 		$.ajax({
 		  type: "GET",
-		  url: "api/advisors/expertise",
+		  url: "/api/advisors/expertise",
 		  data: {
 		  	expertise_id: expertiseId
 		  }
