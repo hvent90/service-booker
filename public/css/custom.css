@@ -7,7 +7,8 @@ body {
 	      overflow-x: auto;
 	background-image: url('/img/grey.png');
 	background-color: #fff;
-	min-height: 100vh;
+	      min-height: 100vh;
+              padding-bottom: 40px;
 }
 
 
@@ -652,4 +653,9 @@ h1 ul li.active-expertise {
 
 .nav-login form {
 	padding: 5px;
+}
+
+
+footer {
+	margin-top: 40px;
 }
