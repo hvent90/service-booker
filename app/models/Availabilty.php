@@ -126,7 +126,8 @@ class Availability extends \Eloquent {
 			if($availability->days()->first() == null) {
 				continue;
 			}
-			$time = $availability->days()->first()->pivot->date;
+			//$time = $availability->days()->first()->pivot->date;
+			$time = $availability->days()->first()->pivot->time;
 			$date = $availability->days()->first()['date'];
 			$dt = Carbon::parse($date.' '.$availability->timeToTimeStamp($time));
 			if (Carbon::now()->diffInMinutes($dt, false) < 0) {
