@@ -8,7 +8,7 @@ body {
 	background-image: url('/img/grey.png');
 	background-color: #fff;
 	      min-height: 100vh;
-              padding-bottom: 40px;
+      padding-bottom: 40px;
 }
 
 
@@ -20,7 +20,7 @@ body {
 .expertise-group-listing {
 		text-align: center;
 	padding-bottom: 10px;
-	margin-bottom: 20px;
+	 margin-bottom: 20px;
 }
 
 .expertise-group-listing h3 {
@@ -375,6 +375,16 @@ background-color: rgb(155, 0, 05);
 	font-weight: bold;
 	height: 56px;
 	background-color: rgba(10,10,10, .2);
+   		   min-width: 68px;
+
+}
+
+.advisor-column .service-offered {
+	display: inline-block;
+}
+.advisor-column .service-offered h3 {
+	display: inline-block;
+	padding: 0 5px;
 }
 
 .advisor-column .col-xs-3 {
@@ -387,6 +397,11 @@ background-color: rgb(155, 0, 05);
 	font-weight: bold;
 	height: 56px;
 	background-color: rgba(87, 190, 221, .7);
+}
+
+.advisor-column .add-avail {
+	float: right;
+	min-width: 173px;
 }
 
 .add-avail a {
@@ -658,4 +673,10 @@ h1 ul li.active-expertise {
 
 footer {
 	margin-top: 40px;
+}
+
+@media (max-width: 600px) { 
+	.advisor-column .add-avail {
+		width:100%;	
+	}
 }
