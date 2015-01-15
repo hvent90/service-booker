@@ -5,8 +5,7 @@
 				@if($advisor->linkedin)
 					<a href="{{ $advisor->linkedin }}"><i class="fa fa-linkedin-square"></i></a>
 				@endif
-				<h3>{{$advisor->first_name}} {{$advisor->last_name}}</h3>
-				@foreach ($advisor->expertise()->get() as $exp)
+{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, [$advisor->id, $advisor->first_name, $advisor->last_name]) }}				@foreach ($advisor->expertise()->get() as $exp)
 					<button class="btn">{{$exp->title}}</button>
 				@endforeach
 				<p>{{nl2br($advisor->bio)}}</p>

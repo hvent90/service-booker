@@ -15,9 +15,9 @@
 				<div class="you-offer col-xs-1">
 					You offer...
 				</div>
-				<div class="col-xs-8">
+				<div class="service-offered">
 					@foreach ($currentUser->services()->get() as $service)
-						<h3 style="display:inline-block">{{ $service->name }}</h3>
+						<h3>{{ $service->name }}</h3>
 					@endforeach
 				</div>
 				<div class="col-xs-3 add-avail">

@@ -27,8 +27,7 @@
 		@endif
 		<div class="row col-sm-8 col-sm-offset-2 advisor-listing">
 			<div class="row advisor-header">
-				<h3>{{$advisor->first_name}} {{$advisor->last_name}}</h3>
-				@foreach ($advisor->expertise()->get() as $exp)
+{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, [$advisor->id, $advisor->first_name, $advisor->last_name]) }}				@foreach ($advisor->expertise()->get() as $exp)
 					<button class="btn">{{$exp->title}}</button>
 				@endforeach
 				<p>{{nl2br($advisor->bio)}}</p>
