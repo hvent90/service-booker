@@ -4,7 +4,7 @@ html {
 
 body {
 	       max-width: 110%;
-	      overflow-x: auto;
+	      overflow-x: hidden;
 	background-image: url('/img/grey.png');
 	background-color: #fff;
 	      min-height: 100vh;
@@ -678,5 +678,17 @@ footer {
 @media (max-width: 600px) { 
 	.advisor-column .add-avail {
 		width:100%;	
+	}
+
+	.expertise-row .advisor-column { 
+		width: 100%;
+	}
+	.expertise-row .advisor-column .col-xs-6 { 
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	.expertise-row .advisor-column p { 
+		text-align: center;
 	}
 }
