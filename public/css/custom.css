@@ -3,8 +3,8 @@ html {
 }
 
 body {
-	       max-width: 110%;
-	      overflow-x: auto;
+	       max-width: 100%;
+	      overflow-x: hidden;
 	background-image: url('/img/grey.png');
 	background-color: #fff;
 	      min-height: 100vh;
@@ -310,6 +310,7 @@ a.date:hover {
 
 #monthView td {
 	padding: 0;
+	text-align: center;
 }
 
 #popup-logout {
@@ -696,6 +697,24 @@ h1 ul li.active-expertise {
 	padding: 5px;
 }
 
+.start-hour, .period, .location, .form-group, .formLab {
+	width: 23%;
+	margin:0 1%;
+	display: inline-block;
+}
+
+.form-group {
+	display: inline-block;
+}
+
+input.btn {
+	width: 50%;
+	margin-right: 50%;
+}
+
+.time-select {
+	margin: 5px 0;
+}
 
 footer {
 	margin-top: 40px;
@@ -704,5 +723,30 @@ footer {
 @media (max-width: 600px) { 
 	.advisor-column .add-avail {
 		width:100%;	
+	}
+
+	.expertise-row .advisor-column { 
+		width: 100%;
+	}
+	.expertise-row .advisor-column .col-xs-6 { 
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	.expertise-row .advisor-column p { 
+		text-align: center;
+	}
+	input.btn {
+		width: 100%;
+		margin: 0;
+	}
+	.start-hour, .period, .location {
+		width: 31%;
+		margin:0 1%;
+		display: inline-block;
+	}
+
+	.formLab {
+		width: 100%;
 	}
 }
