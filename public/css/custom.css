@@ -246,13 +246,15 @@ form.avail-request-form {
 }
 
 .heading-text img {
-	margin: 0 auto;
-	width: 100px;
+	margin: 10px auto;
+	width: 45%;
 	display:inline-block;
 }
 
 .heading-text a {
 	display: inline-block;
+	width: 60%;
+	height: inherit;
 }
 
 .exp-group-list {
@@ -655,6 +657,32 @@ h1 ul li.active-expertise {
 	height: 100px;
 }
 
+@media screen and (max-width: 992px) {
+	.height-fix {
+		height: 150px;
+	}
+
+}
+
+@media screen and (max-width: 767px) {
+	.avail-request-form {
+		padding: 20px;
+	}
+}
+
+@media screen and (max-width: 440px) {
+	.height-fix {
+		height: 175px;
+	}
+	.advisor-avail-single {
+		width: 48%;
+	}
+	.avail-request-form {
+		padding: 20px;
+	}
+}
+
+
 .tt-dropdown-menu {
 	text-align: left !important;
 }
@@ -677,6 +705,10 @@ h1 ul li.active-expertise {
 	display: inline-block;
 }
 
+.login-form {
+	width:100%;
+}
+
 .form-group {
 	display: inline-block;
 }
@@ -684,6 +716,10 @@ h1 ul li.active-expertise {
 input.btn {
 	width: 50%;
 	margin-right: 50%;
+}
+
+input.btn-login {
+	width:100%;
 }
 
 .time-select {
