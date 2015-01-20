@@ -246,15 +246,13 @@ form.avail-request-form {
 }
 
 .heading-text img {
-	margin: 10px auto;
-	width: 45%;
+	margin: 0 auto;
+	width: 100px;
 	display:inline-block;
 }
 
 .heading-text a {
 	display: inline-block;
-	width: 60%;
-	height: inherit;
 }
 
 .exp-group-list {
@@ -656,32 +654,6 @@ h1 ul li.active-expertise {
 .height-fix {
 	height: 100px;
 }
-
-@media screen and (max-width: 992px) {
-	.height-fix {
-		height: 150px;
-	}
-
-}
-
-@media screen and (max-width: 767px) {
-	.avail-request-form {
-		padding: 20px;
-	}
-}
-
-@media screen and (max-width: 440px) {
-	.height-fix {
-		height: 175px;
-	}
-	.advisor-avail-single {
-		width: 48%;
-	}
-	.avail-request-form {
-		padding: 20px;
-	}
-}
-
 
 .tt-dropdown-menu {
 	text-align: left !important;
