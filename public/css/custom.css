@@ -703,6 +703,10 @@ h1 ul li.active-expertise {
 	display: inline-block;
 }
 
+.login-form {
+	width:100%;
+}
+
 .form-group {
 	display: inline-block;
 }
@@ -710,6 +714,10 @@ h1 ul li.active-expertise {
 input.btn {
 	width: 50%;
 	margin-right: 50%;
+}
+
+input.btn-login {
+	width:100%;
 }
 
 .time-select {
