@@ -697,7 +697,7 @@ h1 ul li.active-expertise {
 	padding: 5px;
 }
 
-.start-hour, .period, .location, .form-group, .formLab {
+.start-hour, .period, .location, .formLab {
 	width: 23%;
 	margin:0 1%;
 	display: inline-block;
