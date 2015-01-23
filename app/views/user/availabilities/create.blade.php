@@ -78,7 +78,7 @@
             {{ Form::hidden('day_ids', '', ['id' => 'day_ids']) }}
             {{ Form::hidden('datetime', '', ['id' => 'datetime']) }}
             <div id="forms-container"></div>
-            {{ Form::submit("Add", ["class" => "btn btn-primary"])}}
+            {{ Form::submit("Add", ["class" => "btn btn-primary", "id" => "add-avail-btn"])}}
 
         {{ Form::close() }}
 
