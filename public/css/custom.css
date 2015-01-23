@@ -655,6 +655,32 @@ h1 ul li.active-expertise {
 	height: 100px;
 }
 
+@media screen and (max-width: 992px) {
+	.height-fix {
+		height: 150px;
+	}
+
+}
+
+@media screen and (max-width: 767px) {
+	.avail-request-form {
+		padding: 20px;
+	}
+}
+
+@media screen and (max-width: 440px) {
+	.height-fix {
+		height: 175px;
+	}
+	.advisor-avail-single {
+		width: 48%;
+	}
+	.avail-request-form {
+		padding: 20px;
+	}
+}
+
+
 .tt-dropdown-menu {
 	text-align: left !important;
 }
@@ -685,13 +711,9 @@ h1 ul li.active-expertise {
 	display: inline-block;
 }
 
-input.btn {
+#add-avail-btn {
 	width: 50%;
 	margin-right: 50%;
-}
-
-input.btn-login {
-	width:100%;
 }
 
 .time-select {
@@ -718,7 +740,7 @@ footer {
 	.expertise-row .advisor-column p { 
 		text-align: center;
 	}
-	input.btn {
+	#add-avail-btn {
 		width: 100%;
 		margin: 0;
 	}
