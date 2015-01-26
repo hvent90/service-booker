@@ -8,7 +8,7 @@
 
 		@include('layouts.partials.errors')
 
-		{{ Form::open(['route' => 'advisors.store', 'method' => 'post']) }}
+		{{ Form::open(['route' => 'advisors.store', 'method' => 'post', 'files' => true]) }}
 			<div class="form-group">
 		        {{ Form::label('first_name', 'First Name') }}
 		        {{ Form::text('first_name', null, ['class' => 'form-control']) }}
@@ -18,6 +18,12 @@
 		        {{ Form::label('last_name', 'Last Name') }}
 		        {{ Form::text('last_name', null, ['class' => 'form-control']) }}
 		    </div>
+
+		    <!-- Profile Image Form Input -->
+			<div class="form-group">
+				{{ Form::label('image', 'Profile Image:') }}
+				{{ Form::file('image') }}
+			</div>
 
 			<!-- Email Form Input -->
 			<div class="form-group">

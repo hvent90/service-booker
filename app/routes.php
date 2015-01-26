@@ -3,7 +3,7 @@
 use \MyApp\Day;
 use Carbon\Carbon;
 
-// dd($app);
+Route::post('/image-test', 'AdvisorController@imageTest');
 
 Route::get('/', [
 	'as'   => 'home',

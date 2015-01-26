@@ -92,6 +92,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
+				<img src="{{ $currentUser->profile_img }}" class="img-responsive">
 				<h3>{{ $currentUser->first_name }} {{ $currentUser->last_name }}</h3>
 			</div>
 			<div class="col-xs-6">

@@ -7,7 +7,9 @@
 		"laravel/framework": "4.2.*",
 		"appitventures/phpgmaps": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-		"bogardo/mailgun": "3.0.*"
+		"bogardo/mailgun": "3.0.*",
+		"intervention/image": "~2.0",
+		"intervention/imagecache": "2.*"
 	},
 	"autoload": {
 		"classmap": [

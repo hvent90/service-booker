@@ -4,7 +4,7 @@
 <br />
 <br />
 
-{{ Form::open(['route' => 'advisors.update']) }}
+{{ Form::open(['route' => 'advisors.update', 'files' => true]) }}
 {{ Form::hidden('id', $advisor->id) }}
     <!-- Username Form Input -->
     <div class="form-group">
@@ -15,6 +15,12 @@
     <div class="form-group">
         {{ Form::label('last_name', 'Last Name') }}
         {{ Form::text('last_name', $advisor->last_name, ['class' => 'form-control']) }}
+    </div>
+
+    <!-- Profile Image Form Input -->
+    <div class="form-group">
+        {{ Form::label('image', 'Profile Image:') }}
+        {{ Form::file('image') }}
     </div>
 
     <!-- Email Form Input -->

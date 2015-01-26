@@ -1,6 +1,6 @@
 <?php namespace MyApp;
 
-use Hash, Auth;
+use Hash, Auth, Image;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
@@ -14,7 +14,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Creates a new Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function createAdvisor($first_name, $last_name, $email, $password, $bio, $linkedin = null, $permission = 1)
+	public function createAdvisor($first_name, $last_name, $email, $password, $bio, $linkedin = null, $permission = 1, $image = null)
 	{
 		if ($linkedin !== null) {
 			$parsed = parse_url($linkedin);
@@ -33,6 +33,19 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$advisor->linkedin    = $linkedin;
 		$advisor->save();
 
+		if ($image !== null) {
+			Image::make($image)
+				// resize the image to a width of 300 and constrain aspect ratio (auto height)
+				->resize(300, null, function ($constraint) {
+				    $constraint->aspectRatio();
+				})
+				->save('img/profile/'.$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg');
+
+			$advisor->profile_img = '/img/profile/'.$advisor->id.$adivsor->first_name.$advisor->last_name.'.jpg';
+
+			$advisor->save();
+		}		
+
 		$advisor->services()->attach(1);
 
 		Auth::login($advisor);
@@ -44,7 +57,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	 * Edits an existing Advisor and returns the Advisor Object.
 	 * @return [type] [description]
 	 */
-	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio, $linkedin)
+	public function editAdvisor($first_name, $last_name, $email, $password, $id, $bio, $linkedin, $image = null)
 	{
 		$advisor = Advisor::find($id);
 
@@ -77,6 +90,17 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 			}
 
 			$advisor->linkedin = $linkedin;
+		}
+
+		if ($image) {
+			Image::make($image)
+				// resize the image to a width of 300 and constrain aspect ratio (auto height)
+				->resize(300, null, function ($constraint) {
+				    $constraint->aspectRatio();
+				})
+				->save('img/profile/'.$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg');
+
+				$advisor->profile_img = '/img/profile/'.$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg';
 		}
 
 		$advisor->save();
