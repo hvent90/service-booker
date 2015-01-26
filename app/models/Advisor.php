@@ -98,7 +98,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 				->resize(300, null, function ($constraint) {
 				    $constraint->aspectRatio();
 				})
-				->save('img/profile/'.$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg');
+				->save(getenv('PROFILE_IMAGE_PATH').$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg');
 
 				$advisor->profile_img = '/img/profile/'.$advisor->id.$advisor->first_name.$advisor->last_name.'.jpg';
 		}
