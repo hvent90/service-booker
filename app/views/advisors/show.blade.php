@@ -27,7 +27,18 @@
 		@endif
 		<div class="row col-sm-8 col-sm-offset-2 advisor-listing">
 			<div class="row advisor-header">
-{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, [$advisor->id, $advisor->first_name, $advisor->last_name]) }}				@foreach ($advisor->expertise()->get() as $exp)
+			@if($advisor->profile_img)
+				<img src="{{ $advisor->profile_img }}" class="img-responsive">
+			@endif
+			@if($advisor->linkedin)
+				<a href="{{ $advisor->linkedin }}" target="_blank"><i class="fa fa-linkedin-square"></i></a>
+			@endif
+			{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, [$advisor->id, $advisor->first_name, $advisor->last_name], ['class' => 'advisor-name']) }}
+			<br />
+			@foreach ($advisor->expertise()->get() as $exp)
+				<button class="btn">{{$exp->title}}</button>
+			@endforeach
+			@foreach ($advisor->expertise()->get() as $exp)
 					<button class="btn">{{$exp->title}}</button>
 				@endforeach
 				<p>{{nl2br($advisor->bio)}}</p>
