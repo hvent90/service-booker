@@ -21,7 +21,7 @@
 					@endforeach
 				</div>
 				<div class="col-xs-3 add-avail">
-					{{ link_to_route('user.availabilities.create', 'Add an Availability', null, ['class' => 'btn btn-info']) }}
+					{{ link_to_route('user.availabilities.create', 'Schedule Office Hours Now', null, ['class' => 'btn btn-info']) }}
 				</div>
 			</div>
 		</div>
