@@ -40,7 +40,9 @@ class ExpertiseGroupAPIController extends \BaseController {
 			]));
 		}
 
-		$advisors = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+		// $advisors = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+
+		$advisors = $expertiseGroup->getAdvisorsWhoHaveAnExpertiseWithinGroup();
 
 		if ($advisors == false) {
 			$advisors = '<h2>There are currently no advisors with an availability.</h2>';

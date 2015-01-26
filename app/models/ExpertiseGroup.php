@@ -40,6 +40,33 @@ class ExpertiseGroup extends \Eloquent {
 
 	}
 
+	public function getAdvisorsWhoHaveAnExpertiseWithinGroup()
+	{
+		$advisors = Advisor::all();
+		$expertiseWithinGroup = $this->expertise()->get();
+		// dd($expertiseWithinGroup->toArray());
+		$advisorsWhoHaveAnExpertiseWithinGroup = [];
+
+		foreach($advisors as $advisor) {
+			$advisorsExpertises = $advisor->expertise()->get();
+			foreach($expertiseWithinGroup as $expInG) {
+				foreach($advisorsExpertises as $advExp) {
+					if ($expInG->title == $advExp->title) {
+						$advisorsWhoHaveAnExpertiseWithinGroup[] = $advisor;
+						continue;
+					}
+				}
+			}
+		}
+
+		if ($advisorsWhoHaveAnExpertiseWithinGroup == null) {
+			return false;
+		}
+
+
+		return array_unique($advisorsWhoHaveAnExpertiseWithinGroup);
+	}
+
 	public function getAdvisorsWhoHaveAnAvailabilityWithinGroup()
 	{
 		$advisors = Advisor::all();
