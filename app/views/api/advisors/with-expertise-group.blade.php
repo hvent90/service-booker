@@ -5,7 +5,7 @@
 					<img src="{{ $advisor->profile_img }}" class="img-responsive">
 				@endif
 				@if($advisor->linkedin)
-					<a href="{{ $advisor->linkedin }}"><i class="fa fa-linkedin-square"></i></a>
+					<a href="{{ $advisor->linkedin }}" target="_blank"><i class="fa fa-linkedin-square"></i></a>
 				@endif
 				{{ link_to_route('advisors.show', $advisor->first_name.' '.$advisor->last_name, [$advisor->id, $advisor->first_name, $advisor->last_name], ['class' => 'advisor-name']) }}
 				<br />
