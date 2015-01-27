@@ -57,9 +57,22 @@ class ExpertiseGroupAPIController extends \BaseController {
 		]));
 	}
 
-	public function getGroups()
+	public function getGroupsJson()
 	{
 		return ExpertiseGroup::all()->toJson();
+	}
+
+	public function getAdvisorsOfGroupJson($expGroupId)
+	{
+		$group = ExpertiseGroup::find($expGroupId);
+
+		$advisors = $group->getAdvisorsWhoHaveAnExpertiseWithinGroup();
+
+		foreach($advisors as $advisor) {
+			$advisor->toJson();
+		}
+
+		return $advisors;
 	}
 
 }

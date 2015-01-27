@@ -63,7 +63,6 @@ class ExpertiseGroup extends \Eloquent {
 			return false;
 		}
 
-
 		return array_unique($advisorsWhoHaveAnExpertiseWithinGroup);
 	}
 
