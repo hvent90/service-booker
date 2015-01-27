@@ -1,6 +1,6 @@
 <?php namespace MyApp;
 
-use Hash, Auth, Image;
+use DB, Hash, Auth, Image;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
@@ -119,6 +119,34 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$advisor->delete();
 
 		return 'happy days';
+	}
+
+	public function hasExpertiseInGroup($expGroupId)
+	{
+		$expOfAdv = $this->expertise()->get();
+		$expOfAdv = $expOfAdv->modelKeys();
+
+		$expertise = DB::table('expertise')
+							->leftJoin('expertisegroup_expertise',
+										'expertise.id', '=',
+										'expertisegroup_expertise.expertise_id')
+							->whereIn('expertisegroup_expertise.expertise_id', array_keys($expOfAdv))
+							->where('expertisegroup_expertise.expertise_group_id', $this->id)
+							->get();
+
+		if ($expertise) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function hasActiveAvailability() {
+		if($this->availabilities()->first() !== null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
