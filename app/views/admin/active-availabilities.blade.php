@@ -28,6 +28,8 @@
 		@endif
 		</div>
 	@endforeach
+@elseif
+	<h2>There are no Advisors with active requests.</h2>
 @endif
 </div>
 
