@@ -112,6 +112,9 @@ $(document).ready(function() {
 
     function hourSelection(id) {
         var currDate = $("#"+id+" a").attr('class');
+        console.log(id);
+        console.log($("#"+id+" a"));
+        console.log(currDate);
         currDate = currDate.substring(5,currDate.length);
         label = "<p class='formLab'>"+parseDate(currDate)+"</p>";
         var hours = '<select class="start-hour"><option value="null">Select Hour</option>';
@@ -332,6 +335,7 @@ $(document).ready(function() {
 
             $('#day_ids').val(JSON.stringify(times));
         }
+
         $("#forms-container").append(hourSelection(id));
         sortForms();        
 

@@ -23,7 +23,7 @@
                     <tr>
                         @foreach ($daySet as $day)
                             <td id="{{$day->id}}">
-                                <a href="#" class="date" id="{{$day->id}}">
+                                <a href="#" class="date {{$day->date}}" id="{{$day->id}}">
                                     <div class="dateCell" id="{{$day->id}}">
                                         {{ $day->ofMonth() }}
                                     </div>
