@@ -468,9 +468,9 @@ Route::group(['prefix' => 'locations', 'before'=>'admin'], function() {
 //=============================================================================
 
 Route::get('availabilities', [
-	'as'   => 'availabilities.index',
-	'before'=>'admin',
-	'uses' => 'AvailabilityController@index'
+	'as'     => 'availabilities.index',
+	'before' =>'admin',
+	'uses'   => 'App\Controllers\Admin\ActivityController@seeBookedAvailabilities'
 ]);
 
 //=============================================================================
