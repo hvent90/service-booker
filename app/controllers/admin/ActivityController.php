@@ -33,7 +33,8 @@ class ActivityController extends \BaseController {
 			}
 		}
 		if(!$availabilityIds) {
-			return View::make('admin.active-availabilities');
+			$availabilities = null;
+			return View::make('admin.active-availabilities', compact(['availabilities']));
 		}
 
 		$availabilities = DB::table('availabilities')
