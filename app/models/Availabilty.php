@@ -137,6 +137,7 @@ class Availability extends \Eloquent {
 
 		foreach ($expiredAvailabilities as $expAvail) {
 			$expAvail->expired = 1;
+			$expAvail->save();
 		}
 
 	}
