@@ -126,26 +126,15 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 		$expOfAdv = $this->expertise()->get();
 		$expOfAdv = $expOfAdv->modelKeys();
 
-		$expertise = DB::table('expertise')
-			->leftJoin('expertisegroup_expertise',
-						'expertise.id', '=',
-						'expertisegroup_expertise.expertise_id')
-			->whereIn('expertisegroup_expertise.expertise_id', $expOfAdv)
-			->where('expertisegroup_expertise.expertise_group_id', $expGroupId)
-			->get();
-
-		// if($this->first_name == 'Terry'){
-		// 	dd(
-		// 		DB::table('expertise')
-		// 			->leftJoin('expertisegroup_expertise',
-		// 					   'expertise.id', '=',
-		// 					   'expertisegroup_expertise.expertise_id'
-		// 			)
-		// 		    ->whereIn('expertise.id', $expOfAdv)
-		// 			->where('expertisegroup_expertise.expertise_group_id', $expGroupId)
-		// 		    ->get()
-		// 	);
-		// }
+		if($expOfAdv) {
+			$expertise = DB::table('expertise')
+				->leftJoin('expertisegroup_expertise',
+							'expertise.id', '=',
+							'expertisegroup_expertise.expertise_id')
+				->whereIn('expertisegroup_expertise.expertise_id', $expOfAdv)
+				->where('expertisegroup_expertise.expertise_group_id', $expGroupId)
+				->get();
+		}
 
 		if ($expertise) {
 			return true;
