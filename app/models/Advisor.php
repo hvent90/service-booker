@@ -125,6 +125,7 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
 	{
 		$expOfAdv = $this->expertise()->get();
 		$expOfAdv = $expOfAdv->modelKeys();
+		$expertise = null;
 
 		if($expOfAdv) {
 			$expertise = DB::table('expertise')
