@@ -32,7 +32,10 @@ class ActivityController extends \BaseController {
 				$availabilityIds[] = $availability->id;
 			}
 		}
-		// dd($availabilityIds);
+		if(!$availabilityIds) {
+			return View::make('admin.active-availabilities');
+		}
+
 		$availabilities = DB::table('availabilities')
 							->select(
 								'advisors.first_name as advisor_first_name',
