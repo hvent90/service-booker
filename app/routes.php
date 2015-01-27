@@ -110,6 +110,9 @@ Route::get('expertise-groups/{id}/advisors', [
 	'uses' => 'App\Controllers\Api\ExpertiseGroupAPIController@getAdvisorsInGroup'
 ]);
 
+Route::group(['prefix' => 'api'], function() {
+	Route::get('expertise-groups', 'App\Controllers\Api\ExpertiseGroupAPIController@getGroups');
+});
 //=============================================================================
 // USER EXPERIENCE
 //=============================================================================

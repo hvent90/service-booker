@@ -57,4 +57,9 @@ class ExpertiseGroupAPIController extends \BaseController {
 		]));
 	}
 
+	public function getGroups()
+	{
+		return ExpertiseGroup::all()->toJson();
+	}
+
 }
