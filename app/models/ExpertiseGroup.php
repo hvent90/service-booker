@@ -66,6 +66,42 @@ class ExpertiseGroup extends \Eloquent {
 		return array_unique($advisorsWhoHaveAnExpertiseWithinGroup);
 	}
 
+	public function getAdvisorsAndAvailWhoHaveAnAvailabilityWithinGroup()
+	{
+		$advisors = Advisor::all();
+		$expertiseWithinGroup = $this->expertise()->get();
+		$advisorsWhoHaveAnExpertiseWithinGroup = [];
+		$alreadyAddedAdvisorIds = [];
+		$break = 0;
+
+		foreach($advisors as $advisor) {
+			if($advisor->availabilities()->first() !== null) {
+				$expertisesOfAdv = $advisor->expertise()->get();
+				foreach($expertisesOfAdv as $exp) {
+					if($exp->isInGroup($this)) {
+						$advisorsWhoHaveAnExpertiseWithinGroup[] = [
+							'advisor' => $advisor,
+							'availabilities' => $advisor->availabilities()->where('is_booked', '!==', '1')->get()->sortBy(function($availZ) {
+													return $availZ->days()->first()['date'];
+												})
+						];
+						continue;
+						$break = 1;
+					}
+					if($break == 1) {
+						continue;
+					}
+				}
+				if($break == 1) {
+					continue;
+				}
+			}
+			$break = 0;
+		}
+
+		return $advisorsWhoHaveAnExpertiseWithinGroup;
+	}
+
 	public function getAdvisorsWhoHaveAnAvailabilityWithinGroup()
 	{
 		$advisors = Advisor::all();

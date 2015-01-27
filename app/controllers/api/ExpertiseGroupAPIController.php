@@ -79,10 +79,12 @@ class ExpertiseGroupAPIController extends \BaseController {
 	{
 		$group = ExpertiseGroup::find($expGroupId);
 
-		$advisors = $group->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+		$advisors = $group->getAdvisorsAndAvailWhoHaveAnAvailabilityWithinGroup();
 
 		foreach($advisors as $advisor) {
-			$advisor->toJson();
+			foreach($advisor as $jaun) {
+				$jaun->toJson();
+			}
 		}
 
 		return $advisors;

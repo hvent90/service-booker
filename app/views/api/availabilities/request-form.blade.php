@@ -22,11 +22,11 @@
 		{{ Form::label('notes', 'Message') }}
 		{{ Form::textarea('notes', '', ['class' => 'form-control']) }}
 	</div>
-	{{ Form::button('Request', ['type' => 'submit', 'class' => 'btn btn-success']) }}
+	{{ Form::button('Request', ['type' => 'submit', 'class' => 'col-xs-6 btn btn-success']) }}
+	<button id="cancel-button" class="col-xs-6 btn btn-danger">Cancel</button>
 	<input  type="hidden" name="availability_id" value="{{$availability->id}}">
 	<input  type="hidden" name="advisor_id"      value="{{$availability->advisors()->first()->id}}">
 	<input  type="hidden" name="day_id"          value="{{$availability->days()->first()->id}}">
 	<input  type="hidden" name="service_id"      value="{{$availability->services()->first()->id}}">
 	<input  type="hidden" name="location_id"     value="{{$availability->locations()->first()->id}}">
-	<button id="cancel-button" class="btn btn-danger">Cancel</button>
 {{ Form::close() }}
