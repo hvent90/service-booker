@@ -113,6 +113,7 @@ Route::get('expertise-groups/{id}/advisors', [
 Route::group(['prefix' => 'api'], function() {
 	Route::get('expertise-groups', 'App\Controllers\Api\ExpertiseGroupAPIController@getGroups');
 	Route::get('expertise-groups/{id}/advisors', 'App\Controllers\Api\ExpertiseGroupAPIController@getAdvisorsOfGroupJson');
+	Route::get('expertise-groups/{id}/advisors/active', 'App\Controllers\Api\ExpertiseGroupAPIController@getActiveAdvisorsOfGroupJson');
 });
 //=============================================================================
 // USER EXPERIENCE

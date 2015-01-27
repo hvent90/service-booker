@@ -75,4 +75,17 @@ class ExpertiseGroupAPIController extends \BaseController {
 		return $advisors;
 	}
 
+	public function getActiveAdvisorsOfGroupJson($expGroupId)
+	{
+		$group = ExpertiseGroup::find($expGroupId);
+
+		$advisors = $group->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
+
+		foreach($advisors as $advisor) {
+			$advisor->toJson();
+		}
+
+		return $advisors;
+	}
+
 }
