@@ -40,9 +40,6 @@
 			@foreach ($advisor->expertise()->get() as $exp)
 				<button class="btn">{{$exp->title}}</button>
 			@endforeach
-			@foreach ($advisor->expertise()->get() as $exp)
-					<button class="btn">{{$exp->title}}</button>
-				@endforeach
 				<p>{{nl2br($advisor->bio)}}</p>
 			</div>
 			@if ($advisor->availabilities()->first())
