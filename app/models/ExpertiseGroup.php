@@ -37,14 +37,14 @@ class ExpertiseGroup extends \Eloquent {
 		return 'happy days';
 	}
 
-	public static function hasExpertiseInGroup($expertiseGroup, $expertise)
+	public function getAdvisorsWhoHaveAnExpertiseWithinGroup($randomize = null)
 	{
+		if($randomize) {
+			$advisors = Advisor::orderBy(DB::raw('RAND()'))->get();
+		} else {
+			$advisors = Advisor::all();
+		}
 
-	}
-
-	public function getAdvisorsWhoHaveAnExpertiseWithinGroup()
-	{
-		$advisors = Advisor::all();
 		$expertiseWithinGroup = $this->expertise()->get();
 		// dd($expertiseWithinGroup->toArray());
 		$advisorsWhoHaveAnExpertiseWithinGroup = [];

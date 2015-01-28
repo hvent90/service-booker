@@ -42,7 +42,7 @@ class ExpertiseGroupAPIController extends \BaseController {
 
 		// $advisors = $expertiseGroup->getAdvisorsWhoHaveAnAvailabilityWithinGroup();
 
-		$advisors = $expertiseGroup->getAdvisorsWhoHaveAnExpertiseWithinGroup();
+		$advisors = $expertiseGroup->getAdvisorsWhoHaveAnExpertiseWithinGroup('randomize');
 
 		if ($advisors == false) {
 			$advisors = '<h2>There are currently no advisors with an availability.</h2>';
