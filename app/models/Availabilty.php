@@ -46,6 +46,9 @@ class Availability extends \Eloquent {
 				case ('evolve'):
 					$data[2] = Location::where('name', 'Evolve IP')->first()->id;
 					break;
+				case ('nextfab'):
+					$data[2] = Location::where('name', 'NextFab')->first()->id;
+					break;
 				case ('remote'):
 					$data[2] = Location::where('name', 'Remote')->first()->id;
 					break;
