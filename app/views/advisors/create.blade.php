@@ -11,12 +11,12 @@
 		{{ Form::open(['route' => 'advisors.store', 'method' => 'post', 'files' => true]) }}
 			<div class="form-group">
 		        {{ Form::label('first_name', 'First Name') }}
-		        {{ Form::text('first_name', null, ['class' => 'form-control']) }}
+		        {{ Form::text('first_name', null, ['class' => 'form-control', 'required']) }}
 		    </div>
 
 		    <div class="form-group">
 		        {{ Form::label('last_name', 'Last Name') }}
-		        {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+		        {{ Form::text('last_name', null, ['class' => 'form-control', 'required']) }}
 		    </div>
 
 		    <!-- Profile Image Form Input -->
@@ -28,7 +28,7 @@
 			<!-- Email Form Input -->
 			<div class="form-group">
 				{{ Form::label('email', 'Email:') }}
-				{{ Form::text('email', null, ['class' => 'form-control']) }}
+				{{ Form::text('email', null, ['class' => 'form-control', 'required']) }}
 			</div>
 
 		    <!-- Linkedin Form Input -->
@@ -40,13 +40,13 @@
 			<!-- Bio Form Input -->
 		    <div class="form-group">
 		        {{ Form::label('bio', 'Bio:') }}
-		        {{ Form::textarea('bio', null, ['class' => 'form-control']) }}
+		        {{ Form::textarea('bio', null, ['class' => 'form-control', 'required']) }}
 		    </div>
 
 			<!-- Password Form Input -->
 			<div class="form-group">
 				{{ Form::label('password', 'Password:') }}
-				{{ Form::password('password', ['class' => 'form-control']) }}
+				{{ Form::password('password', ['class' => 'form-control', 'required']) }}
 			</div>
 
 			<div class="form-group">
