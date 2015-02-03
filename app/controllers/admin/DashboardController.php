@@ -38,7 +38,6 @@ class DashboardController extends \BaseController {
 			->whereBetween('days.date', [Carbon::now()->subDays(4)->toDateString(), Carbon::now()->addDays(5)->toDateString()])
 			->groupBy('advisors.id')
 			->orderBy('count', 'asc')
-			->take(10)
 			->get();
 
 		$availabilitiesByLocation = Availability::select(

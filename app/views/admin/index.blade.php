@@ -8,11 +8,11 @@
 </div>
 <div class="row">
 	<div class="col-xs-8">
-		<h3>Top 10 Advisors with Availabilities this Week</h3>
+		<h3>Top Advisors this Week</h3>
 		<div id="advisorDiv" style="height: 400px;"></div>
 	</div>
 	<div class="col-xs-4">
-		<h3>Top Locations with Availabilities this Week</h3>
+		<h3>Top Locations this Week</h3>
 		<div id="locationDiv" style="height: 400px;"></div>
 	</div>
 </div>
