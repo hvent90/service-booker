@@ -5,13 +5,13 @@ use Carbon\Carbon;
 
 Route::get('/', [
 	'as'   => 'home',
-	'uses' => 'PagesController@home',
-	'before' => 'admin'
+	'uses' => 'PagesController@home'
 ]);
 
 Route::get('/admin', [
 	'as'   => 'admin.index',
-	'uses' => 'App\Controllers\Admin\DashboardController@index'
+	'uses' => 'App\Controllers\Admin\DashboardController@index',
+	'before' => 'admin'
 ]);
 
 // Update an existing Advisor
