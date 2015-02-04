@@ -48,7 +48,7 @@ $(document).ready(function() {
 	       "titleField": "advisor_name",
 	       "valueField": "count",
 	       "theme": "default",
-	       "balloon": {},
+	       "balloon": '[[advisor_email]]',
 	       "titles": [],
 	       "exportConfig":{
 	             menuItems: [{
