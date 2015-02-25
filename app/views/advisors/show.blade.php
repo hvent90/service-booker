@@ -46,7 +46,7 @@
 			<div class="row advisor-availability-listings">
 				<h4 class="the-word-availabilities">Availabilities:</h4>
 				<div class="row container-fix-avail">
-				@foreach ($advisor->availabilities()->where('is_booked', '!==', '1')->get()->sortBy(function($availZ) {
+				@foreach ($advisor->availabilities()->where('is_booked', '!==', '1')->where('expired', 0)->get()->sortBy(function($availZ) {
 					return $availZ->days()->first()['date'];
 				}) as $avail)
 				<a href="#" id="{{$avail->id}}" class="advisor-avail-single-a">
