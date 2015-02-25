@@ -206,8 +206,8 @@ class Day extends \Eloquent  {
 
 		// get a colection of all days in between firstDayInFirstWeek & lastDayInLastWeek
 		$oneMonthViewOfDaysWithTelomeres = Day::select()
-		->whereBetween('id', [$firstDayInFirstWeek->id, $lastDayInLastWeek->id])
-		->get();
+			->whereBetween('id', [$firstDayInFirstWeek->id, $lastDayInLastWeek->id])
+			->get();
 
 		$monthName = Day::staticHumanMonthOfYear($month);
 

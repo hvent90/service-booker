@@ -29,7 +29,8 @@ class DashboardController extends \BaseController {
 
 		$availabilitiesByAdvisor = Availability::select(
 				DB::raw('COUNT(availabilities.id) as count'),
-				DB::raw('CONCAT(advisors.first_name, " ", advisors.last_name) as advisor_name')
+				DB::raw('CONCAT(advisors.first_name, " ", advisors.last_name) as advisor_name'),
+				'advisors.email as advisor_email'
 			)
 			->leftJoin('availability_day', 'availabilities.id', '=', 'availability_day.availability_id')
 			->leftJoin('days', 'availability_day.day_id', '=', 'days.id')

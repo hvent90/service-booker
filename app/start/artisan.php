@@ -13,3 +13,4 @@
 
 Artisan::add(new createDayCommand);
 Artisan::add(new meetingReminderEmailCommand);
+Artisan::add(new generateRecurringAvailabilitiesCommand);

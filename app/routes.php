@@ -1,7 +1,11 @@
 <?php
 
-use \MyApp\Day;
-use Carbon\Carbon;
+
+// recurring availabilities
+Route::delete('recurring-availabilities/{id}', [
+	'as' => 'user.recurring-availabilities.destroy',
+	'uses' => 'App\Controllers\User\UserAvailabilityController@destroyRecur'
+]);
 
 Route::get('/', [
 	'as'   => 'home',
@@ -13,6 +17,7 @@ Route::get('/admin', [
 	'uses' => 'App\Controllers\Admin\DashboardController@index',
 	'before' => 'admin'
 ]);
+
 
 // Update an existing Advisor
 Route::get('advisors/edit/{id}', [
@@ -219,6 +224,17 @@ Route::group(['prefix' => 'api'], function() {
 		Route::post('availabilities/destroy', [
 			'as'   => 'user.availabilities.destroy',
 			'uses' => 'App\Controllers\User\UserAvailabilityController@destroy'
+		]);
+
+		// recurring availabilities
+		Route::post('recurring-availabilities/create', [
+			'as' => 'user.recurring-availabilities.store',
+			'uses' => 'App\Controllers\User\UserAvailabilityController@storeRecur'
+		]);
+
+		Route::get('recurring-availabilities/destroy/{id}', [
+			'as' => 'user.recurring-availabilities.destroy',
+			'uses' => 'App\Controllers\User\UserAvailabilityController@destroyRecur'
 		]);
 	});
 

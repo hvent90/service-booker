@@ -212,6 +212,15 @@ class Service extends \Eloquent {
         return $this->belongsToMany('\MyApp\Availability');
     }
 
+    /**
+	 * One-to-many relationship
+	 * @return [type] [description]
+	 */
+	public function recurringAvailabilities()
+    {
+        return $this->hasMany('\MyApp\RecurringAvailability');
+    }
+
 }
 
 
