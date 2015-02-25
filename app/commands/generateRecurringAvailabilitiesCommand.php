@@ -96,7 +96,7 @@ class generateRecurringAvailabilitiesCommand extends Command {
 			$recurringAvailabilitiesInNextTwoWeeks = [];
 
 			foreach ($advisor->recurringAvailabilities()->get() as $recurAvail) {
-				// $difference = $recurAvail->day_of_week - Carbon::parse($today->date)->dayOfWeek;
+				$difference = $recurAvail->day_of_week - Carbon::parse($today->date)->dayOfWeek;
 
 				// if ($difference > 0) {
 					$dayOfWeekOfRecurAvail = Day::find($today->id + $difference);
