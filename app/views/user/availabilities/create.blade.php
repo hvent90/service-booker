@@ -18,13 +18,17 @@
             <li>Choose an hour in a day</li>
             <li>You will be available for two 25-minute meetings. The first is at the start of the hour. The second is at 30 minutes in to the hour.</li>
         </ul>
+
         @include('layouts.partials.errors')
     </div>
-
-    <div class="col-md-6" id="monthSingleContainer">
+</div>
+<div class="row">
+<div class="col-md-6">
+    <h2>You can pick individual dates with this calendar</h2>
+</div>
+<div class="col-md-6" id="monthSingleContainer">
         <div id="monthIncoming">
         </div>
-
         <div id="monthCurrent">
             <div class="row" id="monthNavWrapper">
                 <div class="col-md-5 col-offset-1" id="monthNav">
@@ -81,19 +85,133 @@
             {{ Form::submit("Add", ["class" => "btn btn-primary", "id" => "add-avail-btn"])}}
 
         {{ Form::close() }}
-
     </div>
-
+</div>
+<hr>
+<div class="col-md-6">
+    <h2>And you can set reoccuring times for availability</h2>
+    @foreach ($recurringAvailabilities as $recurAvail)
+        <p>{{ link_to_route('user.recurring-availabilities.destroy', 'Delete', $recurAvail->id, ['class' => 'btn btn-danger']) }} Every {{ $recurAvail->humanDay() }} at {{ $recurAvail->humanTime() }} at {{ $recurAvail->location->name }}</p>
+    @endforeach
+</div>
+<div class="col-md-6 recurring-hours">
+    {{ Form::open(['route' => 'user.recurring-availabilities.store']) }}
+        <div class="col-xs-3 recur">
+            <h5>Day</h4>
+            <select name="day" class="form-control">
+                <option name="day" value="0">Sunday</option>
+                <option name="day" value="1">Monday</option>
+                <option name="day" value="2">Tuesday</option>
+                <option name="day" value="3">Wednesday</option>
+                <option name="day" value="4">Thursday</option>
+                <option name="day" value="5">Friday</option>
+                <option name="day" value="6">Saturday</option>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <h5>Time</h4>
+            <select name="time" class="form-control">
+                <option name="time" value="12">12</option>
+                <option name="time" value="1">1</option>
+                <option name="time" value="2">2</option>
+                <option name="time" value="3">3</option>
+                <option name="time" value="4">4</option>
+                <option name="time" value="5">5</option>
+                <option name="time" value="6">6</option>
+                <option name="time" value="7">7</option>
+                <option name="time" value="8">8</option>
+                <option name="time" value="9">9</option>
+                <option name="time" value="10">10</option>
+                <option name="time" value="11">11</option>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <h5>AM/PM</h4>
+            <select name="am_pm" class="form-control">
+                <option name="am_pm" value="am">AM</option>
+                <option name="am_pm" value="pm">PM</option>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <h5>Location</h4>
+            <select name="location_id" class="form-control">
+                @foreach ($locations as $location)
+                    <option name="location_id" value="{{$location->id}}">{{ $location->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        {{ Form::hidden('advisor_id', $currentUser->id) }}
+        {{ Form::hidden('service_id', $firstService->id)}}
+        {{ Form::submit("Add", ["class" => "add-button btn btn-primary", "id" => "add-avail-btn"])}}
+    {{ Form::close() }}
 </div>
 
 
 @stop
 
+<style>
+    .dropdown {
+        display: inline-block;
+    }
+    
+    .recurring-hours {
+        margin-top: 25px;
+    }
+
+    .col-xs-3.recur {
+        padding-left: 0;
+    }
+
+    .add-button {
+        margin-top: 20px;
+    } 
+    
+</style>
+
 @section('script')
 
 <script>
-
 $(document).ready(function() {
+
+    function recurHour(hour, timeOfDay) {
+        hour = parseInt(hour);
+
+        if(timeOfDay == "pm-hour-picker" && hour != 12) {
+            return hour + 12;
+        }
+
+        return hour;
+    }
+
+    $('div.hour-cell .hour').click(function() {
+        $(this).toggleClass('selected-recur-hour');
+
+        if (!$("input[type=checkbox]", this).attr('checked') == 'checked') {
+            $("input[type=checkbox]", this).attr('checked', 'checked');
+        } else {
+            $("input[type=checkbox]", this).attr('checked', '')
+        }
+    });
+
+    $('#recur-avail-submit').click(function() {
+        var recurAvail = [];
+
+        $('.hour.selected-recur-hour').each(function() {
+            if ($(this).next().children('select').val() == 'null') {
+                sweetAlert('Please enter a location for all recurring availabilities.');
+                return false;
+            }
+            recurAvail.push({
+                "day_of_week": $(this).parent().parent().parent().parent().attr('day-of-week'),
+                "location_name": $(this).next().children('select').val(),
+                "hour": recurHour($(this).text(), $(this).parent().parent().parent().attr('class'))
+            });
+        });
+
+        console.log(recurAvail);
+
+        return false;
+    });
 
     var selected = [];
     var selectedTimes = [];

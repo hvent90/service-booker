@@ -217,6 +217,15 @@ class Advisor extends \Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('\MyApp\AdvisorAndServiceAndLocation', 'advisor_service_location');
     }
 
+    /**
+	 * One-to-many relationship
+	 * @return [type] [description]
+	 */
+	public function recurringAvailabilities()
+    {
+        return $this->hasMany('\MyApp\RecurringAvailability');
+    }
+
     public function availabilities()
     {
         return $this->belongsToMany('\MyApp\Availability', 'availability_advisor');

@@ -62,9 +62,32 @@ class Availability extends \Eloquent {
 
 	}
 
-	public function createRecurringAvailability()
+	// idgaf
+	public static function createRecurringAvailability($hour, $day_id, $advisor_id, $service_id, $location_id)
 	{
-		// to do...
+		$times = [];
+
+		if ($hour > 11) {
+			if ($hour > 12) {
+				$hour = (int) $hour - 12;
+				$times = [(string) $hour.' PM', (string) $hour.':30 PM'];
+			} else {
+				$times = [(string) $hour.' PM', (string) $hour.':30 PM'];
+			}
+		} else {
+			$times = [(string) $hour.' AM', (string) $hour.':30 AM'];
+		}
+
+		foreach ($times as $time) {
+			$availability = new Availability;
+			$availability->save();
+
+			$availability->locations()->attach($location_id);
+			$availability->advisors()->attach($advisor_id);
+			$availability->services()->attach($service_id);
+			$availability->days()->attach($day_id, ['time' => $time]);
+		}
+
 	}
 
 	/**

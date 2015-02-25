@@ -76,4 +76,13 @@ class Location extends \Eloquent {
         return $this->belongsToMany('\MyApp\Meeting');
     }
 
+    /**
+	 * One-to-many relationship
+	 * @return [type] [description]
+	 */
+	public function recurringAvailabilities()
+    {
+        return $this->hasMany('\MyApp\RecurringAvailability');
+    }
+
 }

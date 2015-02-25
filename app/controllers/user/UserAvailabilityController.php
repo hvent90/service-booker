@@ -1,15 +1,13 @@
 <?php namespace App\Controllers\User;
 
-use View, Input, Redirect, Auth;
-
+use View, Input, Redirect, Auth, DB;
 use \MyApp\Advisor;
 use \MyApp\Availability;
 use \MyApp\Day;
 use \MyApp\Expertise;
 use \MyApp\Location;
+use \MyApp\RecurringAvailability;
 use \MyApp\Service;
-
-
 use Carbon\Carbon;
 
 class UserAvailabilityController extends \BaseController {
@@ -37,6 +35,7 @@ class UserAvailabilityController extends \BaseController {
 
 	public function create()
 	{
+		$locations = Location::all();
 		$dt    = Carbon::today();
 		$month = $dt->month;
 		$year  = $dt->year;
@@ -59,13 +58,17 @@ class UserAvailabilityController extends \BaseController {
 			$yearPrevious = $year;
 		}
 
+		$recurringAvailabilities = RecurringAvailability::where('advisor_id', Auth::user()->id)->get();
+
 		return View::make('user.availabilities.create', compact([
 			'oneMonthViewOfDaysWithTelomeres',
 			'nextMonth',
 			'previousMonth',
 			'year',
 			'yearNext',
-			'yearPrevious'
+			'yearPrevious',
+			'locations',
+			'recurringAvailabilities'
 		]));
 	}
 
@@ -104,12 +107,42 @@ class UserAvailabilityController extends \BaseController {
 		return Redirect::route('dashboard.index')->with('message', 'Availability Added');
 	}
 
+	public function storeRecur()
+	{
+		$time = (int) Input::get('time');
+
+		if (Input::get('am_pm') == 'pm' && $time != 12) {
+			$time = $time + 12;
+		} else if (Input::get('am_pm') == 'am' && $time == 12) {
+			$time = 0;
+		}
+
+		$values = [
+			'advisor_id'  => Input::get('advisor_id'),
+			'location_id' => Input::get('location_id'),
+			'service_id'  => Input::get('service_id'),
+			'day_of_week' => Input::get('day'),
+			'time' => $time
+		];
+
+		$recurAvail = RecurringAvailability::create($values);
+
+		return Redirect::route('dashboard.index')->with('message', 'Recurring Availability Added');
+	}
+
 	public function destroy()
 	{
 		$this->availability->destroyAvailability(Input::get('avail_id'));
 
 		return Redirect::route('dashboard.index')->with('message', 'Availability Removed');
 
+	}
+
+	public function destroyRecur($recurAvailId)
+	{
+		RecurringAvailability::find($recurAvailId)->delete();
+
+		return Redirect::route('dashboard.index')->with('message', 'Recurring Availability Removed');
 	}
 
 }
