@@ -1,6 +1,6 @@
 <?php namespace App\Controllers\User;
 
-use View, Input, Redirect, Auth, DB;
+use View, Input, Redirect, Auth, DB, Artisan;
 use \MyApp\Advisor;
 use \MyApp\Availability;
 use \MyApp\Day;
@@ -126,6 +126,8 @@ class UserAvailabilityController extends \BaseController {
 		];
 
 		$recurAvail = RecurringAvailability::create($values);
+
+		Artisan::call('availabilities:generate-recurring');
 
 		return Redirect::route('dashboard.index')->with('message', 'Recurring Availability Added');
 	}
