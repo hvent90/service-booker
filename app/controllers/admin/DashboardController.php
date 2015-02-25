@@ -53,9 +53,9 @@ class DashboardController extends \BaseController {
 			->orderBy('count', 'asc')
 			->get();
 
-		// var_dump($availabilitiesByDay);
-		// var_dump($availabilitiesByAdvisor);
-		// exit;
+		//var_dump($availabilitiesByDay);
+	        //dd($availabilitiesByAdvisor);
+		//exit;
 
 		return View::make('admin.index', compact([
 				'availabilitiesByDay',
