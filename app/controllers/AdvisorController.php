@@ -199,11 +199,12 @@ class AdvisorController extends \BaseController {
 	public function resetPassword()
 	{
 		$advisor = Advisor::where('email', Input::get('email'))->first();
-		$advisorName = $advisor->first_name. ' '.$advisor->last_name;
 
 		if ($advisor == null) {
 			return Redirect::home()->with('message', 'There was no account associated with the email you provided.');
 		}
+
+		$advisorName = $advisor->first_name. ' '.$advisor->last_name;
 
 		$newPassword = str_random(8);
 

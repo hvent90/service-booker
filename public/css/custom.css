@@ -7,11 +7,9 @@ body {
 	      overflow-x: hidden;
 	background-image: url('/img/grey.png');
 	background-color: #fff;
-	      min-height: 100vh;
+	      min-height: 150vh;
       padding-bottom: 40px;
 }
-
-
 
 #advisor-with-availability-content {
 	padding: 10px;
