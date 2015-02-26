@@ -13,7 +13,7 @@
 	</div>
 	<div class="row col-sm-12 expertise-group-listing">
 		<a href="#" id="all">
-			<h3 class="btn btn-info">All</h3>
+			<h3 class="exp-group btn btn-info">All</h3>
 		</a>
 		@foreach ($expertiseGroups as $expG)
 			<a href="#" id="{{ $expG->id }}">
