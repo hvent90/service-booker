@@ -16,6 +16,8 @@ class UserServiceController extends \BaseController {
 
 	public function __construct(Service $service)
 	{
+		$this->beforeFilter('expired-session-check');
+		
 		$this->service = $service;
 		$servicesNotContainedByAdvisor = $this->service->servicesNotContainedByAdvisor(Auth::user()->id);
 		$servicesContainedByAdvisor    = $this->service->servicesContainedByAdvisor(Auth::user()->id);

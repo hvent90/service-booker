@@ -11,6 +11,14 @@ body {
       padding-bottom: 40px;
 }
 
+body.clouds {
+	background: url('/img/background3.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
 #advisor-with-availability-content {
 	padding: 10px;
 }
@@ -240,6 +248,7 @@ form.avail-request-form {
 }
 
 .heading-text h4 {
+	color: #fff;
 	text-align: left;
 	font-size: 20px;
 	padding: 0 50px;
@@ -257,6 +266,7 @@ form.avail-request-form {
 }
 
 .heading-text a {
+	color: rgba(102, 173, 255, 1) !important;
 	display: inline-block;
 }
 

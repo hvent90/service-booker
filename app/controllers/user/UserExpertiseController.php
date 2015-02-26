@@ -17,6 +17,8 @@ class UserExpertiseController extends \BaseController {
 
 	public function __construct(Expertise $expertise)
 	{
+		$this->beforeFilter('expired-session-check');
+		
 		$this->expertise = $expertise;
 		$expertiseNotContainedByAdvisor = $this->expertise->expertiseNotContainedByAdvisor(Auth::user()->id);
 		$expertiseContainedByAdvisor = $this->expertise->expertiseContainedByAdvisor(Auth::user()->id);

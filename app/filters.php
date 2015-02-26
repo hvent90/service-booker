@@ -48,6 +48,14 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('expired-session-check', function()
+{
+	if (!Auth::user())
+	{
+		return Redirect::route('home')->with('message', 'Your session has expired. Please log in and try again.');
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {
