@@ -17,7 +17,7 @@
 		</a>
 		@foreach ($expertiseGroups as $expG)
 			<a href="#" id="{{ $expG->id }}">
-				<h3 class="btn btn-info">{{ $expG->name }}</h3>
+				<h3 class="exp-group btn btn-info">{{ $expG->name }}</h3>
 			</a>
 		@endforeach
 	</div>
@@ -36,6 +36,12 @@
 
 <script>
 $(document).ready(function() {
+	$('.exp-group').click(function() {
+		$('html,body').animate({
+	          scrollTop: $('.exp-group').offset().top
+	        }, 1000);
+	});
+
 	$('#i2n-tag').qtip({
 		content: 'i2n is an initiative of the Chester County Economic Development Council and is funded in part by private sector support, educational partners and the Pennsylvania Department of Community & Economic Development’s Discovered in PA, Developed in PA program.',
 		show: 'mouseover',
@@ -59,8 +65,9 @@ $(document).ready(function() {
 	// Pull advisors based off of expertise expertise group
 	// Expertise Group -> Expertises -> Advisors
 	var expertiseGroupId;
-	$('.expertise-group-listing a').click(function() {
+	$('.expertise-group-listing a').click(function(e) {
 		console.log('WOAa');
+		e.preventDefault();
 		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
 		expertiseGroupId = $(this).attr('id');
 		$.ajax({
