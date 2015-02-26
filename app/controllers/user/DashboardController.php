@@ -15,6 +15,11 @@ use Carbon\Carbon;
 
 class DashboardController extends \BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter('expired-session-check');
+	}
+
 	public function index()
 	{
 		$currentUser = Auth::user();

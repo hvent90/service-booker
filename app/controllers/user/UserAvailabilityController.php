@@ -18,6 +18,8 @@ class UserAvailabilityController extends \BaseController {
 
 	public function __construct(Availability $availability, Service $service, Day $day)
 	{
+		$this->beforeFilter('expired-session-check');
+
 		$this->day = $day;
 		$this->availability = $availability;
 		$this->service      = $service;

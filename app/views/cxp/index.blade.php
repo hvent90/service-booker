@@ -1,10 +1,10 @@
-@extends('layouts.full-width')
+@extends('layouts.full-width-cxp')
 
 @section('content')
 <div class="container">
 	<div class="row">
 		<div class="heading-text col-sm-12">
-			<a href="http://walnutstlabs.com"><img src="/img/wsllogo.jpg" ></a>
+			<a href="http://walnutstlabs.com"><img src="/img/wsllogo.png" ></a>
 			<a href="http://www.i2npa.org/"><img src="/img/i2n.png" ></a>
 			<br />
 			<h2>Advance Your Idea. Faster.</h2>
