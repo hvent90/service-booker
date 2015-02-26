@@ -266,7 +266,8 @@ form.avail-request-form {
 }
 
 .heading-text a {
-	color: rgba(102, 173, 255, 1) !important;
+	/*color: rgba(102, 173, 255, 1) !important;*/
+	color: #fff !important;
 	display: inline-block;
 }
 
