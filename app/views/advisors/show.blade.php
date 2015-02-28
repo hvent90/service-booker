@@ -1,4 +1,4 @@
-@extends('layouts.full-width')
+@extends('layouts.full-width-cxp')
 
 @section('content')
 <div class="container">
