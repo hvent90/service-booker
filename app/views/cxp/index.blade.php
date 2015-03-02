@@ -84,6 +84,7 @@ $(document).ready(function() {
 
 	$('body').on('click', '#cancel-button', function (event) {
 		$('#advisor-container').fadeOut(200, function() { $('#advisor-container').empty(); });
+		$('body').css('min-height', '150vh');
 		$.ajax({
 			type: "GET",
 			url: "expertise-groups/" + expertiseGroupId + "/advisors",
